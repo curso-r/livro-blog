@@ -1,0 +1,49 @@
+---
+title: "Como faz no R"
+author: "Curso-R"
+date: "`r format(Sys.Date(), '%d de %B de %Y')`"
+knit: "bookdown::render_book"
+documentclass: report
+bibliography: [assets/bibliography/book.bib, assets/bibliography/packages.bib]
+biblio-style: apalike
+site: bookdown::bookdown_site
+description: "Livro da Curso-R."
+---
+
+```{r setup, include = FALSE}
+# options(xtable.comment = FALSE)
+knitr::opts_chunk$set(echo = FALSE, 
+                      message = FALSE, 
+                      comment = FALSE, 
+                      warning = FALSE, 
+                      fig.height = 5, 
+                      fig.width = 9)
+# options(OutDec = ',')
+# options(knitr.table.format = 'markdown')
+```
+
+```{r include_table, echo=FALSE}
+library(tidyverse)
+```
+
+# Introdução
+
+## Por quê ler esse livro {#objetivos}
+
+## Organização
+
+# Blogs
+
+```{r child="blogs/2017-02-16-manifesto-tidy.Rmd"}
+```
+
+```{r child="blogs/2017-08-17-eu-a-estatistica-e-o-R.Rmd"}
+```
+
+`r if (knitr:::is_html_output()) '# Referências {-}'`
+
+```{r include=FALSE}
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'assets/bibliography/packages.bib')
+```
