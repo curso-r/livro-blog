@@ -32,12 +32,22 @@ library(tidyverse)
 
 ## Organização
 
-# Blogs
+# Análises
 
-```{r child="blogs/2017-02-16-manifesto-tidy.Rmd"}
+# Tutoriais
+
+# Reflexões
+
+```{r child="blogs/reflexoes/2017-02-16-manifesto-tidy.Rmd"}
 ```
 
-```{r child="blogs/2017-08-17-eu-a-estatistica-e-o-R.Rmd"}
+```{r child="blogs/reflexoes/2017-08-17-eu-a-estatistica-e-o-R.Rmd"}
+```
+
+```{r child="blogs/reflexoes/2018-02-18-fluxo-scraping.Rmd"}
+```
+
+```{r child="blogs/reflexoes/2017-10-27-tidy-data-mixed-models.Rmd"}
 ```
 
 `r if (knitr:::is_html_output()) '# Referências {-}'`
@@ -47,3 +57,13 @@ knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown'
 ), 'assets/bibliography/packages.bib')
 ```
+
+
+
+
+
+
+
+
+
+

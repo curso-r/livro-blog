@@ -13,6 +13,10 @@ knitr::opts_chunk$set(collapse = TRUE)
 ## Manifesto tidy
 
 ```{block, type='rmdtip', echo=TRUE}
+Autor: Daniel
+```
+
+```{block, type='rmdtip', echo=TRUE}
 Dificuldade baixa
 ```
 
@@ -22,7 +26,7 @@ program
 
 O [manifesto das ferramentas tidy](https://cran.r-project.org/web/packages/tidyverse/vignettes/manifesto.html) do Hadley Wickham é um dos documentos mais importantes sobre R dos últimos tempos. Esse documento formaliza uma série de princípios que norteiam o desenvolvimento do[`tidyverse`](http://tidyverse.org/).
 
-O [`tidyverse`](http://tidyverse.org/), também chamado por muitos de *hadleyverse*, é um conjunto de pacotes que, por compartilharem esses princípios do manifesto tidy, podem ser utilizados naturalmente em conjunto. Pode-se dizer que existe o R antes do `tidyverse` e o R depois do `tidyverse`. A linguagem mudou muito, a comunidade abraçou fortemente o uso desses princípios e tem muita gente criando pacotes para conversar uns com os outros dessa forma. No entanto, usar a filosofia *tidy* não é a única forma de fazer pacotes do R, existem muitos pacotes excelentes que não utilizam essa filosofia. Como o próprio texto diz "O contrário de *tidyverse* não é o **messy**verse, e sim muitos outros universos de pacotes interconectados.".
+O [`tidyverse`](http://tidyverse.org/) é um conjunto de pacotes que, por compartilharem esses princípios do manifesto tidy, podem ser utilizados naturalmente em conjunto. Pode-se dizer que existe o R antes do `tidyverse` e o R depois do `tidyverse`. A linguagem mudou muito, a comunidade abraçou fortemente o uso desses princípios e tem muita gente criando pacotes para conversar uns com os outros dessa forma. No entanto, usar a filosofia *tidy* não é a única forma de fazer pacotes do R, existem muitos pacotes excelentes que não utilizam essa filosofia. Como o próprio texto diz "O contrário de *tidyverse* não é o **messy**verse, e sim muitos outros universos de pacotes interconectados.".
 
 Os princípios fundamentais do `tidyverse` são:
 
@@ -52,4 +56,4 @@ No [texto do manifesto tidy](https://cran.r-project.org/web/packages/tidyverse/v
 
 * Desenvolva o seu pacote para ser usado por humanos. Foque em ter uma API clara para que você escreva o código de maneira intuitiva e rápida. Eficiência dos algoritmos é uma preocupação secundária, pois gastamos mais tempo escrevendo o código do que executando.
 
-Esses princípios são bem gerais, mas ajudam bastante a tomar decisões quando estamos escrevendo o nosso código. Para finalizar, clique [aqui](https://github.com/search?utf8=%E2%9C%93&q=tidy+language%3Ar) e veja uma busca no Github por "tidy" em repositórios de R. São mais de 2000 resultados quase todos seguindo essa filosofia e estendendo o *universo arrumado*.
+Esses princípios são bem gerais, mas ajudam bastante a tomar decisões quando estamos escrevendo o nosso código. Para finalizar, clique [aqui](https://github.com/search?utf8=%E2%9C%93&q=tidy+language%3Ar) e veja uma busca no Github por "tidy" em repositórios de R. São mais de 3000 resultados, quase todos seguindo essa filosofia e estendendo o *universo arrumado*.
