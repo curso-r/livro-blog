@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>4.4 Regressão Logística em: a menor deep learning do mundo | Como faz no R</title>
+  <meta name="description" content="Livro da Curso-R.">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="4.4 Regressão Logística em: a menor deep learning do mundo | Como faz no R />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Livro da Curso-R." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4.4 Regressão Logística em: a menor deep learning do mundo | Como faz no R />
+  
+  <meta name="twitter:description" content="Livro da Curso-R." />
+  
+
+<meta name="author" content="Curso-R">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="4-3-woe-em-r-com-tidywoe.html">
+<link rel="next" href="4-5-minimos-quadrados-com-restricoes-lineares.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<script src="libs/d3-3.3.8/d3.min.js"></script>
+<script src="libs/dagre-0.4.0/dagre-d3.min.js"></script>
+<link href="libs/mermaid-0.3.0/dist/mermaid.css" rel="stylesheet" />
+<script src="libs/mermaid-0.3.0/dist/mermaid.slim.min.js"></script>
+<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="libs/chromatography-0.1/chromatography.js"></script>
+<script src="libs/DiagrammeR-binding-1.0.0/DiagrammeR.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="assets/css/styles.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Como faz no R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introdução</a><ul>
+<li class="chapter" data-level="1.1" data-path="1-1-objetivos.html"><a href="1-1-objetivos.html"><i class="fa fa-check"></i><b>1.1</b> Por quê ler esse livro</a></li>
+<li class="chapter" data-level="1.2" data-path="1-2-organizacao.html"><a href="1-2-organizacao.html"><i class="fa fa-check"></i><b>1.2</b> Organização</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-analises.html"><a href="2-analises.html"><i class="fa fa-check"></i><b>2</b> Análises</a></li>
+<li class="chapter" data-level="3" data-path="3-tutoriais.html"><a href="3-tutoriais.html"><i class="fa fa-check"></i><b>3</b> Tutoriais</a></li>
+<li class="chapter" data-level="4" data-path="4-modelagem.html"><a href="4-modelagem.html"><i class="fa fa-check"></i><b>4</b> Modelagem</a><ul>
+<li class="chapter" data-level="4.1" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html"><i class="fa fa-check"></i><b>4.1</b> Monty hall e diagramas de influência</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html#redes-bayesianas"><i class="fa fa-check"></i><b>4.1.1</b> Redes bayesianas</a></li>
+<li class="chapter" data-level="4.1.2" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html#diagrama-de-influencias"><i class="fa fa-check"></i><b>4.1.2</b> Diagrama de influências</a></li>
+<li class="chapter" data-level="4.1.3" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html#voltando-ao-monty-hall"><i class="fa fa-check"></i><b>4.1.3</b> Voltando ao Monty Hall</a></li>
+<li class="chapter" data-level="4.1.4" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html#wrap-up"><i class="fa fa-check"></i><b>4.1.4</b> Wrap-up</a></li>
+<li class="chapter" data-level="4.1.5" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html#extra"><i class="fa fa-check"></i><b>4.1.5</b> Extra</a></li>
+<li class="chapter" data-level="4.1.6" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html#extra-2"><i class="fa fa-check"></i><b>4.1.6</b> Extra 2</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="4-2-construindo-autoencoders.html"><a href="4-2-construindo-autoencoders.html"><i class="fa fa-check"></i><b>4.2</b> Construindo Autoencoders</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="4-2-construindo-autoencoders.html"><a href="4-2-construindo-autoencoders.html#construindo-o-seu-primeiro-autoencoder"><i class="fa fa-check"></i><b>4.2.1</b> Construindo o seu primeiro autoencoder</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="4-3-woe-em-r-com-tidywoe.html"><a href="4-3-woe-em-r-com-tidywoe.html"><i class="fa fa-check"></i><b>4.3</b> WoE em R com tidywoe</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="4-3-woe-em-r-com-tidywoe.html"><a href="4-3-woe-em-r-com-tidywoe.html#instalacao-e-dados"><i class="fa fa-check"></i><b>4.3.1</b> Instalação e dados</a></li>
+<li class="chapter" data-level="4.3.2" data-path="4-3-woe-em-r-com-tidywoe.html"><a href="4-3-woe-em-r-com-tidywoe.html#como-usar"><i class="fa fa-check"></i><b>4.3.2</b> Como usar</a></li>
+<li class="chapter" data-level="4.3.3" data-path="4-3-woe-em-r-com-tidywoe.html"><a href="4-3-woe-em-r-com-tidywoe.html#add_woe"><i class="fa fa-check"></i><b>4.3.3</b> add_woe()</a></li>
+<li class="chapter" data-level="4.3.4" data-path="4-3-woe-em-r-com-tidywoe.html"><a href="4-3-woe-em-r-com-tidywoe.html#woe_dictionary"><i class="fa fa-check"></i><b>4.3.4</b> woe_dictionary()</a></li>
+<li class="chapter" data-level="4.3.5" data-path="4-3-woe-em-r-com-tidywoe.html"><a href="4-3-woe-em-r-com-tidywoe.html#usando-um-dicionario-customizado"><i class="fa fa-check"></i><b>4.3.5</b> Usando um dicionário customizado</a></li>
+<li class="chapter" data-level="4.3.6" data-path="4-3-woe-em-r-com-tidywoe.html"><a href="4-3-woe-em-r-com-tidywoe.html#exemplo-de-exploracao"><i class="fa fa-check"></i><b>4.3.6</b> Exemplo de exploração</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="4-4-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-4-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><i class="fa fa-check"></i><b>4.4</b> Regressão Logística em: a menor deep learning do mundo</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="4-4-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-4-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#objetivos-1"><i class="fa fa-check"></i><b>4.4.1</b> Objetivos</a></li>
+<li class="chapter" data-level="4.4.2" data-path="4-4-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-4-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#motivacao"><i class="fa fa-check"></i><b>4.4.2</b> Motivação</a></li>
+<li class="chapter" data-level="4.4.3" data-path="4-4-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-4-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#o-que-faremos"><i class="fa fa-check"></i><b>4.4.3</b> O que faremos</a></li>
+<li class="chapter" data-level="4.4.4" data-path="4-4-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-4-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#pacotes"><i class="fa fa-check"></i><b>4.4.4</b> Pacotes</a></li>
+<li class="chapter" data-level="4.4.5" data-path="4-4-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-4-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#regressao-logistica-versus-deep-learning"><i class="fa fa-check"></i><b>4.4.5</b> Regressão logística versus Deep Learning</a></li>
+<li class="chapter" data-level="4.4.6" data-path="4-4-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-4-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#dados-simulados"><i class="fa fa-check"></i><b>4.4.6</b> Dados simulados</a></li>
+<li class="chapter" data-level="4.4.7" data-path="4-4-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-4-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#olhada-nos-dados"><i class="fa fa-check"></i><b>4.4.7</b> Olhada nos dados</a></li>
+<li class="chapter" data-level="4.4.8" data-path="4-4-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-4-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#ajuste-de-modelos"><i class="fa fa-check"></i><b>4.4.8</b> Ajuste de modelos</a></li>
+<li class="chapter" data-level="4.4.9" data-path="4-4-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-4-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#discussao"><i class="fa fa-check"></i><b>4.4.9</b> Discussão</a></li>
+<li class="chapter" data-level="4.4.10" data-path="4-4-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-4-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#curiosidades"><i class="fa fa-check"></i><b>4.4.10</b> Curiosidades</a></li>
+<li class="chapter" data-level="4.4.11" data-path="4-4-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-4-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#n-esimo-menor-deep-learning"><i class="fa fa-check"></i><b>4.4.11</b> N-ésimo menor deep learning</a></li>
+<li class="chapter" data-level="4.4.12" data-path="4-4-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-4-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#vocabulario"><i class="fa fa-check"></i><b>4.4.12</b> Vocabulário</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="4-5-minimos-quadrados-com-restricoes-lineares.html"><a href="4-5-minimos-quadrados-com-restricoes-lineares.html"><i class="fa fa-check"></i><b>4.5</b> Mínimos quadrados com restrições lineares</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="4-5-minimos-quadrados-com-restricoes-lineares.html"><a href="4-5-minimos-quadrados-com-restricoes-lineares.html#regressao-linear-e-programacao-quadratica"><i class="fa fa-check"></i><b>4.5.1</b> Regressão linear é programação quadrática</a></li>
+<li class="chapter" data-level="4.5.2" data-path="4-5-minimos-quadrados-com-restricoes-lineares.html"><a href="4-5-minimos-quadrados-com-restricoes-lineares.html#uma-regressao-linear-simples-mais-flexivel"><i class="fa fa-check"></i><b>4.5.2</b> Uma regressão linear simples mais flexível</a></li>
+<li class="chapter" data-level="4.5.3" data-path="4-5-minimos-quadrados-com-restricoes-lineares.html"><a href="4-5-minimos-quadrados-com-restricoes-lineares.html#o-pacote-quadprog"><i class="fa fa-check"></i><b>4.5.3</b> O pacote <code>quadprog</code></a></li>
+<li class="chapter" data-level="4.5.4" data-path="4-5-minimos-quadrados-com-restricoes-lineares.html"><a href="4-5-minimos-quadrados-com-restricoes-lineares.html#conclusoes"><i class="fa fa-check"></i><b>4.5.4</b> Conclusões</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="4-6-filtros-de-bloom-em-r.html"><a href="4-6-filtros-de-bloom-em-r.html"><i class="fa fa-check"></i><b>4.6</b> Filtros de Bloom em R</a></li>
+<li class="chapter" data-level="4.7" data-path="4-7-modelando-a-variancia-da-normal.html"><a href="4-7-modelando-a-variancia-da-normal.html"><i class="fa fa-check"></i><b>4.7</b> Modelando a variância da normal</a><ul>
+<li class="chapter" data-level="4.7.1" data-path="4-7-modelando-a-variancia-da-normal.html"><a href="4-7-modelando-a-variancia-da-normal.html#usando-o-pacote-gamlss"><i class="fa fa-check"></i><b>4.7.1</b> Usando o pacote <code>gamlss</code></a></li>
+<li class="chapter" data-level="4.7.2" data-path="4-7-modelando-a-variancia-da-normal.html"><a href="4-7-modelando-a-variancia-da-normal.html#usando-o-pacote-dglm"><i class="fa fa-check"></i><b>4.7.2</b> Usando o pacote <code>dglm</code></a></li>
+<li class="chapter" data-level="4.7.3" data-path="4-7-modelando-a-variancia-da-normal.html"><a href="4-7-modelando-a-variancia-da-normal.html#usando-o-pacote-rstan"><i class="fa fa-check"></i><b>4.7.3</b> Usando o pacote <code>rstan</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="5-reflexoes.html"><a href="5-reflexoes.html"><i class="fa fa-check"></i><b>5</b> Reflexões</a><ul>
+<li class="chapter" data-level="5.1" data-path="5-1-manifesto-tidy.html"><a href="5-1-manifesto-tidy.html"><i class="fa fa-check"></i><b>5.1</b> Manifesto tidy</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="5-1-manifesto-tidy.html"><a href="5-1-manifesto-tidy.html#reutilizar-estruturas-de-dados-existentes"><i class="fa fa-check"></i><b>5.1.1</b> Reutilizar estruturas de dados existentes</a></li>
+<li class="chapter" data-level="5.1.2" data-path="5-1-manifesto-tidy.html"><a href="5-1-manifesto-tidy.html#organizar-funcoes-simples-usando-o-pipe"><i class="fa fa-check"></i><b>5.1.2</b> Organizar funções simples usando o <em>pipe</em></a></li>
+<li class="chapter" data-level="5.1.3" data-path="5-1-manifesto-tidy.html"><a href="5-1-manifesto-tidy.html#aderir-a-programacao-funcional"><i class="fa fa-check"></i><b>5.1.3</b> Aderir à programação funcional</a></li>
+<li class="chapter" data-level="5.1.4" data-path="5-1-manifesto-tidy.html"><a href="5-1-manifesto-tidy.html#projetado-para-ser-usado-por-seres-humanos"><i class="fa fa-check"></i><b>5.1.4</b> Projetado para ser usado por seres humanos</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="5-2-eu-a-estatistica-e-a-programacao.html"><a href="5-2-eu-a-estatistica-e-a-programacao.html"><i class="fa fa-check"></i><b>5.2</b> Eu, a Estatística e a programação</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="5-2-eu-a-estatistica-e-a-programacao.html"><a href="5-2-eu-a-estatistica-e-a-programacao.html#por-que-amar-a-estatistica"><i class="fa fa-check"></i><b>5.2.1</b> Por que amar a estatística?</a></li>
+<li class="chapter" data-level="5.2.2" data-path="5-2-eu-a-estatistica-e-a-programacao.html"><a href="5-2-eu-a-estatistica-e-a-programacao.html#preconceitos-no-aprendizado"><i class="fa fa-check"></i><b>5.2.2</b> Preconceitos no aprendizado</a></li>
+<li class="chapter" data-level="5.2.3" data-path="5-2-eu-a-estatistica-e-a-programacao.html"><a href="5-2-eu-a-estatistica-e-a-programacao.html#estatistica-e-programacao"><i class="fa fa-check"></i><b>5.2.3</b> Estatística e programação</a></li>
+<li class="chapter" data-level="5.2.4" data-path="5-2-eu-a-estatistica-e-a-programacao.html"><a href="5-2-eu-a-estatistica-e-a-programacao.html#wrap-up-1"><i class="fa fa-check"></i><b>5.2.4</b> Wrap-up</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="5-3-o-fluxo-do-web-scraping.html"><a href="5-3-o-fluxo-do-web-scraping.html"><i class="fa fa-check"></i><b>5.3</b> O Fluxo do Web Scraping</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="5-3-o-fluxo-do-web-scraping.html"><a href="5-3-o-fluxo-do-web-scraping.html#o-fluxo"><i class="fa fa-check"></i><b>5.3.1</b> O fluxo</a></li>
+<li class="chapter" data-level="5.3.2" data-path="5-3-o-fluxo-do-web-scraping.html"><a href="5-3-o-fluxo-do-web-scraping.html#conclusao"><i class="fa fa-check"></i><b>5.3.2</b> Conclusão</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="5-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><a href="5-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><i class="fa fa-check"></i><b>5.4</b> Tidy Data, Teste t Pareado e Modelos Mistos</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="5-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><a href="5-4-tidy-data-teste-t-pareado-e-modelos-mistos.html#tidy-data"><i class="fa fa-check"></i><b>5.4.1</b> Tidy Data</a></li>
+<li class="chapter" data-level="5.4.2" data-path="5-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><a href="5-4-tidy-data-teste-t-pareado-e-modelos-mistos.html#o-que-isso-tem-a-ver-com-teste-t-pareado-e-modelos-mistos"><i class="fa fa-check"></i><b>5.4.2</b> O que isso tem a ver com teste <span class="math inline">\(t\)</span>-pareado e modelos mistos?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referências</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Feito com <font color="red">❤</font>️ usando<strong> bookdown</strong></a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Como faz no R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="regressao-logistica-em-a-menor-deep-learning-do-mundo" class="section level2">
+<h2><span class="header-section-number">4.4</span> Regressão Logística em: a menor deep learning do mundo</h2>
+<div id="objetivos-1" class="section level3">
+<h3><span class="header-section-number">4.4.1</span> Objetivos</h3>
+<p>A finalidade do post é:</p>
+<ul>
+<li>aprender a fazer uma regressão logística com o keras</li>
+<li>aprender a fazer um PCA com o keras</li>
+<li>aproximar o Deep Learning do que já havia de conhecido pela maioria dos analistas de dados.</li>
+<li>instigar a todos que vieram antes do deep learning a estudar e a ficar à vontade com as novidades em torno dela.</li>
+<li>mostrar que muitos profissionais inseridos na área de machine learning já conheciam grande parte do que o deep learning usa.</li>
+<li>levantar discussão sobre alguns mitos que não são construtivos para a comunidade dos analistas de dados.</li>
+</ul>
+</div>
+<div id="motivacao" class="section level3">
+<h3><span class="header-section-number">4.4.2</span> Motivação</h3>
+<p>Li estatísticos, cientistas da computação, engenheiros de dados a afins questionando o futuro do Machine Learning e se tudo que conhecíamos antes sobre modelagem estatística havia ficado obsoleto (como essa pergunta no Quora: <a href="https://www.quora.com/Should-I-quit-machine-learning">Should I Quit Machine Learning?</a>).</p>
+<p>E em conversas com pessoas próximas percebia certa ufania pela novidade e frustração pela “obsolência” do que se havia investido tempo estudando antes.</p>
+<p>Para piorar, aproveitadores pegaram jacaré nessa onda para fazer marketing malicioso com o intuito de desvalorizar e dividir a comunidade dos analistas de dados. Algo bem similar com o que aconteceu com outras palavras da moda como <em>data science</em>, <em>big data</em>, <em>Python versus R</em> e a própria <em>machine learning</em>. Antes havia a clássica propaganda de que a empresa X utilizava MACHINE LEARNING em vez de modelos preditivos. Agora a coisa evoluiu e apelam para o uso da palavra Deep Learning.</p>
+<p>O que realmente importa:</p>
+<ol style="list-style-type: decimal">
+<li>Deep Learning é uma grande novidade e colocou a Inteligência Artificial em evidência.</li>
+<li>Quem manjava Machine Learning antes vai conseguir aplicar 95% do seu conhecimento nas aplicações de Deep Learning (incluindo bayesianismo, bootstrap, inferência, probabilidade e a boiada toda).</li>
+<li>Deep Learning tem que ser visto como uma ferramenta a mais na caixa do analista de dados e não um substituto.</li>
+</ol>
+<p>E para abordar essa questão resolvi ajustar uma regressão logística usando deep learning para que todos que já fizeram uma regressão logística antes possam dizer que já fizeram uma rede neural também! Confesso ter uma leve motivação provocativa, mas qual graça teria se assim não fosse? =P</p>
+</div>
+<div id="o-que-faremos" class="section level3">
+<h3><span class="header-section-number">4.4.3</span> O que faremos</h3>
+<ul>
+<li>Regressão logística para <span class="math inline">\(Y_1\)</span> (com <code>glm</code>)</li>
+<li>Deep Learning para <span class="math inline">\(Y_1\)</span> (com <code>keras</code>)</li>
+<li>Mostrar que regressão logística não é o melhor para <span class="math inline">\(Y_2\)</span> e que Deep Learning vai além da limitação dos modelos lineares (com <code>glm</code>)</li>
+<li>Deep Learning para <span class="math inline">\(Y_2\)</span> (com <code>keras</code>)</li>
+</ul>
+<p>Mãos à obra.</p>
+</div>
+<div id="pacotes" class="section level3">
+<h3><span class="header-section-number">4.4.4</span> Pacotes</h3>
+</div>
+<div id="regressao-logistica-versus-deep-learning" class="section level3">
+<h3><span class="header-section-number">4.4.5</span> Regressão logística versus Deep Learning</h3>
+<p>Hora de ajustar modelos para os mesmos dados de duas maneiras diferentes: regressão logística com <code>glm</code> e deep learning com o <code>keras</code>.</p>
+</div>
+<div id="dados-simulados" class="section level3">
+<h3><span class="header-section-number">4.4.6</span> Dados simulados</h3>
+<p>O código acima criou duas variáveis respostas (<em>targets</em>). Em representação matemática, elas possuem as seguintes definições:</p>
+<p><strong>Resposta <code>y_1</code></strong></p>
+<p><span class="math display">\[E[Y_1|x] = \text{logistic}{(-1 + 2x)} = \frac{1}{1 + e^{{-(-1 + 2x)}}}\]</span></p>
+<p><strong>Resposta <code>y_2</code></strong></p>
+<p><span class="math display">\[E[Y_2|x] = \text{logistic}{(-1 + 2\tanh(-1 + 2x))} = \frac{1}{1 + e^{{-(-1 + 2\tanh(-1 + 2x))}}}\]</span></p>
+<p><span class="math inline">\(x\)</span> é linear no logito de <code>y_1</code>, então a regressão logística vai cair bem para descobrir os parâmetros <span class="math inline">\(-1\)</span> e <span class="math inline">\(2\)</span>.
+Porém, <span class="math inline">\(x\)</span> não é linhar no logito de <code>y_2</code> e por isso a regressão logística não conseguirá representar fielmente o gerador de <code>y_2</code>.</p>
+<p><strong>OBS 1:</strong> A forma <span class="math inline">\(\text{logistic}{(\beta_0 + \beta_1\tanh(\beta_2 + \beta_3X))}\)</span> tem parâmetros dentro do função <code>tanh</code>, o que significa que a nossa hipótese para <span class="math inline">\(E[Y_2|x]\)</span> não é mais <strong>linear</strong> nos parâmetros. Por isso que modelos lineares (como o nome sugere) não são mais indicados. E a <strong>não linearidade</strong> é uma das generalizações que as redes neurais nos fornece! (sim, isso é muito relevante)</p>
+<p><strong>OBS 2:</strong> é claro que nesse caso bem simples de uma variável conseguiríamos inspecionar os dados para chegar em boas transformações de <span class="math inline">\(x\)</span> de tal forma que o ajuste da logística ficasse tão bom quanto o de uma rede neural, mas se acrescentássemos muitas outras variáveis aí a coisa complicaria!</p>
+<p>Em representação de redes neurais, as fórmulas acima ficam assim:</p>
+<p><strong>Resposta <code>y_1</code></strong></p>
+<p><img src="assets/imgs/segundo-menor-dl/y1.png" width="474" /></p>
+<p><strong>Resposta <code>y_2</code></strong></p>
+<p><img src="assets/imgs/segundo-menor-dl/y2.png" width="600" /></p>
+<p>O que era <strong>função de ligação</strong> no GLM, em redes neurais virou <strong>função de ativação</strong> (no final eu falo mais sobre vocabulários que mudaram).</p>
+</div>
+<div id="olhada-nos-dados" class="section level3">
+<h3><span class="header-section-number">4.4.7</span> Olhada nos dados</h3>
+<p><img src="bookdown_files/figure-html/unnamed-chunk-43-1.svg" width="1152" /></p>
+<p>O gráfico da direita mostra que <code>x</code> é proporcional ao logito das probabilidades de <code>y_1</code> (em vermelho) como era pra ser por termos construído assim.
+Já com o <code>y_2</code> (em azul) ainda ficou parecendo uma sigmoide mesmo depois da transformação.</p>
+</div>
+<div id="ajuste-de-modelos" class="section level3">
+<h3><span class="header-section-number">4.4.8</span> Ajuste de modelos</h3>
+<div id="regressao-logistica-para-y_1-com-glm" class="section level4">
+<h4><span class="header-section-number">4.4.8.1</span> Regressão logística para <span class="math inline">\(Y_1\)</span> (com <code>glm</code>)</h4>
+<p>As estimativas ficaram bem próximas dos verdadeiros valores <span class="math inline">\(\beta_0 = -1\)</span> e <span class="math inline">\(\beta_1 = 2\)</span>.</p>
+<p>A acurácia foi de <strong>85%</strong>.</p>
+</div>
+<div id="deep-learning-para-y_1-com-keras" class="section level4">
+<h4><span class="header-section-number">4.4.8.2</span> Deep Learning para <span class="math inline">\(Y_1\)</span> (com <code>keras</code>)</h4>
+<p>Vamos montar nossa hipótese para <span class="math inline">\(E[Y_1|x]\)</span>.</p>
+<pre><code>Model
+_____________________________________________________________
+Layer (type)                     Output Shape    Param #     
+=============================================================
+modelo_keras_1 (InputLayer)      (None, 1)       0           
+_____________________________________________________________
+camada_unica (Dense)             (None, 1)       2           
+_____________________________________________________________
+link_logistic (Activation)       (None, 1)       0          
+=============================================================
+Total params: 2
+Trainable params: 2
+Non-trainable params: 0
+_____________________________________________________________</code></pre>
+<p>A hipótese construída tem 2 parâmetros. Parece que está certo! <span class="math inline">\(\beta_0\)</span> e <span class="math inline">\(\beta_1\)</span>.</p>
+<p><strong>Agora é a vez da função de perda.</strong></p>
+<p>Como nosso objetivo é construir uma regressão logística, nós vamos escolher a função de perda <a href="http://deeplearning.net/software/theano/library/tensor/nnet/nnet.html#theano.tensor.nnet.nnet.binary_crossentropy">binary_crossentropy</a> que é sinônimo de <a href="https://en.wikipedia.org/wiki/Deviance_(statistics)">deviance</a> da logística, termo mais comum no mundo da estatística.</p>
+<p>A métrica <code>'accuracy'</code> não entra no otimizador da função de perda, a gente usa ela para comparar os modelos que criamos. No caso vamos comparar com o modelo <code>glm</code> ajustado acima (mas, por exemplo, em caso de eventos raros a <code>'accuracy'</code> não vai ser muito informativa, daí poderíamos usar <code>'auc'</code>, <code>'gini'</code>, etc.).</p>
+<pre class="sourceCode r"><code class="sourceCode r">modelo_keras_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">compile</span>(
+  <span class="dt">loss =</span> <span class="st">&#39;binary_crossentropy&#39;</span>,
+  <span class="dt">optimizer =</span> <span class="kw">optimizer_sgd</span>(<span class="dt">lr =</span> <span class="fl">0.4</span>),
+  <span class="dt">metrics =</span> <span class="kw">c</span>(<span class="st">&#39;accuracy&#39;</span>)
+)
+
+modelo_keras_<span class="dv">1</span>_fit &lt;-<span class="st"> </span>modelo_keras_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fit</span>(
+  <span class="dt">x =</span> df<span class="op">$</span>x, 
+  <span class="dt">y =</span> df<span class="op">$</span>y_<span class="dv">1</span>, 
+  <span class="dt">epochs =</span> <span class="dv">20</span>, 
+  <span class="dt">batch_size =</span> <span class="dv">1000</span>,
+  <span class="dt">verbose =</span> <span class="dv">0</span>
+)</code></pre>
+<p>Resultados idênticos! Era para assim ser porque construímos a mesma hipótese e a memsa função de perda do <code>glm</code>.</p>
+</div>
+<div id="regressao-logistica-para-y_2-com-glm" class="section level4">
+<h4><span class="header-section-number">4.4.8.3</span> Regressão logística para <span class="math inline">\(Y_2\)</span> (com <code>glm</code>)</h4>
+<p>Para modelar <span class="math inline">\(Y_2\)</span> vamos pisar em terrenos que os modelos lineares não pisam.
+Primeiro tento ajustar uma curva uasndo <code>x</code> e a transformação <code>tanh(x)</code>. Esse preditor eu suponho que escolhi depois de uma minuciosa e demorada inspeção dos dados (tentei simular mais ou menos o que eu faria numa modelagem onde eu que teria que construir as features na mão).</p>
+<p>Acurácia de 82%, nada mal. Mas a hipótese e parâmetros foram distintos do verdadeiro gerador dos dados. Vamos usar redes neurais para resolver o problema de não linearidade.</p>
+</div>
+<div id="deep-learning-para-y_2-com-keras" class="section level4">
+<h4><span class="header-section-number">4.4.8.4</span> Deep Learning para <span class="math inline">\(Y_2\)</span> (com <code>keras</code>)</h4>
+<p>Hipótese para <span class="math inline">\(E[Y_2|x]\)</span>.</p>
+<pre><code>Model
+_____________________________________________________________
+Layer (type)                Output Shape           Param #   
+=============================================================
+modelo_keras_2 (InputLayer) (None, 1)              0         
+_____________________________________________________________
+camada_um (Dense)           (None, 1)              2         
+_____________________________________________________________
+tanh_de_dentro (Activation) (None, 1)              0         
+_____________________________________________________________
+camada_dois (Dense)         (None, 1)              2         
+_____________________________________________________________
+link_logistic (Activation)  (None, 1)              0         
+=============================================================
+Total params: 4.0
+Trainable params: 4.0
+Non-trainable params: 0.0
+_____________________________________________________________
+</code></pre>
+<p>Quatro parâmetros ‘treináveis’, é isso aí! Dois parâmetros de dentro do <code>tanh</code> e os dois parâmetros de fora. Precisamos que o keras nos devolva -1, 2, -1 e 2 do jeito que geramos os dados.</p>
+<p><strong>Função de custo</strong></p>
+<p>Precisão de <strong>82%</strong> também, mas agora os parâmetros estão bem próximos daqueles que geraram os dados! Acabamos de ver um conjunto de parâmetros sendo encontrados mesmo com relação não linear entre eles e a média.</p>
+<p>A precisão entre os dois modelos até que se equiparou, mas o gráfico das hipóteses encontradas (abaixo) mostra que a curva do <code>glm</code> está pior do que a curva do <code>keras</code>.</p>
+<p><img src="bookdown_files/figure-html/unnamed-chunk-52-1.svg" width="864" /></p>
+</div>
+<div id="bonus-pca-com-autoencoer" class="section level4">
+<h4><span class="header-section-number">4.4.8.5</span> (Bônus) PCA com autoencoer</h4>
+<p>PCA e autoencodes servem na prática para reduzir a dimensionalidade dos dados. PCA é um caso particular de autoencoder com apenas uma camada e funções de ativação lineares. O post <a href="http://curso-r.com/blog/2017/06/26/2017-06-26-construindo-autoencoders/">Construindo Autoencoders</a> ensina a fazer e recomendo a leitura.</p>
+<p>Resumo: autoencoder é uma técnica incrível que generaliza o PCA.</p>
+</div>
+</div>
+<div id="discussao" class="section level3">
+<h3><span class="header-section-number">4.4.9</span> Discussão</h3>
+<p>Na minha opinião aconteceu de que muita coisa antiga e consagrada teve seu nome mudado e apresentado como novo e isso acabou ofuscando as grandes contribuições realmente relevantes das pesquisas em torno das redes neurais e do deep learning.</p>
+<p>Percebe-se que o Deep Learning generalizou bastante coisa e por isso eu declaro o post bem sucedido se o escrito acima despertou curiosidade em aprender mais sobre deep learning para agregar ao trabalho que já havia sendo feito.
+Vale mais a pena trazer todos os praticantes de estatística e machine learning juntos nessa novidade do que nos dividirmos.</p>
+<p>Acredito que mais do que nunca a fundamentação teórica e interpretações terão seu valor potencializado com a disseminação do deep learning. Com o mito de que deep learning seja uma panaceia e com a facilidade que ela nos trouxe para fazer um modelo preditivo, há o risco de sermos soterrados por caixas pretas feitas por pessoas negligentes com aspectos importantes como interpretabilidade, causalidade e generalização. Talvez o bayesianismo se desponte (mais uma vez) como a solução para problemas qualitativos num mundo cada vez mais obscuro trazendo à luz os excessos dos modelos complexos e os benefícios dos modelos simples.</p>
+<p>Puxando o gancho do bayesianismo (e inferências em geral), os resultados já obtidos em cima de modelos lineares ainda se aplicam em deep learning. E também temos a vantagem de que todas as demais ferramentas que se usam em deep learning e que não afetam a linearidade dos parâmetros podem ser utilizadas, como convolucional, recorrente, max pooling, drop out, autoencoder e tantas outras.</p>
+<p>Para finalizar, na prática sugiro aplicar deep learning com o Keras, um pacote incrível que usa o tensorflow ou o theano por trás. Acredito que vocês verão muitos posts sobre o assunto por aqui! (podem encher o saco do Dan Falbel, um dos sócios da <a href="http://curso-r.com">curso-r.com</a>, que está envolvido no desenvolvimento desse pacote em R =]).</p>
+</div>
+<div id="curiosidades" class="section level3">
+<h3><span class="header-section-number">4.4.10</span> Curiosidades</h3>
+</div>
+<div id="n-esimo-menor-deep-learning" class="section level3">
+<h3><span class="header-section-number">4.4.11</span> N-ésimo menor deep learning</h3>
+<p>Vimos acima o menor e o segundo menor Deep Learnings (que de profundo não têm nada =P). Mas podemos ir o tão profundo quanto quisermos!
+A representação de redes neurais sai fácil:</p>
+<p><img src="assets/imgs/segundo-menor-dl/dl_inf.png" width="892" /></p>
+<p>Já a representação matemática fica esquisita:</p>
+<p><span class="math display">\[E[Y|x] = \frac{1}{1 + \exp{\left(\beta_{p-1} + \beta_p\frac{1}{\frac{\vdots}{1 + \exp{\left(\beta_{6} + \beta_{7}\frac{1}{1 + \exp{\left(\beta_4 + \beta_5\frac{1}{1 + \exp{\left(\beta_2 + \beta_3\frac{1}{1 + \exp{\left(\beta_0 + \beta_1x\right)}}\right)}}\right)}}\right)}}}\right)}}\]</span></p>
+</div>
+<div id="vocabulario" class="section level3">
+<h3><span class="header-section-number">4.4.12</span> Vocabulário</h3>
+<p>Os jargões e termos do deep learning foram herdados de um outro contexto diferente do da modelagem preditiva estudada na estatística e por isso acabaram surgindo inúmeros sinônimos. Alguns deles são:</p>
+<ul>
+<li>função de ativação = função de ligação</li>
+<li>Softmax = verossimilhança da multinomial</li>
+<li>sigmoide = função com formato de S (no tensorflow o padrão é a logistic)</li>
+<li>pesos = parâmetros/betas/coeficientes</li>
+<li>binary crossentropy = deviance da distribuição binomial (regressão logística)</li>
+</ul>
+<p>É isso aí, temos que nos manter curiosos, questionar e dialogar. Abs!</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="4-3-woe-em-r-com-tidywoe.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="4-5-minimos-quadrados-com-restricoes-lineares.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/curso-r/livro-blog/edit/master/index.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

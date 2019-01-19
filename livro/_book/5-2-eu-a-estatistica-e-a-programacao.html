@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>5.2 Eu, a Estatística e a programação | Como faz no R</title>
+  <meta name="description" content="Livro da Curso-R.">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="5.2 Eu, a Estatística e a programação | Como faz no R />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Livro da Curso-R." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5.2 Eu, a Estatística e a programação | Como faz no R />
+  
+  <meta name="twitter:description" content="Livro da Curso-R." />
+  
+
+<meta name="author" content="Curso-R">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="5-1-manifesto-tidy.html">
+<link rel="next" href="5-3-o-fluxo-do-web-scraping.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<script src="libs/d3-3.3.8/d3.min.js"></script>
+<script src="libs/dagre-0.4.0/dagre-d3.min.js"></script>
+<link href="libs/mermaid-0.3.0/dist/mermaid.css" rel="stylesheet" />
+<script src="libs/mermaid-0.3.0/dist/mermaid.slim.min.js"></script>
+<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="libs/chromatography-0.1/chromatography.js"></script>
+<script src="libs/DiagrammeR-binding-1.0.0/DiagrammeR.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="assets/css/styles.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Como faz no R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introdução</a><ul>
+<li class="chapter" data-level="1.1" data-path="1-1-objetivos.html"><a href="1-1-objetivos.html"><i class="fa fa-check"></i><b>1.1</b> Por quê ler esse livro</a></li>
+<li class="chapter" data-level="1.2" data-path="1-2-organizacao.html"><a href="1-2-organizacao.html"><i class="fa fa-check"></i><b>1.2</b> Organização</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-analises.html"><a href="2-analises.html"><i class="fa fa-check"></i><b>2</b> Análises</a></li>
+<li class="chapter" data-level="3" data-path="3-tutoriais.html"><a href="3-tutoriais.html"><i class="fa fa-check"></i><b>3</b> Tutoriais</a></li>
+<li class="chapter" data-level="4" data-path="4-modelagem.html"><a href="4-modelagem.html"><i class="fa fa-check"></i><b>4</b> Modelagem</a><ul>
+<li class="chapter" data-level="4.1" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html"><i class="fa fa-check"></i><b>4.1</b> Monty hall e diagramas de influência</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html#redes-bayesianas"><i class="fa fa-check"></i><b>4.1.1</b> Redes bayesianas</a></li>
+<li class="chapter" data-level="4.1.2" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html#diagrama-de-influencias"><i class="fa fa-check"></i><b>4.1.2</b> Diagrama de influências</a></li>
+<li class="chapter" data-level="4.1.3" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html#voltando-ao-monty-hall"><i class="fa fa-check"></i><b>4.1.3</b> Voltando ao Monty Hall</a></li>
+<li class="chapter" data-level="4.1.4" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html#wrap-up"><i class="fa fa-check"></i><b>4.1.4</b> Wrap-up</a></li>
+<li class="chapter" data-level="4.1.5" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html#extra"><i class="fa fa-check"></i><b>4.1.5</b> Extra</a></li>
+<li class="chapter" data-level="4.1.6" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html#extra-2"><i class="fa fa-check"></i><b>4.1.6</b> Extra 2</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="4-2-construindo-autoencoders.html"><a href="4-2-construindo-autoencoders.html"><i class="fa fa-check"></i><b>4.2</b> Construindo Autoencoders</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="4-2-construindo-autoencoders.html"><a href="4-2-construindo-autoencoders.html#construindo-o-seu-primeiro-autoencoder"><i class="fa fa-check"></i><b>4.2.1</b> Construindo o seu primeiro autoencoder</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html"><a href="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html"><i class="fa fa-check"></i><b>4.3</b> Modelos beseados em árvores e a multicolinearidade</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html"><a href="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html#um-modelo-bonitinho"><i class="fa fa-check"></i><b>4.3.1</b> Um modelo bonitinho</a></li>
+<li class="chapter" data-level="4.3.2" data-path="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html"><a href="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html#um-modelo-com-feinho"><i class="fa fa-check"></i><b>4.3.2</b> Um modelo com feinho</a></li>
+<li class="chapter" data-level="4.3.3" data-path="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html"><a href="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html#selecao-de-variaveis-furado"><i class="fa fa-check"></i><b>4.3.3</b> Seleção de variáveis furado</a></li>
+<li class="chapter" data-level="4.3.4" data-path="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html"><a href="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html#como-tratar-multicolinearidade-entao"><i class="fa fa-check"></i><b>4.3.4</b> Como tratar multicolinearidade, então?</a></li>
+<li class="chapter" data-level="4.3.5" data-path="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html"><a href="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html#conclusao"><i class="fa fa-check"></i><b>4.3.5</b> Conclusão</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="4-4-woe-em-r-com-tidywoe.html"><a href="4-4-woe-em-r-com-tidywoe.html"><i class="fa fa-check"></i><b>4.4</b> WoE em R com tidywoe</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="4-4-woe-em-r-com-tidywoe.html"><a href="4-4-woe-em-r-com-tidywoe.html#instalacao-e-dados"><i class="fa fa-check"></i><b>4.4.1</b> Instalação e dados</a></li>
+<li class="chapter" data-level="4.4.2" data-path="4-4-woe-em-r-com-tidywoe.html"><a href="4-4-woe-em-r-com-tidywoe.html#como-usar"><i class="fa fa-check"></i><b>4.4.2</b> Como usar</a></li>
+<li class="chapter" data-level="4.4.3" data-path="4-4-woe-em-r-com-tidywoe.html"><a href="4-4-woe-em-r-com-tidywoe.html#add_woe"><i class="fa fa-check"></i><b>4.4.3</b> add_woe()</a></li>
+<li class="chapter" data-level="4.4.4" data-path="4-4-woe-em-r-com-tidywoe.html"><a href="4-4-woe-em-r-com-tidywoe.html#woe_dictionary"><i class="fa fa-check"></i><b>4.4.4</b> woe_dictionary()</a></li>
+<li class="chapter" data-level="4.4.5" data-path="4-4-woe-em-r-com-tidywoe.html"><a href="4-4-woe-em-r-com-tidywoe.html#usando-um-dicionario-customizado"><i class="fa fa-check"></i><b>4.4.5</b> Usando um dicionário customizado</a></li>
+<li class="chapter" data-level="4.4.6" data-path="4-4-woe-em-r-com-tidywoe.html"><a href="4-4-woe-em-r-com-tidywoe.html#exemplo-de-exploracao"><i class="fa fa-check"></i><b>4.4.6</b> Exemplo de exploração</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><i class="fa fa-check"></i><b>4.5</b> Regressão Logística em: a menor deep learning do mundo</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#objetivos-1"><i class="fa fa-check"></i><b>4.5.1</b> Objetivos</a></li>
+<li class="chapter" data-level="4.5.2" data-path="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#motivacao"><i class="fa fa-check"></i><b>4.5.2</b> Motivação</a></li>
+<li class="chapter" data-level="4.5.3" data-path="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#o-que-faremos"><i class="fa fa-check"></i><b>4.5.3</b> O que faremos</a></li>
+<li class="chapter" data-level="4.5.4" data-path="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#pacotes"><i class="fa fa-check"></i><b>4.5.4</b> Pacotes</a></li>
+<li class="chapter" data-level="4.5.5" data-path="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#regressao-logistica-versus-deep-learning"><i class="fa fa-check"></i><b>4.5.5</b> Regressão logística versus Deep Learning</a></li>
+<li class="chapter" data-level="4.5.6" data-path="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#dados-simulados"><i class="fa fa-check"></i><b>4.5.6</b> Dados simulados</a></li>
+<li class="chapter" data-level="4.5.7" data-path="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#olhada-nos-dados"><i class="fa fa-check"></i><b>4.5.7</b> Olhada nos dados</a></li>
+<li class="chapter" data-level="4.5.8" data-path="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#ajuste-de-modelos"><i class="fa fa-check"></i><b>4.5.8</b> Ajuste de modelos</a></li>
+<li class="chapter" data-level="4.5.9" data-path="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#discussao"><i class="fa fa-check"></i><b>4.5.9</b> Discussão</a></li>
+<li class="chapter" data-level="4.5.10" data-path="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#curiosidades"><i class="fa fa-check"></i><b>4.5.10</b> Curiosidades</a></li>
+<li class="chapter" data-level="4.5.11" data-path="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#n-esimo-menor-deep-learning"><i class="fa fa-check"></i><b>4.5.11</b> N-ésimo menor deep learning</a></li>
+<li class="chapter" data-level="4.5.12" data-path="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#vocabulario"><i class="fa fa-check"></i><b>4.5.12</b> Vocabulário</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="4-6-minimos-quadrados-com-restricoes-lineares.html"><a href="4-6-minimos-quadrados-com-restricoes-lineares.html"><i class="fa fa-check"></i><b>4.6</b> Mínimos quadrados com restrições lineares</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="4-6-minimos-quadrados-com-restricoes-lineares.html"><a href="4-6-minimos-quadrados-com-restricoes-lineares.html#regressao-linear-e-programacao-quadratica"><i class="fa fa-check"></i><b>4.6.1</b> Regressão linear é programação quadrática</a></li>
+<li class="chapter" data-level="4.6.2" data-path="4-6-minimos-quadrados-com-restricoes-lineares.html"><a href="4-6-minimos-quadrados-com-restricoes-lineares.html#uma-regressao-linear-simples-mais-flexivel"><i class="fa fa-check"></i><b>4.6.2</b> Uma regressão linear simples mais flexível</a></li>
+<li class="chapter" data-level="4.6.3" data-path="4-6-minimos-quadrados-com-restricoes-lineares.html"><a href="4-6-minimos-quadrados-com-restricoes-lineares.html#o-pacote-quadprog"><i class="fa fa-check"></i><b>4.6.3</b> O pacote <code>quadprog</code></a></li>
+<li class="chapter" data-level="4.6.4" data-path="4-6-minimos-quadrados-com-restricoes-lineares.html"><a href="4-6-minimos-quadrados-com-restricoes-lineares.html#conclusoes"><i class="fa fa-check"></i><b>4.6.4</b> Conclusões</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="4-7-filtros-de-bloom-em-r.html"><a href="4-7-filtros-de-bloom-em-r.html"><i class="fa fa-check"></i><b>4.7</b> Filtros de Bloom em R</a></li>
+<li class="chapter" data-level="4.8" data-path="4-8-modelando-a-variancia-da-normal.html"><a href="4-8-modelando-a-variancia-da-normal.html"><i class="fa fa-check"></i><b>4.8</b> Modelando a variância da normal</a><ul>
+<li class="chapter" data-level="4.8.1" data-path="4-8-modelando-a-variancia-da-normal.html"><a href="4-8-modelando-a-variancia-da-normal.html#usando-o-pacote-gamlss"><i class="fa fa-check"></i><b>4.8.1</b> Usando o pacote <code>gamlss</code></a></li>
+<li class="chapter" data-level="4.8.2" data-path="4-8-modelando-a-variancia-da-normal.html"><a href="4-8-modelando-a-variancia-da-normal.html#usando-o-pacote-dglm"><i class="fa fa-check"></i><b>4.8.2</b> Usando o pacote <code>dglm</code></a></li>
+<li class="chapter" data-level="4.8.3" data-path="4-8-modelando-a-variancia-da-normal.html"><a href="4-8-modelando-a-variancia-da-normal.html#usando-o-pacote-rstan"><i class="fa fa-check"></i><b>4.8.3</b> Usando o pacote <code>rstan</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="5-reflexoes.html"><a href="5-reflexoes.html"><i class="fa fa-check"></i><b>5</b> Reflexões</a><ul>
+<li class="chapter" data-level="5.1" data-path="5-1-manifesto-tidy.html"><a href="5-1-manifesto-tidy.html"><i class="fa fa-check"></i><b>5.1</b> Manifesto tidy</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="5-1-manifesto-tidy.html"><a href="5-1-manifesto-tidy.html#reutilizar-estruturas-de-dados-existentes"><i class="fa fa-check"></i><b>5.1.1</b> Reutilizar estruturas de dados existentes</a></li>
+<li class="chapter" data-level="5.1.2" data-path="5-1-manifesto-tidy.html"><a href="5-1-manifesto-tidy.html#organizar-funcoes-simples-usando-o-pipe"><i class="fa fa-check"></i><b>5.1.2</b> Organizar funções simples usando o <em>pipe</em></a></li>
+<li class="chapter" data-level="5.1.3" data-path="5-1-manifesto-tidy.html"><a href="5-1-manifesto-tidy.html#aderir-a-programacao-funcional"><i class="fa fa-check"></i><b>5.1.3</b> Aderir à programação funcional</a></li>
+<li class="chapter" data-level="5.1.4" data-path="5-1-manifesto-tidy.html"><a href="5-1-manifesto-tidy.html#projetado-para-ser-usado-por-seres-humanos"><i class="fa fa-check"></i><b>5.1.4</b> Projetado para ser usado por seres humanos</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="5-2-eu-a-estatistica-e-a-programacao.html"><a href="5-2-eu-a-estatistica-e-a-programacao.html"><i class="fa fa-check"></i><b>5.2</b> Eu, a Estatística e a programação</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="5-2-eu-a-estatistica-e-a-programacao.html"><a href="5-2-eu-a-estatistica-e-a-programacao.html#por-que-amar-a-estatistica"><i class="fa fa-check"></i><b>5.2.1</b> Por que amar a estatística?</a></li>
+<li class="chapter" data-level="5.2.2" data-path="5-2-eu-a-estatistica-e-a-programacao.html"><a href="5-2-eu-a-estatistica-e-a-programacao.html#preconceitos-no-aprendizado"><i class="fa fa-check"></i><b>5.2.2</b> Preconceitos no aprendizado</a></li>
+<li class="chapter" data-level="5.2.3" data-path="5-2-eu-a-estatistica-e-a-programacao.html"><a href="5-2-eu-a-estatistica-e-a-programacao.html#estatistica-e-programacao"><i class="fa fa-check"></i><b>5.2.3</b> Estatística e programação</a></li>
+<li class="chapter" data-level="5.2.4" data-path="5-2-eu-a-estatistica-e-a-programacao.html"><a href="5-2-eu-a-estatistica-e-a-programacao.html#wrap-up-1"><i class="fa fa-check"></i><b>5.2.4</b> Wrap-up</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="5-3-o-fluxo-do-web-scraping.html"><a href="5-3-o-fluxo-do-web-scraping.html"><i class="fa fa-check"></i><b>5.3</b> O Fluxo do Web Scraping</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="5-3-o-fluxo-do-web-scraping.html"><a href="5-3-o-fluxo-do-web-scraping.html#o-fluxo"><i class="fa fa-check"></i><b>5.3.1</b> O fluxo</a></li>
+<li class="chapter" data-level="5.3.2" data-path="5-3-o-fluxo-do-web-scraping.html"><a href="5-3-o-fluxo-do-web-scraping.html#conclusao-1"><i class="fa fa-check"></i><b>5.3.2</b> Conclusão</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="5-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><a href="5-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><i class="fa fa-check"></i><b>5.4</b> Tidy Data, Teste t Pareado e Modelos Mistos</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="5-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><a href="5-4-tidy-data-teste-t-pareado-e-modelos-mistos.html#tidy-data"><i class="fa fa-check"></i><b>5.4.1</b> Tidy Data</a></li>
+<li class="chapter" data-level="5.4.2" data-path="5-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><a href="5-4-tidy-data-teste-t-pareado-e-modelos-mistos.html#o-que-isso-tem-a-ver-com-teste-t-pareado-e-modelos-mistos"><i class="fa fa-check"></i><b>5.4.2</b> O que isso tem a ver com teste <span class="math inline">\(t\)</span>-pareado e modelos mistos?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referências</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Feito com <font color="red">❤</font>️ usando<strong> bookdown</strong></a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Como faz no R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="eu-a-estatistica-e-a-programacao" class="section level2">
+<h2><span class="header-section-number">5.2</span> Eu, a Estatística e a programação</h2>
+<div class="rmdtip">
+<p>
+Autor: William
+</p>
+</div>
+<div class="rmdtip">
+<p>
+Dificuldade baixa
+</p>
+</div>
+<div class="rmdimportant">
+<p>
+program
+</p>
+</div>
+<blockquote>
+<p>— Não sabia que nessa cidade a cada 20 minutos atropelam um homem? <br>
+— Nossa! E como está o coitado?</p>
+</blockquote>
+<p>O <a href="https://youtu.be/UbRNe4OGXcQ?t=634">episódio “Estatísticas”</a> do Chaves foi o meu primeiro contato com o conceito de Estatística (pelo menos que eu possa me lembrar). Claro que naquela época, com 5 ou 6 anos, eu nunca imaginaria que seria essa a minha profissão. Assim como o Quico e o Chaves, eu não fazia muita ideia do que as “senhoras estatísticas”&quot; eram e continuei sem saber de fato até entrar na graduação, em 2007.</p>
+<p>Reassistindo o episódio, depois de mais de dez anos estudando a disciplina, me identifiquei bastante com a dificuldade que a Dona Florinda e o Professor Girafales têm para explicar o que são estatísticas, o que antes via apenas como uma escada para as piadas que constroem a cena.</p>
+<p>Quando saio da minha bolha de colegas de faculdade e trabalho, percebo o quanto conceitos básicos de probabilidade e estatística são desconhecidos pela população, mesmo aqueles presentes no dia a dia.</p>
+<p>Recentemente, lendo um comentário de um radialista sobre a derrota do São Paulo para o Coritiba, na rodada 18 do Campeonato Brasileiro, uma frase me chamou atenção.</p>
+<blockquote>
+<p>“Ao iniciar o jogo dessa quinta à noite, o Tricolor, de acordo com as estatísticas, tinha 1,78% de chances de vencer o Coritiba.”</p>
+</blockquote>
+<p>A tese do radialista é que a probabilidade dos quatro grandes times de São Paulo vencerem na mesma rodada do campeonato é de 1,78%, a frequência relativa desse evento na era de pontos corridos do Campeonato Brasileiro. Como o São Paulo foi o último grande a jogar e os outros três já haviam vencido, o pobre tricolor paulista teve suas chances reduzidas pelas estatísticas e acabou perdendo o jogo.</p>
+<p>Essa interpretação com certeza pode ser refutada por vários motivos, mas o que mais me incomodou foi o desconhecimento de probabilidade condicional, ou simplesmente como novas informações modificam as probabilidades dos eventos.</p>
+<p>Encucado, eu deixei uma resposta, cuja parte central é essa:</p>
+<blockquote>
+<p>Mesmo se considerássemos que a probabilidade dos 4 grandes de SP ganharem numa rodada não dependesse de fatores como a fase dos times, os adversários, o momento do campeonato etc., esse número, 1,78%, seria a probabilidade dos quatro ganharem antes da rodada começar. Dado que já sabemos que os outros três ganharam, e considerando que o resultado desses jogos não influenciam o jogo do SP, a probabilidade do evento em questão ocorrer passa a ser apenas a probabilidade do SP ganhar o jogo dele.</p>
+</blockquote>
+<p>Em seguida, recebi alguns comentários de outros torcedores dizendo (jocosamente) que não tinham entendido nada do que escrevi. Comecei então a refletir sobre o assunto, pensando no quanto a minha explicação poderia estar confusa e de que forma poderia ter explicado melhor, no quanto as pessoas não costumam se esforçar para entender temas que elas não dominam e no quanto a falta de uma base matemática adequada atrapalha nessas horas.</p>
+<p>Eu acredito que a Probabilidade e a Estatística são vítimas da onda do “é legal odiar Matemática”, que muitas pessoas se orgulham de surfar. Crianças saem da escola com um conhecimento superficial dessas disciplinas (quando muito!), achando que é tudo uma questão de jogar dados, calcular médias e fazer gráficos. Comunicadores sofrem para interpretar os números de uma pesquisa e pesquisadores encaram a análise estatística como o grande vilão que os separa da publicação.</p>
+<p>Felizmente, esse comportamento vem mudando, mesmo que a passos lentos. Profissionais estão buscando cursos de <em>data science</em> e programação, empresas estão promovendo cursos para qualificarem seus funcionários e o mercado para estatísticos continua um céu estrelado, tanto para analistas e programadores quanto para educadores.</p>
+<p>Eu vejo essa mudança, e as pessoas ao meu redor também a veem. Mas o exemplo que citei acima me faz acreditar que preciso espiar fora da minha bolha.</p>
+<p>Por isso, vou começar uma pequena série de posts, dando a minha opinião sobre algumas coisas que orbitam a educação estatística e a programação, com o objetivo de gerar reflexão e discussão sobre o assunto. A Estatística vem crescendo como carreira, o estatístico vem se tornando cada vez mais protagonista, e vejo esse momento como o ideal para melhorarmos a educação da nossa disciplina.</p>
+<p>Dividirei o texto nos seguintes tópicos:</p>
+<ul>
+<li>Por que amar a Estatística?</li>
+<li>Preconceitos no aprendizado</li>
+<li>Estatística e programação</li>
+</ul>
+<p>Espero que esses posts possam contribuir para mostrarmos para mais gente a importância da Estatística e da Computação e por que amamos tanto trabalhar com essas ciências.</p>
+<div id="por-que-amar-a-estatistica" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> Por que amar a estatística?</h3>
+<p>Escolher uma profissão, para quem tem esse privilégio, é uma das decisões mais importantes das nossas vidas. Aos 17, 18 anos, a imaturidade, o pouco auto-conhecimento e a falta de informação sobre as alternativas podem nos desviar da opção que nos vestiria melhor, um erro que muitas vezes nunca será reparado.</p>
+<p>Às vezes, eu me pergunto o que levou amigos e conhecido a escolherem suas profissões na hora do vestibular. No meu caso, eu quase segui um caminho da “profissões da moda”. O que me <em>impediu</em> de prestar Administração foi descobrir, na hora da inscrição, que era uma carreira da área de Humanas, não Exatas.</p>
+<p>Sim, eu era bem perdido.</p>
+<p>Na época, a segunda fase da FUVEST era diferente para cada área, e eu não tinha perspectiva nenhuma de ir bem se tivesse que fazer uma prova dissertativa de História e Geografia em vez de Matemática e Física, disciplinas que eu dominava muito mais. Por isso, após uma (muito breve) pesquisa na internet, fui convencido a prestar Estatística, e o que me convenceu foi a frase “[…] envolve bastante matemática e o mercado de trabalho é muito bom”. Foi baseado nisso que eu tomei uma das decisões mais importantes da minha vida e era basicamente tudo o que eu sabia sobre a carreira quando comecei a graduação.</p>
+<p>Prestar vestibular para Estatística foi um tiro no escuro tão certeiro que às vezes me pego pensando em destino e esoterismos desse tipo. Durante a graduação, conheci pessoas que não tiveram a mesma sorte e acabaram desistindo nos primeiros semestres, que são bem pesados na matemática. A primeira parte da informação que eu tinha sobre realmente estava certa, e o curso de Estatística pode assustar quem não estiver na pegada de provar vários teoremas. Mas, neste post, não quero falar sobre as dificuldades da escalada, mas sim sobre a vista ao se chegar ao topo.</p>
+<p>Conforme fui conhecendo a Estatística, eu descobri que ela é a profissão mais nerd que existe<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>. Eu sustento essa opinião porque a melhor definição de nerd que já escutei é “pessoa ama aprender” e, graças à Estatística, tenho a oportunidade de estudar <em>muita</em> coisa diferente.</p>
+<p>Nesses dez anos como estatístico, já fiz análises na área de engenharia, finanças, educação, jornalismo, zoologia, farmácia, fisioterapia, medicina, psicologia, odontologia, educação física… e essas são apenas as que eu lembrei de cabeça. Estatística é parte essencial do método científico e está presente em todas as ciências. Pegar trabalhos novos para um estatístico nerd é extremamente motivante, porque não é apenas uma troca de tempo por dinheiro, é uma ótima chance para aprender coisas novas. A Estatística te estimula a ser curioso e criativo, e isso é o que eu mais amo nela.</p>
+<p>Outra coisa para se amar é o mercado de trabalho.</p>
+<p>A segunda parte da informação que eu tinha também estava correta: o mercado de trabalho para o estatístico é excelente! Não só pelo número de oportunidades, mas pela gama de lugares diferentes onde somos necessários. Não vou listar aqui porque é praticamente qualquer área. E sobre salários, como diria um professor do IME, dá para alimentar famílias.</p>
+<p>Apesar de ter sido um dos poucos dos meus colegas a não mergulhar de cabeça no mercado, já tive duas experiências. A primeira foi como estagiário em um banco, onde aprendi bastante sobre o que eu não queria fazer na vida. Tudo o que eu fazia era rodar modelos pré-estabelecidos para gerar relatórios pré-formatados. Tinha aprendido tanta coisa legal na graduação e não podia usar nada, o que me fazia sentir como um pássaro engaiolado.</p>
+<p>A segunda foi no Instituto Butantan, onde eu era o único estatístico ao lado de vários biólogos, farmacêuticos e veterinários. Foi uma ótima experiência, na qual conheci muita gente bacana e aprendi muita coisa de biologia, farmâcia e controle de qualidade. Trabalhar com pessoas diferentes de você, com outras formas de pensar, é outra parte legal de ser estatístico. O pessoal do Butantan me ensinou bastante, principalmente sobre como a ciência e a pesquisa funcionam na prática. Além disso, foi lá que nasceu o meu interesse em ensinar Estatística.</p>
+<p>Bom, essa foi uma parte da história de como eu me apaixonei pela Estatística. Talvez eu não tenha acrescentado nada se você já compartilha desse sentimento, mas espero que esse texto chegue a pessoas que ainda estejam escolhendo sua profissão e jogue luz sobre essa alternativa. Essa é a hora de mudarmos gráficos como <a href="https://www.facebook.com/CONRE3/photos/a.244571322276453.56577.126677870732466/1471544826245757/?type=3&amp;theater">esse</a>.</p>
+<p>Resumindo:</p>
+<ul>
+<li>Estatística é <em>a</em> profissão para quem gosta de aprender.</li>
+<li>Um bom estatístico no mercado é uma criança com cartão de crédito numa loja de brinquedos.</li>
+</ul>
+<p>No próximo post desta série, vou levantar um pouco de polêmica desabafando sobre alguns preconceitos de aprendizagem. Até breve!</p>
+</div>
+<div id="preconceitos-no-aprendizado" class="section level3">
+<h3><span class="header-section-number">5.2.2</span> Preconceitos no aprendizado</h3>
+<p>Volta e meia eu escuto as famosas frases</p>
+<pre><code>FALSE [1] &quot;Eu sou de Humanas&quot;    &quot;Eu sou de Exatas&quot;     &quot;Eu sou de Biológicas&quot;</code></pre>
+<p>de alguém tentando justificar por que não vai fazer alguma coisa.</p>
+<p>Muitas vezes, não passa de uma brincadeira na hora de dividir a conta do bar. Muitas outras, me soa como uma desculpa pronta para não encarar problemas complicados. Para mim, todo aprendizado é difícil, não acho que existe conhecimento de graça, então realmente importa se ele é de Humanas, Exatas ou Biológicas?</p>
+<p>A divisão do conhecimento nessas três grandes áreas tem a sua importância organizacional, mas acaba motivando muita gente a criar limitações que não existem de verdade. Por que alguém de Exatas não conseguiria assimilar as ideias de um texto filosófico? Ou por que alguém de Biológicas não conseguiria aprender Cálculo?</p>
+<p>Acredito que cada um de nós tem afinidade por uma das áreas e maior facilidade em estudar um tópico ou outro. Normal. Mas fico triste quando vejo pessoas inteligentes se diminuindo ao se declararem incapazes de aprender outras competências que não a delas. Sei que essa incapacidade não existe e enxergo apenas como uma forma sofisticada de dizer “Estou com preguiça”.</p>
+<p>Uma das belezas da Estatística é nos fazer perder esse preconceito. Por mais que tenhamos nossos gostos, descobrimos que não estamos presos ao domínio de apenas uma área. Nós trabalhamos com pessoas que pensam e aprendem de formas diferentes de nossa e construímos juntos pontes para trocarmos conhecimento. Ser estatístico é não ter medo de estudar, seja lá o que for.</p>
+<p>Trazendo a reflexão aqui para o nosso mundinho, já ouvi muitas vezes colegas dizendo, principalmente na Graduação, que não usam o R porque ele é difícil ou porque não gostam de programar. A minha opinião sobre a primeira desculpa está nos parágrafos acima. Sobre a segunda, vou discutir no próximo e último post desta série: a relação entre Estatística e programação.</p>
+<p>Resumindo a ópera: sempre vamos apanhar aprendendo, e vamos apanhar mais ainda quando não gostamos do que estamos estudando, mas cedo ou tarde, com a quantidade certa de esforço, o conhecimento dá as caras.</p>
+<p>E no bar, na hora de dividir a conta, o problema não é você ser de Humanas. O problema é a sua preguiça. :D</p>
+</div>
+<div id="estatistica-e-programacao" class="section level3">
+<h3><span class="header-section-number">5.2.3</span> Estatística e programação</h3>
+<p>Não importa a área de atuação, a maior parte do dia do estatístico é atrás do computador. E desse tempo, a maior parte é atrás de um (geralmente único) programa estatístico.</p>
+<p>Os principais programas hoje em dia permitem a execução das etapas essenciais de uma análise: interação com banco de dados, transformação, criação de visualizações e modelagem. Alguns vão além e auxiliam na comunicação dos resultados. Também é comum a existência de ambientes de programação, mesmo quando o programa é bem estruturado no <em>point and click</em>.</p>
+<p>Eu considero a programação primordial para um estatístico. Ela nos dá a liberdade para sermos criativos, para não nos limitarmos em técnicas que alguém criou e todo mundo usa. Para mim, um estatístico que não sabe/gosta de programar é igual a um piloto que só dirige carro automático.</p>
+<p>É por isso que o R é uma ferramenta tão incrível para se trabalhar. Ele pega a sua mão no momento em que você recebe a base de dados, estando ela arrumada ou não, e só solta depois da sua análise estar devidamente divulgada. Para cada problema, o R te fornece todas as peças e te deixa montar do jeito que quiser. E mesmo quando uma peça não existe, você mesmo pode criá-la ou pedir socorro para a comunidade mais que fantástica de erreiros pelo mundo.</p>
+<p>Claro que aprender a programar é bem custoso. Para quem nunca foi familiar com a computação, vai ser um caminho bem tortuoso no início. Mas como discutimos no último post, não existe aprendizado de graça, e por mais que você não goste de estudar programação, é um investimento com retorno mais do que garantido.</p>
+</div>
+<div id="wrap-up-1" class="section level3">
+<h3><span class="header-section-number">5.2.4</span> Wrap-up</h3>
+<p>Fazendo um resumão do que falamos até aqui, podemos enumerar os seguintes itens:</p>
+<ul>
+<li><p>A Estatística é uma disciplina fantástica, principalmente para quem gosta de aprender, e o mercado está bombando.</p></li>
+<li><p>Aprender Estatística é difícil, assim como todo conhecimento. O que vai limitar a sua capacidade de aprender é o quanto você vai conseguir dominar a sua preguiça de estudar.</p></li>
+<li><p>A Estatística e a programação andam lado a lado. O Estatístico que sabe programar tem muito mais poder para resolver problemas complicados.</p></li>
+<li><p>O R é o ambiente mais legal para trabalhar com Estatística. :D</p></li>
+</ul>
+<p>É isso! Espero que possamos continuar discutindo o quanto é legal trabalhar com Estatística e que cada vez mais pessoas se interessem por esse caminho difícil, mas recompensador.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="5">
+<li id="fn5"><p>Se você ainda vê alguma conotação negativa na palavra <em>nerd</em>, mande as minha lembranças aos anos 90. 😉<a href="5-2-eu-a-estatistica-e-a-programacao.html#fnref5" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="5-1-manifesto-tidy.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="5-3-o-fluxo-do-web-scraping.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/curso-r/livro-blog/edit/master/index.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

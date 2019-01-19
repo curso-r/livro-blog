@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>4.3 Monty hall e diagramas de influência | Como faz no R</title>
+  <meta name="description" content="Livro da Curso-R.">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="4.3 Monty hall e diagramas de influência | Como faz no R />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Livro da Curso-R." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4.3 Monty hall e diagramas de influência | Como faz no R />
+  
+  <meta name="twitter:description" content="Livro da Curso-R." />
+  
+
+<meta name="author" content="Curso-R">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="4-2-dados.html">
+<link rel="next" href="4-4-minimos-quadrados-com-restricoes-lineares.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<script src="libs/d3-3.3.8/d3.min.js"></script>
+<script src="libs/dagre-0.4.0/dagre-d3.min.js"></script>
+<link href="libs/mermaid-0.3.0/dist/mermaid.css" rel="stylesheet" />
+<script src="libs/mermaid-0.3.0/dist/mermaid.slim.min.js"></script>
+<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="libs/chromatography-0.1/chromatography.js"></script>
+<script src="libs/DiagrammeR-binding-1.0.0/DiagrammeR.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="assets/css/styles.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Como faz no R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introdução</a><ul>
+<li class="chapter" data-level="1.1" data-path="1-1-objetivos.html"><a href="1-1-objetivos.html"><i class="fa fa-check"></i><b>1.1</b> Por quê ler esse livro</a></li>
+<li class="chapter" data-level="1.2" data-path="1-2-organizacao.html"><a href="1-2-organizacao.html"><i class="fa fa-check"></i><b>1.2</b> Organização</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-analises.html"><a href="2-analises.html"><i class="fa fa-check"></i><b>2</b> Análises</a></li>
+<li class="chapter" data-level="3" data-path="3-tutoriais.html"><a href="3-tutoriais.html"><i class="fa fa-check"></i><b>3</b> Tutoriais</a></li>
+<li class="chapter" data-level="4" data-path="4-modelagem.html"><a href="4-modelagem.html"><i class="fa fa-check"></i><b>4</b> Modelagem</a><ul>
+<li class="chapter" data-level="4.1" data-path="4-1-sao-paulo-e-o-problema-da-mochila.html"><a href="4-1-sao-paulo-e-o-problema-da-mochila.html"><i class="fa fa-check"></i><b>4.1</b> São Paulo e o problema da mochila</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="4-1-sao-paulo-e-o-problema-da-mochila.html"><a href="4-1-sao-paulo-e-o-problema-da-mochila.html#o-problema-da-mochila"><i class="fa fa-check"></i><b>4.1.1</b> O problema da mochila</a></li>
+<li class="chapter" data-level="4.1.2" data-path="4-1-sao-paulo-e-o-problema-da-mochila.html"><a href="4-1-sao-paulo-e-o-problema-da-mochila.html#forma-ad-hoc"><i class="fa fa-check"></i><b>4.1.2</b> Forma ad-hoc</a></li>
+<li class="chapter" data-level="4.1.3" data-path="4-1-sao-paulo-e-o-problema-da-mochila.html"><a href="4-1-sao-paulo-e-o-problema-da-mochila.html#solucao-otima"><i class="fa fa-check"></i><b>4.1.3</b> Solução ótima</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="4-2-dados.html"><a href="4-2-dados.html"><i class="fa fa-check"></i><b>4.2</b> Dados</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="4-2-dados.html"><a href="4-2-dados.html#resultados"><i class="fa fa-check"></i><b>4.2.1</b> Resultados</a></li>
+<li class="chapter" data-level="4.2.2" data-path="4-2-dados.html"><a href="4-2-dados.html#mapa-final"><i class="fa fa-check"></i><b>4.2.2</b> Mapa final</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="4-3-monty-hall-e-diagramas-de-influencia.html"><a href="4-3-monty-hall-e-diagramas-de-influencia.html"><i class="fa fa-check"></i><b>4.3</b> Monty hall e diagramas de influência</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="4-3-monty-hall-e-diagramas-de-influencia.html"><a href="4-3-monty-hall-e-diagramas-de-influencia.html#redes-bayesianas"><i class="fa fa-check"></i><b>4.3.1</b> Redes bayesianas</a></li>
+<li class="chapter" data-level="4.3.2" data-path="4-3-monty-hall-e-diagramas-de-influencia.html"><a href="4-3-monty-hall-e-diagramas-de-influencia.html#diagrama-de-influencias"><i class="fa fa-check"></i><b>4.3.2</b> Diagrama de influências</a></li>
+<li class="chapter" data-level="4.3.3" data-path="4-3-monty-hall-e-diagramas-de-influencia.html"><a href="4-3-monty-hall-e-diagramas-de-influencia.html#voltando-ao-monty-hall"><i class="fa fa-check"></i><b>4.3.3</b> Voltando ao Monty Hall</a></li>
+<li class="chapter" data-level="4.3.4" data-path="4-3-monty-hall-e-diagramas-de-influencia.html"><a href="4-3-monty-hall-e-diagramas-de-influencia.html#wrap-up"><i class="fa fa-check"></i><b>4.3.4</b> Wrap-up</a></li>
+<li class="chapter" data-level="4.3.5" data-path="4-3-monty-hall-e-diagramas-de-influencia.html"><a href="4-3-monty-hall-e-diagramas-de-influencia.html#extra"><i class="fa fa-check"></i><b>4.3.5</b> Extra</a></li>
+<li class="chapter" data-level="4.3.6" data-path="4-3-monty-hall-e-diagramas-de-influencia.html"><a href="4-3-monty-hall-e-diagramas-de-influencia.html#extra-2"><i class="fa fa-check"></i><b>4.3.6</b> Extra 2</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="4-4-minimos-quadrados-com-restricoes-lineares.html"><a href="4-4-minimos-quadrados-com-restricoes-lineares.html"><i class="fa fa-check"></i><b>4.4</b> Mínimos quadrados com restrições lineares</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="4-4-minimos-quadrados-com-restricoes-lineares.html"><a href="4-4-minimos-quadrados-com-restricoes-lineares.html#regressao-linear-e-programacao-quadratica"><i class="fa fa-check"></i><b>4.4.1</b> Regressão linear é programação quadrática</a></li>
+<li class="chapter" data-level="4.4.2" data-path="4-4-minimos-quadrados-com-restricoes-lineares.html"><a href="4-4-minimos-quadrados-com-restricoes-lineares.html#uma-regressao-linear-simples-mais-flexivel"><i class="fa fa-check"></i><b>4.4.2</b> Uma regressão linear simples mais flexível</a></li>
+<li class="chapter" data-level="4.4.3" data-path="4-4-minimos-quadrados-com-restricoes-lineares.html"><a href="4-4-minimos-quadrados-com-restricoes-lineares.html#o-pacote-quadprog"><i class="fa fa-check"></i><b>4.4.3</b> O pacote <code>quadprog</code></a></li>
+<li class="chapter" data-level="4.4.4" data-path="4-4-minimos-quadrados-com-restricoes-lineares.html"><a href="4-4-minimos-quadrados-com-restricoes-lineares.html#conclusoes"><i class="fa fa-check"></i><b>4.4.4</b> Conclusões</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="4-5-modelando-a-variancia-da-normal.html"><a href="4-5-modelando-a-variancia-da-normal.html"><i class="fa fa-check"></i><b>4.5</b> Modelando a variância da normal</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="4-5-modelando-a-variancia-da-normal.html"><a href="4-5-modelando-a-variancia-da-normal.html#usando-o-pacote-gamlss"><i class="fa fa-check"></i><b>4.5.1</b> Usando o pacote <code>gamlss</code></a></li>
+<li class="chapter" data-level="4.5.2" data-path="4-5-modelando-a-variancia-da-normal.html"><a href="4-5-modelando-a-variancia-da-normal.html#usando-o-pacote-dglm"><i class="fa fa-check"></i><b>4.5.2</b> Usando o pacote <code>dglm</code></a></li>
+<li class="chapter" data-level="4.5.3" data-path="4-5-modelando-a-variancia-da-normal.html"><a href="4-5-modelando-a-variancia-da-normal.html#usando-o-pacote-rstan"><i class="fa fa-check"></i><b>4.5.3</b> Usando o pacote <code>rstan</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="5-reflexoes.html"><a href="5-reflexoes.html"><i class="fa fa-check"></i><b>5</b> Reflexões</a><ul>
+<li class="chapter" data-level="5.1" data-path="5-1-manifesto-tidy.html"><a href="5-1-manifesto-tidy.html"><i class="fa fa-check"></i><b>5.1</b> Manifesto tidy</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="5-1-manifesto-tidy.html"><a href="5-1-manifesto-tidy.html#reutilizar-estruturas-de-dados-existentes"><i class="fa fa-check"></i><b>5.1.1</b> Reutilizar estruturas de dados existentes</a></li>
+<li class="chapter" data-level="5.1.2" data-path="5-1-manifesto-tidy.html"><a href="5-1-manifesto-tidy.html#organizar-funcoes-simples-usando-o-pipe"><i class="fa fa-check"></i><b>5.1.2</b> Organizar funções simples usando o <em>pipe</em></a></li>
+<li class="chapter" data-level="5.1.3" data-path="5-1-manifesto-tidy.html"><a href="5-1-manifesto-tidy.html#aderir-a-programacao-funcional"><i class="fa fa-check"></i><b>5.1.3</b> Aderir à programação funcional</a></li>
+<li class="chapter" data-level="5.1.4" data-path="5-1-manifesto-tidy.html"><a href="5-1-manifesto-tidy.html#projetado-para-ser-usado-por-seres-humanos"><i class="fa fa-check"></i><b>5.1.4</b> Projetado para ser usado por seres humanos</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="5-2-eu-a-estatistica-e-a-programacao.html"><a href="5-2-eu-a-estatistica-e-a-programacao.html"><i class="fa fa-check"></i><b>5.2</b> Eu, a Estatística e a programação</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="5-2-eu-a-estatistica-e-a-programacao.html"><a href="5-2-eu-a-estatistica-e-a-programacao.html#por-que-amar-a-estatistica"><i class="fa fa-check"></i><b>5.2.1</b> Por que amar a estatística?</a></li>
+<li class="chapter" data-level="5.2.2" data-path="5-2-eu-a-estatistica-e-a-programacao.html"><a href="5-2-eu-a-estatistica-e-a-programacao.html#preconceitos-no-aprendizado"><i class="fa fa-check"></i><b>5.2.2</b> Preconceitos no aprendizado</a></li>
+<li class="chapter" data-level="5.2.3" data-path="5-2-eu-a-estatistica-e-a-programacao.html"><a href="5-2-eu-a-estatistica-e-a-programacao.html#estatistica-e-programacao"><i class="fa fa-check"></i><b>5.2.3</b> Estatística e programação</a></li>
+<li class="chapter" data-level="5.2.4" data-path="5-2-eu-a-estatistica-e-a-programacao.html"><a href="5-2-eu-a-estatistica-e-a-programacao.html#wrap-up-1"><i class="fa fa-check"></i><b>5.2.4</b> Wrap-up</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="5-3-o-fluxo-do-web-scraping.html"><a href="5-3-o-fluxo-do-web-scraping.html"><i class="fa fa-check"></i><b>5.3</b> O Fluxo do Web Scraping</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="5-3-o-fluxo-do-web-scraping.html"><a href="5-3-o-fluxo-do-web-scraping.html#o-fluxo"><i class="fa fa-check"></i><b>5.3.1</b> O fluxo</a></li>
+<li class="chapter" data-level="5.3.2" data-path="5-3-o-fluxo-do-web-scraping.html"><a href="5-3-o-fluxo-do-web-scraping.html#conclusao"><i class="fa fa-check"></i><b>5.3.2</b> Conclusão</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="5-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><a href="5-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><i class="fa fa-check"></i><b>5.4</b> Tidy Data, Teste t Pareado e Modelos Mistos</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="5-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><a href="5-4-tidy-data-teste-t-pareado-e-modelos-mistos.html#tidy-data"><i class="fa fa-check"></i><b>5.4.1</b> Tidy Data</a></li>
+<li class="chapter" data-level="5.4.2" data-path="5-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><a href="5-4-tidy-data-teste-t-pareado-e-modelos-mistos.html#o-que-isso-tem-a-ver-com-teste-t-pareado-e-modelos-mistos"><i class="fa fa-check"></i><b>5.4.2</b> O que isso tem a ver com teste <span class="math inline">\(t\)</span>-pareado e modelos mistos?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referências</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Feito com <font color="red">❤</font>️ usando<strong> bookdown</strong></a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Como faz no R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="monty-hall-e-diagramas-de-influencia" class="section level2">
+<h2><span class="header-section-number">4.3</span> Monty hall e diagramas de influência</h2>
+<p>Você está num jogo na TV e o apresentador pede para escolher uma entre 3 portas. Atrás de uma dessas portas tem uma <strong>Ferrari</strong> e nas outras duas temos <strong>cabras</strong>. Você escolhe uma porta. Depois, o apresentador retira uma porta que tem uma cabra e pergunta: <strong>você quer trocar de porta?</strong></p>
+<p>A princípio, você pode achar que sua probabilidade de ganhar é 1/2, já que uma das portas foi retirada, então não importa se você troca ou não. Mas a resposta é que sim, vale à pena trocar de porta! A probabilidade de vencer o jogo trocando a porta é de 2/3.</p>
+<center>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-22"></span>
+<img src="https://imgs.xkcd.com/comics/monty_hall.png" alt="Brincadeira do [XKCD](https://xkcd.com/1282/)."  />
+<p class="caption">
+Figura 3.4: Brincadeira do <a href="https://xkcd.com/1282/">XKCD</a>.
+</p>
+</div>
+</center>
+<p>O problema de Monty Hall é talvez o mais eloquente exemplo de como a probabilidade pode confundir a mente humana. Esse problema desafiou a comunidade científica no final do século XX e chegou até a ser considerado um paradoxo. Recomendo ler o livro <a href="https://books.google.com.br/books/about/O_andar_do_b%C3%AAbado.html?id=X0niXrHmsZUC&amp;redir_esc=y">O Andar do Bêbado</a>, de Leonard Mlodinow, que conta essa e muitas outras histórias interessantes sobre a probabilidade.</p>
+<p>Existem várias formas de explicar por quê trocar a porta é a melhor estratégia. A que eu mais gosto é a do próprio Andar do Bêbado, que mostra que, quando você escolhe a primeira porta, você está apostando se acertou ou não a Ferrari. Se você apostar que acertou a Ferrari, não deve trocar a porta e, se você apostar que errou a Ferrari, deve trocar. A aposta de errar a Ferrari de primeira tem probabilidade 2/3, logo, vale à pena trocar.</p>
+<p>Nesse post, mostramos uma solução alternativa, simples e elegante para o problema usando diagramas de influência e o pacote <code>bnlearn</code>.</p>
+<div id="redes-bayesianas" class="section level3">
+<h3><span class="header-section-number">4.3.1</span> Redes bayesianas</h3>
+<p>As redes Bayesianas são o resultado da combinação de conceitos probabilísticos e conceitos da teoria dos grafos. Segundo Pearl, tal união tem como consequências três benefícios: i) prover formas convenientes para expressar suposições do modelo; ii) facilitar a representação de funções de probabilidade conjuntas; e iii) facilitar o cálculo eficiente de inferências a partir de observações.</p>
+<p>Da teoria de probabilidades precisamos apenas de alguns resultados básicos sobre probabilidade condicional. Primeiramente, pela definição de probabilidade condicional, sabemos que</p>
+<p><span class="math display">\[
+p(x_1, x_2) = p(x_1)p(x_2|x_1).
+\]</span></p>
+<p>Aplicando essa regra iterativamente para <span class="math inline">\(n\)</span> variáveis, temos</p>
+<p><span class="math display">\[
+p(x_1, \dots, x_p) = \prod_j p(x_j|x_1,\dots, x_{j-1}).
+\]</span></p>
+<p>Agora, imagine que, no seu problema, a variável aleatória <span class="math inline">\(X_j\)</span> não dependa probabilisticamente de todas as variáveis <span class="math inline">\(X_1,\dots, X_{j-1}\)</span>, e sim apenas de um subconjunto <span class="math inline">\(\Pi_j\)</span> dessas variáveis. Fazendo isso, a equação pode ser escrita como</p>
+<p><span class="math display">\[
+p(x_1, \dots, x_p) = \prod_j p(x_j|\pi_j).
+\]</span></p>
+<p>Chamamos <span class="math inline">\(\Pi_j\)</span> de <strong>pais</strong> de <span class="math inline">\(X_j\)</span>. Esse conjunto pode ser pensado como as variáveis que são suficientes para determinar as probabilidades de <span class="math inline">\(X_j\)</span>.</p>
+<p>A parte mais legal das redes Bayesianas é que elas podem ser representadas a partir de DAGs (grafos direcionados acíclicos). No grafo, se <span class="math inline">\(X_1\)</span> aponta para <span class="math inline">\(X_2\)</span>, então <span class="math inline">\(X_1\)</span> é pai de <span class="math inline">\(X_2\)</span>. Por exemplo, esse grafo aqui</p>
+<center>
+<div id="htmlwidget-99bdd7c341744634a18f" style="width:100%;height:480px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-99bdd7c341744634a18f">{"x":{"diagram":"\ngraph LR;\nA(<center><b>X1<\/b><\/center><br/>Estação do ano)-->B(<center><b>X2<\/b><\/center><br/>Regador ligado)\nA-->C(<center><b>X3<\/b><\/center><br/>Choveu)\nB-->D(<center><b>X4<\/b><\/center><br/>Chão Molhado)\nC-->D\nD-->E(<center><b>X5<\/b><\/center><br/>Chão Escorregadio)\n"},"evals":[],"jsHooks":[]}</script>
+</center>
+<p>representa a distribuição de probabilidades <span class="math inline">\(p(x_1, \dots, x_5)\)</span> com</p>
+<p><span class="math display">\[
+p(x_1, \dots, x_5) = p(x_1)p(x_2|x_1)p(x_3|x_1)p(x_4|x_3,x_2)p(x_5|x_4).
+\]</span></p>
+</div>
+<div id="diagrama-de-influencias" class="section level3">
+<h3><span class="header-section-number">4.3.2</span> Diagrama de influências</h3>
+<p>Um diagrama e influências é uma rede Bayesiana com nós de decisão e utilidade (ganhos). Ou seja, é uma junção de três conceitos:</p>
+<p><span class="math display">\[
+\underbrace{\text{prob. condicional} + \text{grafos}}_{\text{rede Bayesiana}} + \text{teoria da decisão} = \text{diagrama de influências}
+\]</span></p>
+<p>Na teoria da decisão, usualmente estamos interessados em maximizar a utilidade esperada. No diagrama, considerando a estrutura de probabilidades dada pela rede Bayesiana e as informações disponíveis, queremos escolher a decisão que faz com que, em média, nosso retorno seja mais alto.</p>
+<p>Com diagramas de influências, é possível organizar sistemas complexos com múltiplas decisões, considerando diferentes conjuntos de informações disponíveis. É uma ferramenta realmente muito poderosa.</p>
+</div>
+<div id="voltando-ao-monty-hall" class="section level3">
+<h3><span class="header-section-number">4.3.3</span> Voltando ao Monty Hall</h3>
+<p>Agora que sabemos um pouquinho de diagramas de influência, podemos desenhar o do Monty Hall:</p>
+<center>
+<div id="htmlwidget-4697cc142b41daad093e" style="width:100%;height:480px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4697cc142b41daad093e">{"x":{"diagram":"\ngraph LR;\nA{<center><b>D1<\/b><\/center><br/>Escolha inicial}-->B(<center><b>X2<\/b><\/center><br/>Porta retirada);\nC(<center><b>X1<\/b><\/center><br/>Ferrari)-->B;\nB-->D{<center><b>D2<\/b><\/center><br/>Trocar porta};\nD-->E[<center><b>U1<\/b><\/center><br/>Ganhar]\nC-->E\nA-->E\n"},"evals":[],"jsHooks":[]}</script>
+</center>
+<p>O jogador tem duas decisões a tomar:</p>
+<ul>
+<li><span class="math inline">\(D_1\)</span> (<code>escolha_inicial</code>): A escolha da porta inicial (<code>1</code>, <code>2</code>, <code>3</code>).</li>
+<li><span class="math inline">\(D_2\)</span> (<code>trocar</code>): Trocar a porta ou não (<code>s</code>, <code>n</code>).</li>
+</ul>
+<p>Também temos duas fontes de incerteza:</p>
+<ul>
+<li><span class="math inline">\(X_1\)</span> (<code>ferrari</code>): Em qual porta está a Ferrari (<code>1</code>, <code>2</code>, <code>3</code>).</li>
+<li><span class="math inline">\(X_2\)</span> (<code>porta_retirada</code>): Qual porta foi retirada (<code>1</code>, <code>2</code>, <code>3</code>). Essa variável não é sempre aleatória: se eu escolho a porta 1 e a Ferrari está em 2, o apresentador é obrigado a retirar a porta 3. Se o apresentador tiver a opção de escolher (que acontece no caso da escolha inicial ser a Ferrari), o apresentador escolhe uma porta para retirar aleatoriamente.</li>
+</ul>
+<p>Finalmente, temos um nó de utilidade:</p>
+<ul>
+<li><span class="math inline">\(U_1\)</span> (<code>result</code>): Ganhei a Ferrari (<code>ganhei</code>, <code>perdi</code>).</li>
+</ul>
+<p>Em R, podemos construir a rede Bayesiana do problema utilizando o pacote <code>bnlearn</code>:</p>
+<pre><code>FALSE      [,1]              [,2]            
+FALSE [1,] &quot;escolha_inicial&quot; &quot;porta_retirada&quot;
+FALSE [2,] &quot;ferrari&quot;         &quot;porta_retirada&quot;
+FALSE [3,] &quot;porta_retirada&quot;  &quot;trocar&quot;        
+FALSE [4,] &quot;trocar&quot;          &quot;result&quot;        
+FALSE [5,] &quot;ferrari&quot;         &quot;result&quot;        
+FALSE [6,] &quot;escolha_inicial&quot; &quot;result&quot;</code></pre>
+<p>O output desse conjunto de operações é um objeto do tipo <code>bn</code> com várias propriedades pré calculadas pelo pacote <code>bnlearn</code>:</p>
+<pre><code>  Random/Generated Bayesian network
+
+  model:
+   [escolha_inicial][ferrari][porta_retirada|escolha_inicial:ferrari][trocar|porta_retirada]
+   [result|escolha_inicial:ferrari:trocar]
+  nodes:                                 5 
+  arcs:                                  6 
+    undirected arcs:                     0 
+    directed arcs:                       6 
+  average markov blanket size:           3.60 
+  average neighbourhood size:            2.40 
+  average branching factor:              1.20 
+
+  generation algorithm:                  Empty </code></pre>
+<p>Com as especificação do problema dada, se gerarmos aleatoriamente todos os cenários, chegamos à essa combinação de casos equiprováveis (ver Extra 2)</p>
+<p>Agora, vamos escrever todas as combinações possíveis de cenários e guardar num <code>data.frame</code> chamado <code>dados</code>:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">escolha_inicial</th>
+<th align="left">ferrari</th>
+<th align="left">porta_retirada</th>
+<th align="left">trocar</th>
+<th align="left">result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">n</td>
+<td align="left">ganhei</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">s</td>
+<td align="left">perdi</td>
+</tr>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">n</td>
+<td align="left">ganhei</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">s</td>
+<td align="left">perdi</td>
+</tr>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">3</td>
+<td align="left">n</td>
+<td align="left">perdi</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">3</td>
+<td align="left">s</td>
+<td align="left">ganhei</td>
+</tr>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">2</td>
+<td align="left">n</td>
+<td align="left">perdi</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">2</td>
+<td align="left">s</td>
+<td align="left">ganhei</td>
+</tr>
+<tr class="odd">
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">n</td>
+<td align="left">perdi</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">3</td>
+<td align="left">s</td>
+<td align="left">ganhei</td>
+</tr>
+<tr class="odd">
+<td align="left">2</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">n</td>
+<td align="left">ganhei</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">s</td>
+<td align="left">perdi</td>
+</tr>
+<tr class="odd">
+<td align="left">2</td>
+<td align="left">2</td>
+<td align="left">3</td>
+<td align="left">n</td>
+<td align="left">ganhei</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">2</td>
+<td align="left">3</td>
+<td align="left">s</td>
+<td align="left">perdi</td>
+</tr>
+<tr class="odd">
+<td align="left">2</td>
+<td align="left">3</td>
+<td align="left">1</td>
+<td align="left">n</td>
+<td align="left">perdi</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">3</td>
+<td align="left">1</td>
+<td align="left">s</td>
+<td align="left">ganhei</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">n</td>
+<td align="left">perdi</td>
+</tr>
+<tr class="even">
+<td align="left">3</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">s</td>
+<td align="left">ganhei</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">n</td>
+<td align="left">perdi</td>
+</tr>
+<tr class="even">
+<td align="left">3</td>
+<td align="left">2</td>
+<td align="left">1</td>
+<td align="left">s</td>
+<td align="left">ganhei</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">3</td>
+<td align="left">2</td>
+<td align="left">n</td>
+<td align="left">ganhei</td>
+</tr>
+<tr class="even">
+<td align="left">3</td>
+<td align="left">3</td>
+<td align="left">2</td>
+<td align="left">s</td>
+<td align="left">perdi</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">3</td>
+<td align="left">1</td>
+<td align="left">n</td>
+<td align="left">ganhei</td>
+</tr>
+<tr class="even">
+<td align="left">3</td>
+<td align="left">3</td>
+<td align="left">1</td>
+<td align="left">s</td>
+<td align="left">perdi</td>
+</tr>
+</tbody>
+</table>
+<p>Finalmente, ajustamos nossa rede Bayesiana, usando a função <code>bnlearn::bn.fit()</code>.</p>
+<p>A função <code>bnlearn::cpquery()</code> (conditional probability query) serve para realizar uma consulta de probabilidades dada a rede ajustada. No nosso caso, a partir de uma escolha inicial qualquer <span class="math inline">\(d_1\)</span>, queremos saber o ganho ao trocar é maior que o ganho ao não trocar.</p>
+<p><span class="math display">\[
+\mathbb E(U_1\; |\; D_2 = \text{s}, D_1 = d_1) &gt; \mathbb E(U_1\; |\; D_2 = \text{n}, D_1 = d_1).
+\]</span></p>
+<p>Fazendo contas, isso equivale matematicamente a consultar se</p>
+<p><span class="math display">\[
+\mathbb P(U_1=\text{ganhei}\; |\; D_2 = \text{s}) &gt; \mathbb P(U_1=\text{ganhei}\; |\; D_2 = \text{n})
+\]</span></p>
+<p>Agora, podemos consultar <span class="math inline">\(\mathbb P(U_1=\text{ganhei}\; |\; D_2 = \text{s})\)</span> com nosso modelo!</p>
+<pre><code>[1] 0.6666704</code></pre>
+<p>E não é que dá 2/3 mesmo? Da mesma forma, temos</p>
+<pre><code>[1] 0.3333187</code></pre>
+<p>Resolvido!</p>
+</div>
+<div id="wrap-up" class="section level3">
+<h3><span class="header-section-number">4.3.4</span> Wrap-up</h3>
+<ul>
+<li>Vale à pena trocar a porta!</li>
+<li>Redes Bayesianas juntam grafos e probabilidades condicionais</li>
+<li>Diagramas de influência juntam redes Bayesianas e teoria da decisão</li>
+<li>Essas ferramentas podem ser utilizadas tanto para resolver Monty Hall quanto para ajudar em sistemas complexos.</li>
+</ul>
+<p>É isso pessoal. Happy coding ;)</p>
+</div>
+<div id="extra" class="section level3">
+<h3><span class="header-section-number">4.3.5</span> Extra</h3>
+<p>Se você ficou interessada em como eu fiz o diagrama, utilizei o pacote <code>DiagrammeR</code>. O código está aqui:</p>
+</div>
+<div id="extra-2" class="section level3">
+<h3><span class="header-section-number">4.3.6</span> Extra 2</h3>
+<p>É possível simular os dados que coloquei no post com uma função simples, que adicionei abaixo. Na verdade, o fato de eu ter considerado somente as combinações únicas de cenários e não os dados simulados abaixo é um pouco roubado, e só funciona porque os cenários calham de ser, de fato, equiprováveis.</p>
+<pre><code>Observations: 10,000
+Variables: 5
+$ escolha_inicial &lt;fct&gt; 3, 1, 2, 1, 1, 1, 3, 1, 2, 3, 3, 1, 3, 1, 2, 2, 2,...
+$ ferrari         &lt;fct&gt; 1, 1, 2, 1, 1, 2, 3, 3, 1, 2, 3, 3, 2, 1, 1, 3, 1,...
+$ porta_retirada  &lt;fct&gt; 2, 3, 1, 3, 2, 3, 2, 2, 3, 1, 1, 2, 1, 2, 3, 1, 3,...
+$ trocar          &lt;fct&gt; n, s, s, n, s, n, n, n, n, s, s, s, s, n, n, s, n,...
+$ result          &lt;fct&gt; perdi, perdi, perdi, ganhei, perdi, perdi, ganhei,...</code></pre>
+<p>Os dados do post podem ser obtidos fazendo isso aqui:</p>
+<p>Agradecimentos: <a href="https://www.rafaelstern.science/">Rafael Stern</a>, que me convenceu de que vale à pena mostrar os dados simulados 😉</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="4-2-dados.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="4-4-minimos-quadrados-com-restricoes-lineares.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/curso-r/livro-blog/edit/master/index.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

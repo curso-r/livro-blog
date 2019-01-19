@@ -47,6 +47,14 @@
 
 
 
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<script src="libs/d3-3.3.8/d3.min.js"></script>
+<script src="libs/dagre-0.4.0/dagre-d3.min.js"></script>
+<link href="libs/mermaid-0.3.0/dist/mermaid.css" rel="stylesheet" />
+<script src="libs/mermaid-0.3.0/dist/mermaid.slim.min.js"></script>
+<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="libs/chromatography-0.1/chromatography.js"></script>
+<script src="libs/DiagrammeR-binding-1.0.0/DiagrammeR.js"></script>
 
 
 <style type="text/css">
@@ -135,26 +143,80 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2" data-path="2-analises.html"><a href="2-analises.html"><i class="fa fa-check"></i><b>2</b> Análises</a></li>
 <li class="chapter" data-level="3" data-path="3-tutoriais.html"><a href="3-tutoriais.html"><i class="fa fa-check"></i><b>3</b> Tutoriais</a></li>
-<li class="chapter" data-level="4" data-path="4-reflexoes.html"><a href="4-reflexoes.html"><i class="fa fa-check"></i><b>4</b> Reflexões</a><ul>
-<li class="chapter" data-level="4.1" data-path="4-1-manifesto-tidy.html"><a href="4-1-manifesto-tidy.html"><i class="fa fa-check"></i><b>4.1</b> Manifesto tidy</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="4-1-manifesto-tidy.html"><a href="4-1-manifesto-tidy.html#reutilizar-estruturas-de-dados-existentes"><i class="fa fa-check"></i><b>4.1.1</b> Reutilizar estruturas de dados existentes</a></li>
-<li class="chapter" data-level="4.1.2" data-path="4-1-manifesto-tidy.html"><a href="4-1-manifesto-tidy.html#organizar-funcoes-simples-usando-o-pipe"><i class="fa fa-check"></i><b>4.1.2</b> Organizar funções simples usando o <em>pipe</em></a></li>
-<li class="chapter" data-level="4.1.3" data-path="4-1-manifesto-tidy.html"><a href="4-1-manifesto-tidy.html#aderir-a-programacao-funcional"><i class="fa fa-check"></i><b>4.1.3</b> Aderir à programação funcional</a></li>
-<li class="chapter" data-level="4.1.4" data-path="4-1-manifesto-tidy.html"><a href="4-1-manifesto-tidy.html#projetado-para-ser-usado-por-seres-humanos"><i class="fa fa-check"></i><b>4.1.4</b> Projetado para ser usado por seres humanos</a></li>
+<li class="chapter" data-level="4" data-path="4-modelagem.html"><a href="4-modelagem.html"><i class="fa fa-check"></i><b>4</b> Modelagem</a><ul>
+<li class="chapter" data-level="4.1" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html"><i class="fa fa-check"></i><b>4.1</b> Monty hall e diagramas de influência</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html#redes-bayesianas"><i class="fa fa-check"></i><b>4.1.1</b> Redes bayesianas</a></li>
+<li class="chapter" data-level="4.1.2" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html#diagrama-de-influencias"><i class="fa fa-check"></i><b>4.1.2</b> Diagrama de influências</a></li>
+<li class="chapter" data-level="4.1.3" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html#voltando-ao-monty-hall"><i class="fa fa-check"></i><b>4.1.3</b> Voltando ao Monty Hall</a></li>
+<li class="chapter" data-level="4.1.4" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html#wrap-up"><i class="fa fa-check"></i><b>4.1.4</b> Wrap-up</a></li>
+<li class="chapter" data-level="4.1.5" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html#extra"><i class="fa fa-check"></i><b>4.1.5</b> Extra</a></li>
+<li class="chapter" data-level="4.1.6" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html#extra-2"><i class="fa fa-check"></i><b>4.1.6</b> Extra 2</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="4-2-eu-a-estatistica-e-a-programacao.html"><a href="4-2-eu-a-estatistica-e-a-programacao.html"><i class="fa fa-check"></i><b>4.2</b> Eu, a Estatística e a programação</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="4-2-eu-a-estatistica-e-a-programacao.html"><a href="4-2-eu-a-estatistica-e-a-programacao.html#por-que-amar-a-estatistica"><i class="fa fa-check"></i><b>4.2.1</b> Por que amar a estatística?</a></li>
-<li class="chapter" data-level="4.2.2" data-path="4-2-eu-a-estatistica-e-a-programacao.html"><a href="4-2-eu-a-estatistica-e-a-programacao.html#preconceitos-no-aprendizado"><i class="fa fa-check"></i><b>4.2.2</b> Preconceitos no aprendizado</a></li>
-<li class="chapter" data-level="4.2.3" data-path="4-2-eu-a-estatistica-e-a-programacao.html"><a href="4-2-eu-a-estatistica-e-a-programacao.html#estatistica-e-programacao"><i class="fa fa-check"></i><b>4.2.3</b> Estatística e programação</a></li>
-<li class="chapter" data-level="4.2.4" data-path="4-2-eu-a-estatistica-e-a-programacao.html"><a href="4-2-eu-a-estatistica-e-a-programacao.html#wrap-up"><i class="fa fa-check"></i><b>4.2.4</b> Wrap-up</a></li>
+<li class="chapter" data-level="4.2" data-path="4-2-construindo-autoencoders.html"><a href="4-2-construindo-autoencoders.html"><i class="fa fa-check"></i><b>4.2</b> Construindo Autoencoders</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="4-2-construindo-autoencoders.html"><a href="4-2-construindo-autoencoders.html#construindo-o-seu-primeiro-autoencoder"><i class="fa fa-check"></i><b>4.2.1</b> Construindo o seu primeiro autoencoder</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="4-3-o-fluxo-do-web-scraping.html"><a href="4-3-o-fluxo-do-web-scraping.html"><i class="fa fa-check"></i><b>4.3</b> O Fluxo do Web Scraping</a><ul>
-<li class="chapter" data-level="4.3.1" data-path="4-3-o-fluxo-do-web-scraping.html"><a href="4-3-o-fluxo-do-web-scraping.html#o-fluxo"><i class="fa fa-check"></i><b>4.3.1</b> O fluxo</a></li>
-<li class="chapter" data-level="4.3.2" data-path="4-3-o-fluxo-do-web-scraping.html"><a href="4-3-o-fluxo-do-web-scraping.html#conclusao"><i class="fa fa-check"></i><b>4.3.2</b> Conclusão</a></li>
+<li class="chapter" data-level="4.3" data-path="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html"><a href="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html"><i class="fa fa-check"></i><b>4.3</b> Modelos beseados em árvores e a multicolinearidade</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html"><a href="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html#um-modelo-bonitinho"><i class="fa fa-check"></i><b>4.3.1</b> Um modelo bonitinho</a></li>
+<li class="chapter" data-level="4.3.2" data-path="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html"><a href="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html#um-modelo-com-feinho"><i class="fa fa-check"></i><b>4.3.2</b> Um modelo com feinho</a></li>
+<li class="chapter" data-level="4.3.3" data-path="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html"><a href="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html#selecao-de-variaveis-furado"><i class="fa fa-check"></i><b>4.3.3</b> Seleção de variáveis furado</a></li>
+<li class="chapter" data-level="4.3.4" data-path="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html"><a href="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html#como-tratar-multicolinearidade-entao"><i class="fa fa-check"></i><b>4.3.4</b> Como tratar multicolinearidade, então?</a></li>
+<li class="chapter" data-level="4.3.5" data-path="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html"><a href="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html#conclusao"><i class="fa fa-check"></i><b>4.3.5</b> Conclusão</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="4-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><a href="4-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><i class="fa fa-check"></i><b>4.4</b> Tidy Data, Teste t Pareado e Modelos Mistos</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="4-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><a href="4-4-tidy-data-teste-t-pareado-e-modelos-mistos.html#tidy-data"><i class="fa fa-check"></i><b>4.4.1</b> Tidy Data</a></li>
-<li class="chapter" data-level="4.4.2" data-path="4-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><a href="4-4-tidy-data-teste-t-pareado-e-modelos-mistos.html#o-que-isso-tem-a-ver-com-teste-t-pareado-e-modelos-mistos"><i class="fa fa-check"></i><b>4.4.2</b> O que isso tem a ver com teste <span class="math inline">\(t\)</span>-pareado e modelos mistos?</a></li>
+<li class="chapter" data-level="4.4" data-path="4-4-woe-em-r-com-tidywoe.html"><a href="4-4-woe-em-r-com-tidywoe.html"><i class="fa fa-check"></i><b>4.4</b> WoE em R com tidywoe</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="4-4-woe-em-r-com-tidywoe.html"><a href="4-4-woe-em-r-com-tidywoe.html#instalacao-e-dados"><i class="fa fa-check"></i><b>4.4.1</b> Instalação e dados</a></li>
+<li class="chapter" data-level="4.4.2" data-path="4-4-woe-em-r-com-tidywoe.html"><a href="4-4-woe-em-r-com-tidywoe.html#como-usar"><i class="fa fa-check"></i><b>4.4.2</b> Como usar</a></li>
+<li class="chapter" data-level="4.4.3" data-path="4-4-woe-em-r-com-tidywoe.html"><a href="4-4-woe-em-r-com-tidywoe.html#add_woe"><i class="fa fa-check"></i><b>4.4.3</b> add_woe()</a></li>
+<li class="chapter" data-level="4.4.4" data-path="4-4-woe-em-r-com-tidywoe.html"><a href="4-4-woe-em-r-com-tidywoe.html#woe_dictionary"><i class="fa fa-check"></i><b>4.4.4</b> woe_dictionary()</a></li>
+<li class="chapter" data-level="4.4.5" data-path="4-4-woe-em-r-com-tidywoe.html"><a href="4-4-woe-em-r-com-tidywoe.html#usando-um-dicionario-customizado"><i class="fa fa-check"></i><b>4.4.5</b> Usando um dicionário customizado</a></li>
+<li class="chapter" data-level="4.4.6" data-path="4-4-woe-em-r-com-tidywoe.html"><a href="4-4-woe-em-r-com-tidywoe.html#exemplo-de-exploracao"><i class="fa fa-check"></i><b>4.4.6</b> Exemplo de exploração</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><i class="fa fa-check"></i><b>4.5</b> Regressão Logística em: a menor deep learning do mundo</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#objetivos-1"><i class="fa fa-check"></i><b>4.5.1</b> Objetivos</a></li>
+<li class="chapter" data-level="4.5.2" data-path="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#motivacao"><i class="fa fa-check"></i><b>4.5.2</b> Motivação</a></li>
+<li class="chapter" data-level="4.5.3" data-path="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#o-que-faremos"><i class="fa fa-check"></i><b>4.5.3</b> O que faremos</a></li>
+<li class="chapter" data-level="4.5.4" data-path="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#pacotes"><i class="fa fa-check"></i><b>4.5.4</b> Pacotes</a></li>
+<li class="chapter" data-level="4.5.5" data-path="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#regressao-logistica-versus-deep-learning"><i class="fa fa-check"></i><b>4.5.5</b> Regressão logística versus Deep Learning</a></li>
+<li class="chapter" data-level="4.5.6" data-path="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#dados-simulados"><i class="fa fa-check"></i><b>4.5.6</b> Dados simulados</a></li>
+<li class="chapter" data-level="4.5.7" data-path="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#olhada-nos-dados"><i class="fa fa-check"></i><b>4.5.7</b> Olhada nos dados</a></li>
+<li class="chapter" data-level="4.5.8" data-path="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#ajuste-de-modelos"><i class="fa fa-check"></i><b>4.5.8</b> Ajuste de modelos</a></li>
+<li class="chapter" data-level="4.5.9" data-path="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#discussao"><i class="fa fa-check"></i><b>4.5.9</b> Discussão</a></li>
+<li class="chapter" data-level="4.5.10" data-path="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#curiosidades"><i class="fa fa-check"></i><b>4.5.10</b> Curiosidades</a></li>
+<li class="chapter" data-level="4.5.11" data-path="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#n-esimo-menor-deep-learning"><i class="fa fa-check"></i><b>4.5.11</b> N-ésimo menor deep learning</a></li>
+<li class="chapter" data-level="4.5.12" data-path="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html"><a href="4-5-regressao-logistica-em-a-menor-deep-learning-do-mundo.html#vocabulario"><i class="fa fa-check"></i><b>4.5.12</b> Vocabulário</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="4-6-minimos-quadrados-com-restricoes-lineares.html"><a href="4-6-minimos-quadrados-com-restricoes-lineares.html"><i class="fa fa-check"></i><b>4.6</b> Mínimos quadrados com restrições lineares</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="4-6-minimos-quadrados-com-restricoes-lineares.html"><a href="4-6-minimos-quadrados-com-restricoes-lineares.html#regressao-linear-e-programacao-quadratica"><i class="fa fa-check"></i><b>4.6.1</b> Regressão linear é programação quadrática</a></li>
+<li class="chapter" data-level="4.6.2" data-path="4-6-minimos-quadrados-com-restricoes-lineares.html"><a href="4-6-minimos-quadrados-com-restricoes-lineares.html#uma-regressao-linear-simples-mais-flexivel"><i class="fa fa-check"></i><b>4.6.2</b> Uma regressão linear simples mais flexível</a></li>
+<li class="chapter" data-level="4.6.3" data-path="4-6-minimos-quadrados-com-restricoes-lineares.html"><a href="4-6-minimos-quadrados-com-restricoes-lineares.html#o-pacote-quadprog"><i class="fa fa-check"></i><b>4.6.3</b> O pacote <code>quadprog</code></a></li>
+<li class="chapter" data-level="4.6.4" data-path="4-6-minimos-quadrados-com-restricoes-lineares.html"><a href="4-6-minimos-quadrados-com-restricoes-lineares.html#conclusoes"><i class="fa fa-check"></i><b>4.6.4</b> Conclusões</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="4-7-filtros-de-bloom-em-r.html"><a href="4-7-filtros-de-bloom-em-r.html"><i class="fa fa-check"></i><b>4.7</b> Filtros de Bloom em R</a></li>
+<li class="chapter" data-level="4.8" data-path="4-8-modelando-a-variancia-da-normal.html"><a href="4-8-modelando-a-variancia-da-normal.html"><i class="fa fa-check"></i><b>4.8</b> Modelando a variância da normal</a><ul>
+<li class="chapter" data-level="4.8.1" data-path="4-8-modelando-a-variancia-da-normal.html"><a href="4-8-modelando-a-variancia-da-normal.html#usando-o-pacote-gamlss"><i class="fa fa-check"></i><b>4.8.1</b> Usando o pacote <code>gamlss</code></a></li>
+<li class="chapter" data-level="4.8.2" data-path="4-8-modelando-a-variancia-da-normal.html"><a href="4-8-modelando-a-variancia-da-normal.html#usando-o-pacote-dglm"><i class="fa fa-check"></i><b>4.8.2</b> Usando o pacote <code>dglm</code></a></li>
+<li class="chapter" data-level="4.8.3" data-path="4-8-modelando-a-variancia-da-normal.html"><a href="4-8-modelando-a-variancia-da-normal.html#usando-o-pacote-rstan"><i class="fa fa-check"></i><b>4.8.3</b> Usando o pacote <code>rstan</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="5-reflexoes.html"><a href="5-reflexoes.html"><i class="fa fa-check"></i><b>5</b> Reflexões</a><ul>
+<li class="chapter" data-level="5.1" data-path="5-1-manifesto-tidy.html"><a href="5-1-manifesto-tidy.html"><i class="fa fa-check"></i><b>5.1</b> Manifesto tidy</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="5-1-manifesto-tidy.html"><a href="5-1-manifesto-tidy.html#reutilizar-estruturas-de-dados-existentes"><i class="fa fa-check"></i><b>5.1.1</b> Reutilizar estruturas de dados existentes</a></li>
+<li class="chapter" data-level="5.1.2" data-path="5-1-manifesto-tidy.html"><a href="5-1-manifesto-tidy.html#organizar-funcoes-simples-usando-o-pipe"><i class="fa fa-check"></i><b>5.1.2</b> Organizar funções simples usando o <em>pipe</em></a></li>
+<li class="chapter" data-level="5.1.3" data-path="5-1-manifesto-tidy.html"><a href="5-1-manifesto-tidy.html#aderir-a-programacao-funcional"><i class="fa fa-check"></i><b>5.1.3</b> Aderir à programação funcional</a></li>
+<li class="chapter" data-level="5.1.4" data-path="5-1-manifesto-tidy.html"><a href="5-1-manifesto-tidy.html#projetado-para-ser-usado-por-seres-humanos"><i class="fa fa-check"></i><b>5.1.4</b> Projetado para ser usado por seres humanos</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="5-2-eu-a-estatistica-e-a-programacao.html"><a href="5-2-eu-a-estatistica-e-a-programacao.html"><i class="fa fa-check"></i><b>5.2</b> Eu, a Estatística e a programação</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="5-2-eu-a-estatistica-e-a-programacao.html"><a href="5-2-eu-a-estatistica-e-a-programacao.html#por-que-amar-a-estatistica"><i class="fa fa-check"></i><b>5.2.1</b> Por que amar a estatística?</a></li>
+<li class="chapter" data-level="5.2.2" data-path="5-2-eu-a-estatistica-e-a-programacao.html"><a href="5-2-eu-a-estatistica-e-a-programacao.html#preconceitos-no-aprendizado"><i class="fa fa-check"></i><b>5.2.2</b> Preconceitos no aprendizado</a></li>
+<li class="chapter" data-level="5.2.3" data-path="5-2-eu-a-estatistica-e-a-programacao.html"><a href="5-2-eu-a-estatistica-e-a-programacao.html#estatistica-e-programacao"><i class="fa fa-check"></i><b>5.2.3</b> Estatística e programação</a></li>
+<li class="chapter" data-level="5.2.4" data-path="5-2-eu-a-estatistica-e-a-programacao.html"><a href="5-2-eu-a-estatistica-e-a-programacao.html#wrap-up-1"><i class="fa fa-check"></i><b>5.2.4</b> Wrap-up</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="5-3-o-fluxo-do-web-scraping.html"><a href="5-3-o-fluxo-do-web-scraping.html"><i class="fa fa-check"></i><b>5.3</b> O Fluxo do Web Scraping</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="5-3-o-fluxo-do-web-scraping.html"><a href="5-3-o-fluxo-do-web-scraping.html#o-fluxo"><i class="fa fa-check"></i><b>5.3.1</b> O fluxo</a></li>
+<li class="chapter" data-level="5.3.2" data-path="5-3-o-fluxo-do-web-scraping.html"><a href="5-3-o-fluxo-do-web-scraping.html#conclusao-1"><i class="fa fa-check"></i><b>5.3.2</b> Conclusão</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="5-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><a href="5-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><i class="fa fa-check"></i><b>5.4</b> Tidy Data, Teste t Pareado e Modelos Mistos</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="5-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><a href="5-4-tidy-data-teste-t-pareado-e-modelos-mistos.html#tidy-data"><i class="fa fa-check"></i><b>5.4.1</b> Tidy Data</a></li>
+<li class="chapter" data-level="5.4.2" data-path="5-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><a href="5-4-tidy-data-teste-t-pareado-e-modelos-mistos.html#o-que-isso-tem-a-ver-com-teste-t-pareado-e-modelos-mistos"><i class="fa fa-check"></i><b>5.4.2</b> O que isso tem a ver com teste <span class="math inline">\(t\)</span>-pareado e modelos mistos?</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referências</a></li>
@@ -181,7 +243,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Como faz no R</h1>
 <p class="author"><em>Curso-R</em></p>
-<p class="date"><em>06 de janeiro de 2019</em></p>
+<p class="date"><em>19 de January de 2019</em></p>
 </div>
 <div id="introducao" class="section level1">
 <h1><span class="header-section-number">Capítulo 1</span> Introdução</h1> 

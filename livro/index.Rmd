@@ -13,7 +13,7 @@ description: "Livro da Curso-R."
 ```{r setup, include = FALSE}
 # options(xtable.comment = FALSE)
 knitr::opts_chunk$set(echo = FALSE, 
-                      message = FALSE, 
+                      message = FALSE,
                       comment = FALSE, 
                       warning = FALSE, 
                       fig.height = 5, 
@@ -30,11 +30,46 @@ library(tidyverse)
 
 ## Por quê ler esse livro {#objetivos}
 
-## Organização
+## Organização 
 
-# Análises
+# Análises 
 
 # Tutoriais
+
+# Modelagem 
+
+```{r child="blogs/modelagem/2018-09-03-monty-hall.Rmd"}
+```
+
+```{r child="blogs/modelagem/2017-06-26-construindo-autoencoders.Rmd"}
+```
+
+
+```{r child="blogs/modelagem/2018-05-22-arvore-e-multicolinearidade.Rmd"}
+```
+
+
+```{r child="blogs/modelagem/2017-07-06-tidywoe.Rmd"}
+```
+
+
+
+```{r child="blogs/modelagem/2017-07-29-segundo-menor-dl.Rmd"}
+```
+
+
+```{r child="blogs/modelagem/2017-08-07-minimos-quadrados-restrito.Rmd"}
+```
+
+```{r child="blogs/modelagem/2017-09-18-bloom-filter.Rmd"}
+```
+
+
+```{r child="blogs/modelagem/2017-02-21-regressao-heterocedastica.Rmd"}
+```
+
+
+
 
 # Reflexões
 

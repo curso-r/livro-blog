@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>4.1 Mínimos quadrados com restrições lineares | Como faz no R</title>
+  <meta name="description" content="Livro da Curso-R.">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="4.1 Mínimos quadrados com restrições lineares | Como faz no R />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Livro da Curso-R." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4.1 Mínimos quadrados com restrições lineares | Como faz no R />
+  
+  <meta name="twitter:description" content="Livro da Curso-R." />
+  
+
+<meta name="author" content="Curso-R">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="4-modelagem.html">
+<link rel="next" href="4-2-modelando-a-variancia-da-normal.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="assets/css/styles.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Como faz no R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introdução</a><ul>
+<li class="chapter" data-level="1.1" data-path="1-1-objetivos.html"><a href="1-1-objetivos.html"><i class="fa fa-check"></i><b>1.1</b> Por quê ler esse livro</a></li>
+<li class="chapter" data-level="1.2" data-path="1-2-organizacao.html"><a href="1-2-organizacao.html"><i class="fa fa-check"></i><b>1.2</b> Organização</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-analises.html"><a href="2-analises.html"><i class="fa fa-check"></i><b>2</b> Análises</a></li>
+<li class="chapter" data-level="3" data-path="3-tutoriais.html"><a href="3-tutoriais.html"><i class="fa fa-check"></i><b>3</b> Tutoriais</a></li>
+<li class="chapter" data-level="4" data-path="4-modelagem.html"><a href="4-modelagem.html"><i class="fa fa-check"></i><b>4</b> Modelagem</a><ul>
+<li class="chapter" data-level="4.1" data-path="4-1-minimos-quadrados-com-restricoes-lineares.html"><a href="4-1-minimos-quadrados-com-restricoes-lineares.html"><i class="fa fa-check"></i><b>4.1</b> Mínimos quadrados com restrições lineares</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="4-1-minimos-quadrados-com-restricoes-lineares.html"><a href="4-1-minimos-quadrados-com-restricoes-lineares.html#regressao-linear-e-programacao-quadratica"><i class="fa fa-check"></i><b>4.1.1</b> Regressão linear é programação quadrática</a></li>
+<li class="chapter" data-level="4.1.2" data-path="4-1-minimos-quadrados-com-restricoes-lineares.html"><a href="4-1-minimos-quadrados-com-restricoes-lineares.html#uma-regressao-linear-simples-mais-flexivel"><i class="fa fa-check"></i><b>4.1.2</b> Uma regressão linear simples mais flexível</a></li>
+<li class="chapter" data-level="4.1.3" data-path="4-1-minimos-quadrados-com-restricoes-lineares.html"><a href="4-1-minimos-quadrados-com-restricoes-lineares.html#o-pacote-quadprog"><i class="fa fa-check"></i><b>4.1.3</b> O pacote <code>quadprog</code></a></li>
+<li class="chapter" data-level="4.1.4" data-path="4-1-minimos-quadrados-com-restricoes-lineares.html"><a href="4-1-minimos-quadrados-com-restricoes-lineares.html#conclusoes"><i class="fa fa-check"></i><b>4.1.4</b> Conclusões</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="4-2-modelando-a-variancia-da-normal.html"><a href="4-2-modelando-a-variancia-da-normal.html"><i class="fa fa-check"></i><b>4.2</b> Modelando a variância da normal</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="4-2-modelando-a-variancia-da-normal.html"><a href="4-2-modelando-a-variancia-da-normal.html#usando-o-pacote-gamlss"><i class="fa fa-check"></i><b>4.2.1</b> Usando o pacote <code>gamlss</code></a></li>
+<li class="chapter" data-level="4.2.2" data-path="4-2-modelando-a-variancia-da-normal.html"><a href="4-2-modelando-a-variancia-da-normal.html#usando-o-pacote-dglm"><i class="fa fa-check"></i><b>4.2.2</b> Usando o pacote <code>dglm</code></a></li>
+<li class="chapter" data-level="4.2.3" data-path="4-2-modelando-a-variancia-da-normal.html"><a href="4-2-modelando-a-variancia-da-normal.html#usando-o-pacote-rstan"><i class="fa fa-check"></i><b>4.2.3</b> Usando o pacote <code>rstan</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="5-reflexoes.html"><a href="5-reflexoes.html"><i class="fa fa-check"></i><b>5</b> Reflexões</a><ul>
+<li class="chapter" data-level="5.1" data-path="5-1-manifesto-tidy.html"><a href="5-1-manifesto-tidy.html"><i class="fa fa-check"></i><b>5.1</b> Manifesto tidy</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="5-1-manifesto-tidy.html"><a href="5-1-manifesto-tidy.html#reutilizar-estruturas-de-dados-existentes"><i class="fa fa-check"></i><b>5.1.1</b> Reutilizar estruturas de dados existentes</a></li>
+<li class="chapter" data-level="5.1.2" data-path="5-1-manifesto-tidy.html"><a href="5-1-manifesto-tidy.html#organizar-funcoes-simples-usando-o-pipe"><i class="fa fa-check"></i><b>5.1.2</b> Organizar funções simples usando o <em>pipe</em></a></li>
+<li class="chapter" data-level="5.1.3" data-path="5-1-manifesto-tidy.html"><a href="5-1-manifesto-tidy.html#aderir-a-programacao-funcional"><i class="fa fa-check"></i><b>5.1.3</b> Aderir à programação funcional</a></li>
+<li class="chapter" data-level="5.1.4" data-path="5-1-manifesto-tidy.html"><a href="5-1-manifesto-tidy.html#projetado-para-ser-usado-por-seres-humanos"><i class="fa fa-check"></i><b>5.1.4</b> Projetado para ser usado por seres humanos</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="5-2-eu-a-estatistica-e-a-programacao.html"><a href="5-2-eu-a-estatistica-e-a-programacao.html"><i class="fa fa-check"></i><b>5.2</b> Eu, a Estatística e a programação</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="5-2-eu-a-estatistica-e-a-programacao.html"><a href="5-2-eu-a-estatistica-e-a-programacao.html#por-que-amar-a-estatistica"><i class="fa fa-check"></i><b>5.2.1</b> Por que amar a estatística?</a></li>
+<li class="chapter" data-level="5.2.2" data-path="5-2-eu-a-estatistica-e-a-programacao.html"><a href="5-2-eu-a-estatistica-e-a-programacao.html#preconceitos-no-aprendizado"><i class="fa fa-check"></i><b>5.2.2</b> Preconceitos no aprendizado</a></li>
+<li class="chapter" data-level="5.2.3" data-path="5-2-eu-a-estatistica-e-a-programacao.html"><a href="5-2-eu-a-estatistica-e-a-programacao.html#estatistica-e-programacao"><i class="fa fa-check"></i><b>5.2.3</b> Estatística e programação</a></li>
+<li class="chapter" data-level="5.2.4" data-path="5-2-eu-a-estatistica-e-a-programacao.html"><a href="5-2-eu-a-estatistica-e-a-programacao.html#wrap-up"><i class="fa fa-check"></i><b>5.2.4</b> Wrap-up</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="5-3-o-fluxo-do-web-scraping.html"><a href="5-3-o-fluxo-do-web-scraping.html"><i class="fa fa-check"></i><b>5.3</b> O Fluxo do Web Scraping</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="5-3-o-fluxo-do-web-scraping.html"><a href="5-3-o-fluxo-do-web-scraping.html#o-fluxo"><i class="fa fa-check"></i><b>5.3.1</b> O fluxo</a></li>
+<li class="chapter" data-level="5.3.2" data-path="5-3-o-fluxo-do-web-scraping.html"><a href="5-3-o-fluxo-do-web-scraping.html#conclusao"><i class="fa fa-check"></i><b>5.3.2</b> Conclusão</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="5-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><a href="5-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><i class="fa fa-check"></i><b>5.4</b> Tidy Data, Teste t Pareado e Modelos Mistos</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="5-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><a href="5-4-tidy-data-teste-t-pareado-e-modelos-mistos.html#tidy-data"><i class="fa fa-check"></i><b>5.4.1</b> Tidy Data</a></li>
+<li class="chapter" data-level="5.4.2" data-path="5-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><a href="5-4-tidy-data-teste-t-pareado-e-modelos-mistos.html#o-que-isso-tem-a-ver-com-teste-t-pareado-e-modelos-mistos"><i class="fa fa-check"></i><b>5.4.2</b> O que isso tem a ver com teste <span class="math inline">\(t\)</span>-pareado e modelos mistos?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referências</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Feito com <font color="red">❤</font>️ usando<strong> bookdown</strong></a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Como faz no R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="minimos-quadrados-com-restricoes-lineares" class="section level2">
+<h2><span class="header-section-number">4.1</span> Mínimos quadrados com restrições lineares</h2>
+<p>A característica mais importante de um modelo estatístico é a sua flexibilidade. Esse termo pode ser entendido de várias formas, mas neste texto vamos considerar que um modelo é flexível se ele <em>explica de forma coerente</em> uma ampla gama de fenômenos reais.</p>
+<p>Pensando assim, a regressão linear pode ser considerada um modelo flexível, já que muitas relações funcionais cotidianas são do tipo <span class="math inline">\(y = \beta x\)</span>. É justamente por causa dessa flexibilidade que a boa e velha regressão de mínimos quadrados é tão usada, até mesmo aonde não deveria. O seu uso é tão indiscriminado que uma vez, em aula, um professor extraordinariamente admirável me disse que “90% dos problemas do mundo podem ser resolvidos com uma regressão linear”.</p>
+<p>Sendo bastante honesto, é provável que o meu professor esteja certo, mas este texto não é sobre isso. Este é um post sobre o que fazer quando a regressão linear simples não basta. No que segue, vamos discutir uma pequena (e poderosa) extensão do modelo de regressão linear simples, mas antes de prosseguir para o problema propriamente dito (e sua implementação em R), vamos discutir da teoria que existe por trás dele.</p>
+<div id="regressao-linear-e-programacao-quadratica" class="section level3">
+<h3><span class="header-section-number">4.1.1</span> Regressão linear é programação quadrática</h3>
+<p>Embora seja pouco enfatizado nos bacharelados de estatística, uma regressão linear pode ser formulada como um problema de programação quadrática. Entrando nos detalhes, essa afirmação deve-se a dois fatos:</p>
+<ol style="list-style-type: decimal">
+<li>Existe uma teoria, que chama-se programação quadrática, que soluciona problemas da forma</li>
+</ol>
+<p><span class="math display">\[\min_x \Big(\frac{1}{2}x&#39; Q x + c&#39; x\Big),\]</span></p>
+<p>onde <span class="math inline">\(x \in \mathbb{R}^p\)</span> e <span class="math inline">\(Q\)</span> e <span class="math inline">\(c\)</span> tem dimensões que fazem a conta acima ter sentido. A teoria ocupa-se desenvolvendo algoritmos exatos e aproximados para obter soluções desses problemas, inclusive com generalizações:</p>
+<p><span class="math display">\[\min_x \Big(\frac{1}{2}x&#39; Q x + c&#39; x\Big), \text{ sujeito a }Ax \geq 0.\]</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Uma regressão linear consiste em resolver</li>
+</ol>
+<p><span class="math display">\[\min_\beta (Y - \beta X)&#39;(Y-\beta X),\]</span></p>
+<p>que, com um pouco de álgebra, é equivalente à</p>
+<p><span class="math display">\[ \min_\beta (-2Y&#39;X\beta + \beta&#39;X&#39;X\beta).\]</span></p>
+<p>Logo, tomando <span class="math inline">\(Q = 2X&#39;X\)</span> e <span class="math inline">\(c = \frac{1}{2}X&#39;Y\)</span> tem-se que esse é um problema de programação quadrática, que por sua vez é um problema convexo e que, segundo a teoria, tem uma única solução no ponto <span class="math inline">\(\beta = (X&#39;X)^{-1}X&#39;Y\)</span>.</p>
+</div>
+<div id="uma-regressao-linear-simples-mais-flexivel" class="section level3">
+<h3><span class="header-section-number">4.1.2</span> Uma regressão linear simples mais flexível</h3>
+<p>Talvez o jeito mais simples de flexibilizar uma regressão linear no sentido mencionado no começo desse texto é restringir os seus parâmetros. Em muitos contextos, esse é o único jeito de colocar conhecimentos prévios na modelagem<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
+<p>Um caso bastante emblemático aparece nas curvas de crédito divulgadas pela ANBIMA<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>. Lá, ajusta-se um conjunto de curvas que depende de 6 parâmetros e cada curva representa uma classificação de risco (que nem aquela em que o Brasil pode tomar <em>downgrade</em><a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>). Como os níveis de risco estão ordenados, é natural exigir que também exista uma ordenação entre as curvas. Sem entrar em detalhes, a ideia pode ser expressa assim:</p>
+<p><span class="math display">\[\beta_{AAA} &lt; \beta_{AA} &lt; \beta_{A} &lt; \beta_{BBB} &lt; ...\]</span></p>
+<p>O que é que isso tem a ver com programação quadrática? A resposta é que a inequação acima pode ser escrita como <span class="math inline">\(A\beta \geq 0\)</span>, de tal forma já existe uma teoria para resolver uma regressão linear simples com restrições desse tipo! Basta que ela seja vista como um problema de programação quadrática.</p>
+</div>
+<div id="o-pacote-quadprog" class="section level3">
+<h3><span class="header-section-number">4.1.3</span> O pacote <code>quadprog</code></h3>
+<p>Existe um pacote de R para quase tudo, então, como não poderia deixar de ser, existe um pacote em R para resolver problemas do tipo:</p>
+<p><span class="math display">\[\min_x \Big(\frac{1}{2}x&#39; Q x + c&#39; x\Big), \text{ sujeito a }Ax \geq 0.\]</span></p>
+<p>Para ilustrar o seu uso, vamos considerar um exemplo. Vamos simular um conjunto de dados em que <span class="math inline">\(\beta_5 = 0.31, \beta_4 = 0.43, \beta_3 = 1.31, \beta_2 = 2.19, \beta_1 = 2.29\)</span> são os valores reais que precisamos estimar, considere que vale</p>
+<p><span class="math display">\[Y \approx \beta_1X_1 + \beta_2X_2+\beta_3X_3+\beta_4X_4+\beta_5X_5\]</span></p>
+<p>e que o erro de regressão tem distribuição normal.</p>
+<p>Se soubermos antecipadamente que valem as seguintes afirmações</p>
+<p><span class="math display">\[ \beta_1,\beta_2,\beta_3,\beta_4,\beta_5 &gt; 0 \text{ e } \beta_1 &gt; \beta_2 &gt; \beta_3 &gt; \beta_4 &gt; \beta_5,\]</span></p>
+<p>a minimização de <span class="math inline">\((Y-\beta X)&#39;(Y-\beta X)\)</span> pode ser resolvida usando a função <code>solve.QP</code>. Tudo que precisamos fazer é escrever o conjunto de inequações na forma <span class="math inline">\(A\beta \geq 0\)</span>. Mas isso é bem fácil! Basta notar que as restrições são equivalentes à</p>
+<p><span class="math display">\[ \left(\begin{array}{cccc}
+1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\
+1 &amp; -1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; -1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; -1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; -1 \\
+\end{array}\right) \times \left(\begin{array}{c}\beta_1 \\ \beta_2 \\ \beta_3 \\ \beta_4 \\ \beta_5 \end{array}\right) \geq 0.\]</span></p>
+<p>Dessa forma, o problema está prontinho pra passar no moedor de carne, com uma última ressalva. O problema resolvido no <code>solve.QP</code> é</p>
+<p><span class="math display">\[\min_x \Big(\frac{1}{2}x&#39; Q x + c&#39; x\Big), \text{ sujeito a }A&#39;x \geq 0,\]</span></p>
+<p>então vamos ter que tomar o cuidado de passar as nossas restrições através do transposto da matriz que obtivemos acima. Isso resultará na matriz <span class="math inline">\(A\)</span>.</p>
+<p>Para checar como valeu a pena todo esse esforço, dá uma olhada na diferença entre as estimativas! Os pontinhos vermelhos são as estimativas do modelo irrestrito, enquanto as barras são as estimativas do modelo com restrições.</p>
+<p><img src="bookdown_files/figure-html/unnamed-chunk-10-1.svg" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusoes" class="section level3">
+<h3><span class="header-section-number">4.1.4</span> Conclusões</h3>
+<ul>
+<li>Regressão linear simples é um problema de programação quadrática.</li>
+<li>Algumas restrições interessantes podem ser escritas na forma <span class="math inline">\(B\beta \geq 0\)</span>.</li>
+<li>Programação quadrática resolve regressão linear simples com restrições lineares.</li>
+<li>Se em algum dia você topar com um bicho desses, o <code>quadprog</code> pode resolver o problema pra você.</li>
+</ul>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>A menos que você seja <s>uma pessoa razoável</s> bayesiano.<a href="4-1-minimos-quadrados-com-restricoes-lineares.html#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p><a href="http://www.anbima.com.br/data/files/05/43/3E/84/E12D7510E7FCF875262C16A8/metodologia-curvas_20credito_20131104_v2_1_.pdf" class="uri">http://www.anbima.com.br/data/files/05/43/3E/84/E12D7510E7FCF875262C16A8/metodologia-curvas_20credito_20131104_v2_1_.pdf</a><a href="4-1-minimos-quadrados-com-restricoes-lineares.html#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p><a href="http://economia.estadao.com.br/noticias/geral,agravamento-da-crise-politica-eleva-risco-de-rebaixamento-do-brasil-diz-sep,70001824274" class="uri">http://economia.estadao.com.br/noticias/geral,agravamento-da-crise-politica-eleva-risco-de-rebaixamento-do-brasil-diz-sep,70001824274</a><a href="4-1-minimos-quadrados-com-restricoes-lineares.html#fnref3" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="4-modelagem.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="4-2-modelando-a-variancia-da-normal.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/curso-r/livro-blog/edit/master/index.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
