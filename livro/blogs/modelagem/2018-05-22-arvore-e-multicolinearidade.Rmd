@@ -28,7 +28,7 @@ Primeiro vamos ajustar um modelo bonitinho, livre de multicolinearidade. Suponha
 ```{r}
 library(tidyverse)
 
-iris2 <- iris %>% select(Sepal.Length, Sepal.Width, Petal.Length)
+iris2 <- iris %>% dplyr::select(Sepal.Length, Sepal.Width, Petal.Length)
 iris2 %>% cor %>% corrplot::corrplot()
 ```
 

@@ -13,6 +13,7 @@ description: "Livro da Curso-R."
 ```{r setup, include = FALSE}
 # options(xtable.comment = FALSE)
 knitr::opts_chunk$set(echo = FALSE, 
+                      cache = TRUE, 
                       message = FALSE,
                       comment = FALSE, 
                       warning = FALSE, 
@@ -36,6 +37,16 @@ library(tidyverse)
 
 # Tutoriais
 
+```{r child="blogs/tutoriais/2018-07-03-tutorial-pipe.Rmd"}
+```
+
+```{r child="blogs/tutoriais/2017-02-20-o-que-e-um-grafico-estatistico.Rmd"}
+```
+
+```{r child="blogs/tutoriais/2017-04-08-glue.Rmd"}
+```
+
+
 # Modelagem 
 
 ```{r child="blogs/modelagem/2018-09-03-monty-hall.Rmd"}
@@ -52,10 +63,10 @@ library(tidyverse)
 ```{r child="blogs/modelagem/2017-07-06-tidywoe.Rmd"}
 ```
 
-
-
-```{r child="blogs/modelagem/2017-07-29-segundo-menor-dl.Rmd"}
+```{r child="blogs/modelagem/2018-11-18-logistica-comp.Rmd"}
 ```
+
+
 
 
 ```{r child="blogs/modelagem/2017-08-07-minimos-quadrados-restrito.Rmd"}
@@ -68,6 +79,16 @@ library(tidyverse)
 ```{r child="blogs/modelagem/2017-02-21-regressao-heterocedastica.Rmd"}
 ```
 
+
+# Transformação
+
+
+```{r child="blogs/transformacao/2017-07-24-janitor.Rmd"}
+```
+
+
+```{r child="blogs/transformacao/2017-06-17-skimr.Rmd"}
+```
 
 
 

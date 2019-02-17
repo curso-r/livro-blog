@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>7.4 Tidy Data, Teste t Pareado e Modelos Mistos | Como faz no R</title>
+  <meta name="description" content="Livro da Curso-R.">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="7.4 Tidy Data, Teste t Pareado e Modelos Mistos | Como faz no R />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Livro da Curso-R." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7.4 Tidy Data, Teste t Pareado e Modelos Mistos | Como faz no R />
+  
+  <meta name="twitter:description" content="Livro da Curso-R." />
+  
+
+<meta name="author" content="Curso-R">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="7-3-o-fluxo-do-web-scraping.html">
+<link rel="next" href="referencias.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<script src="libs/d3-3.3.8/d3.min.js"></script>
+<script src="libs/dagre-0.4.0/dagre-d3.min.js"></script>
+<link href="libs/mermaid-0.3.0/dist/mermaid.css" rel="stylesheet" />
+<script src="libs/mermaid-0.3.0/dist/mermaid.slim.min.js"></script>
+<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="libs/chromatography-0.1/chromatography.js"></script>
+<script src="libs/DiagrammeR-binding-1.0.0/DiagrammeR.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="assets/css/styles.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Como faz no R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introdução</a><ul>
+<li class="chapter" data-level="1.1" data-path="1-1-objetivos.html"><a href="1-1-objetivos.html"><i class="fa fa-check"></i><b>1.1</b> Por quê ler esse livro</a></li>
+<li class="chapter" data-level="1.2" data-path="1-2-organizacao.html"><a href="1-2-organizacao.html"><i class="fa fa-check"></i><b>1.2</b> Organização</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-analises.html"><a href="2-analises.html"><i class="fa fa-check"></i><b>2</b> Análises</a></li>
+<li class="chapter" data-level="3" data-path="3-tutoriais.html"><a href="3-tutoriais.html"><i class="fa fa-check"></i><b>3</b> Tutoriais</a><ul>
+<li class="chapter" data-level="3.1" data-path="3-1-por-que-usar-o.html"><a href="3-1-por-que-usar-o.html"><i class="fa fa-check"></i><b>3.1</b> Por que usar o %&gt;%</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="3-1-por-que-usar-o.html"><a href="3-1-por-que-usar-o.html#origem"><i class="fa fa-check"></i><b>3.1.1</b> Origem</a></li>
+<li class="chapter" data-level="3.1.2" data-path="3-1-por-que-usar-o.html"><a href="3-1-por-que-usar-o.html#como-funciona"><i class="fa fa-check"></i><b>3.1.2</b> Como funciona</a></li>
+<li class="chapter" data-level="3.1.3" data-path="3-1-por-que-usar-o.html"><a href="3-1-por-que-usar-o.html#vantagens"><i class="fa fa-check"></i><b>3.1.3</b> Vantagens</a></li>
+<li class="chapter" data-level="3.1.4" data-path="3-1-por-que-usar-o.html"><a href="3-1-por-que-usar-o.html#bonus"><i class="fa fa-check"></i><b>3.1.4</b> Bônus</a></li>
+<li class="chapter" data-level="3.1.5" data-path="3-1-por-que-usar-o.html"><a href="3-1-por-que-usar-o.html#conclusao"><i class="fa fa-check"></i><b>3.1.5</b> Conclusão</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="3-2-o-que-e-um-grafico-estatistico.html"><a href="3-2-o-que-e-um-grafico-estatistico.html"><i class="fa fa-check"></i><b>3.2</b> O que é um gráfico estatístico?</a></li>
+<li class="chapter" data-level="3.3" data-path="3-3-colando-textos-no-r.html"><a href="3-3-colando-textos-no-r.html"><i class="fa fa-check"></i><b>3.3</b> Colando textos no <code>R</code></a><ul>
+<li class="chapter" data-level="3.3.1" data-path="3-3-colando-textos-no-r.html"><a href="3-3-colando-textos-no-r.html#paste"><i class="fa fa-check"></i><b>3.3.1</b> <code>paste()</code></a></li>
+<li class="chapter" data-level="3.3.2" data-path="3-3-colando-textos-no-r.html"><a href="3-3-colando-textos-no-r.html#sprintf"><i class="fa fa-check"></i><b>3.3.2</b> <code>sprintf()</code></a></li>
+<li class="chapter" data-level="3.3.3" data-path="3-3-colando-textos-no-r.html"><a href="3-3-colando-textos-no-r.html#glue"><i class="fa fa-check"></i><b>3.3.3</b> <code>glue</code></a></li>
+<li class="chapter" data-level="3.3.4" data-path="3-3-colando-textos-no-r.html"><a href="3-3-colando-textos-no-r.html#resumo"><i class="fa fa-check"></i><b>3.3.4</b> Resumo</a></li>
+<li class="chapter" data-level="3.3.5" data-path="3-3-colando-textos-no-r.html"><a href="3-3-colando-textos-no-r.html#extra"><i class="fa fa-check"></i><b>3.3.5</b> Extra:</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="4-modelagem.html"><a href="4-modelagem.html"><i class="fa fa-check"></i><b>4</b> Modelagem</a><ul>
+<li class="chapter" data-level="4.1" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html"><i class="fa fa-check"></i><b>4.1</b> Monty hall e diagramas de influência</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html#redes-bayesianas"><i class="fa fa-check"></i><b>4.1.1</b> Redes bayesianas</a></li>
+<li class="chapter" data-level="4.1.2" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html#diagrama-de-influencias"><i class="fa fa-check"></i><b>4.1.2</b> Diagrama de influências</a></li>
+<li class="chapter" data-level="4.1.3" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html#voltando-ao-monty-hall"><i class="fa fa-check"></i><b>4.1.3</b> Voltando ao Monty Hall</a></li>
+<li class="chapter" data-level="4.1.4" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html#wrap-up"><i class="fa fa-check"></i><b>4.1.4</b> Wrap-up</a></li>
+<li class="chapter" data-level="4.1.5" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html#extra-1"><i class="fa fa-check"></i><b>4.1.5</b> Extra</a></li>
+<li class="chapter" data-level="4.1.6" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html#extra-2"><i class="fa fa-check"></i><b>4.1.6</b> Extra 2</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="4-2-construindo-autoencoders.html"><a href="4-2-construindo-autoencoders.html"><i class="fa fa-check"></i><b>4.2</b> Construindo Autoencoders</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="4-2-construindo-autoencoders.html"><a href="4-2-construindo-autoencoders.html#construindo-o-seu-primeiro-autoencoder"><i class="fa fa-check"></i><b>4.2.1</b> Construindo o seu primeiro autoencoder</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html"><a href="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html"><i class="fa fa-check"></i><b>4.3</b> Modelos beseados em árvores e a multicolinearidade</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html"><a href="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html#um-modelo-bonitinho"><i class="fa fa-check"></i><b>4.3.1</b> Um modelo bonitinho</a></li>
+<li class="chapter" data-level="4.3.2" data-path="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html"><a href="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html#um-modelo-com-feinho"><i class="fa fa-check"></i><b>4.3.2</b> Um modelo com feinho</a></li>
+<li class="chapter" data-level="4.3.3" data-path="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html"><a href="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html#selecao-de-variaveis-furado"><i class="fa fa-check"></i><b>4.3.3</b> Seleção de variáveis furado</a></li>
+<li class="chapter" data-level="4.3.4" data-path="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html"><a href="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html#como-tratar-multicolinearidade-entao"><i class="fa fa-check"></i><b>4.3.4</b> Como tratar multicolinearidade, então?</a></li>
+<li class="chapter" data-level="4.3.5" data-path="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html"><a href="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html#conclusao-1"><i class="fa fa-check"></i><b>4.3.5</b> Conclusão</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="4-4-woe-em-r-com-tidywoe.html"><a href="4-4-woe-em-r-com-tidywoe.html"><i class="fa fa-check"></i><b>4.4</b> WoE em R com tidywoe</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="4-4-woe-em-r-com-tidywoe.html"><a href="4-4-woe-em-r-com-tidywoe.html#instalacao-e-dados"><i class="fa fa-check"></i><b>4.4.1</b> Instalação e dados</a></li>
+<li class="chapter" data-level="4.4.2" data-path="4-4-woe-em-r-com-tidywoe.html"><a href="4-4-woe-em-r-com-tidywoe.html#como-usar"><i class="fa fa-check"></i><b>4.4.2</b> Como usar</a></li>
+<li class="chapter" data-level="4.4.3" data-path="4-4-woe-em-r-com-tidywoe.html"><a href="4-4-woe-em-r-com-tidywoe.html#add_woe"><i class="fa fa-check"></i><b>4.4.3</b> add_woe()</a></li>
+<li class="chapter" data-level="4.4.4" data-path="4-4-woe-em-r-com-tidywoe.html"><a href="4-4-woe-em-r-com-tidywoe.html#woe_dictionary"><i class="fa fa-check"></i><b>4.4.4</b> woe_dictionary()</a></li>
+<li class="chapter" data-level="4.4.5" data-path="4-4-woe-em-r-com-tidywoe.html"><a href="4-4-woe-em-r-com-tidywoe.html#usando-um-dicionario-customizado"><i class="fa fa-check"></i><b>4.4.5</b> Usando um dicionário customizado</a></li>
+<li class="chapter" data-level="4.4.6" data-path="4-4-woe-em-r-com-tidywoe.html"><a href="4-4-woe-em-r-com-tidywoe.html#exemplo-de-exploracao"><i class="fa fa-check"></i><b>4.4.6</b> Exemplo de exploração</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="5-regressao-logistica-aspectos-computacionais.html"><a href="5-regressao-logistica-aspectos-computacionais.html"><i class="fa fa-check"></i><b>5</b> Regressão logística: aspectos computacionais</a><ul>
+<li class="chapter" data-level="5.0.1" data-path="5-regressao-logistica-aspectos-computacionais.html"><a href="5-regressao-logistica-aspectos-computacionais.html#introducao-o-tensorglm"><i class="fa fa-check"></i><b>5.0.1</b> Introdução: o <code>tensorglm</code></a></li>
+<li class="chapter" data-level="5.0.2" data-path="5-regressao-logistica-aspectos-computacionais.html"><a href="5-regressao-logistica-aspectos-computacionais.html#a-regressao-logistica"><i class="fa fa-check"></i><b>5.0.2</b> A regressão logística</a></li>
+<li class="chapter" data-level="5.0.3" data-path="5-regressao-logistica-aspectos-computacionais.html"><a href="5-regressao-logistica-aspectos-computacionais.html#o-problema"><i class="fa fa-check"></i><b>5.0.3</b> O Problema</a></li>
+<li class="chapter" data-level="5.0.4" data-path="5-regressao-logistica-aspectos-computacionais.html"><a href="5-regressao-logistica-aspectos-computacionais.html#a-binary-cross-entropy-no-tensorflow"><i class="fa fa-check"></i><b>5.0.4</b> A binary cross-entropy no Tensorflow</a></li>
+<li class="chapter" data-level="5.0.5" data-path="5-regressao-logistica-aspectos-computacionais.html"><a href="5-regressao-logistica-aspectos-computacionais.html#wrap-up-1"><i class="fa fa-check"></i><b>5.0.5</b> Wrap-up</a></li>
+<li class="chapter" data-level="5.1" data-path="5-1-minimos-quadrados-com-restricoes-lineares.html"><a href="5-1-minimos-quadrados-com-restricoes-lineares.html"><i class="fa fa-check"></i><b>5.1</b> Mínimos quadrados com restrições lineares</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="5-1-minimos-quadrados-com-restricoes-lineares.html"><a href="5-1-minimos-quadrados-com-restricoes-lineares.html#regressao-linear-e-programacao-quadratica"><i class="fa fa-check"></i><b>5.1.1</b> Regressão linear é programação quadrática</a></li>
+<li class="chapter" data-level="5.1.2" data-path="5-1-minimos-quadrados-com-restricoes-lineares.html"><a href="5-1-minimos-quadrados-com-restricoes-lineares.html#uma-regressao-linear-simples-mais-flexivel"><i class="fa fa-check"></i><b>5.1.2</b> Uma regressão linear simples mais flexível</a></li>
+<li class="chapter" data-level="5.1.3" data-path="5-1-minimos-quadrados-com-restricoes-lineares.html"><a href="5-1-minimos-quadrados-com-restricoes-lineares.html#o-pacote-quadprog"><i class="fa fa-check"></i><b>5.1.3</b> O pacote <code>quadprog</code></a></li>
+<li class="chapter" data-level="5.1.4" data-path="5-1-minimos-quadrados-com-restricoes-lineares.html"><a href="5-1-minimos-quadrados-com-restricoes-lineares.html#conclusoes"><i class="fa fa-check"></i><b>5.1.4</b> Conclusões</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="5-2-filtros-de-bloom-em-r.html"><a href="5-2-filtros-de-bloom-em-r.html"><i class="fa fa-check"></i><b>5.2</b> Filtros de Bloom em R</a></li>
+<li class="chapter" data-level="5.3" data-path="5-3-modelando-a-variancia-da-normal.html"><a href="5-3-modelando-a-variancia-da-normal.html"><i class="fa fa-check"></i><b>5.3</b> Modelando a variância da normal</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="5-3-modelando-a-variancia-da-normal.html"><a href="5-3-modelando-a-variancia-da-normal.html#usando-o-pacote-gamlss"><i class="fa fa-check"></i><b>5.3.1</b> Usando o pacote <code>gamlss</code></a></li>
+<li class="chapter" data-level="5.3.2" data-path="5-3-modelando-a-variancia-da-normal.html"><a href="5-3-modelando-a-variancia-da-normal.html#usando-o-pacote-dglm"><i class="fa fa-check"></i><b>5.3.2</b> Usando o pacote <code>dglm</code></a></li>
+<li class="chapter" data-level="5.3.3" data-path="5-3-modelando-a-variancia-da-normal.html"><a href="5-3-modelando-a-variancia-da-normal.html#usando-o-pacote-rstan"><i class="fa fa-check"></i><b>5.3.3</b> Usando o pacote <code>rstan</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="6-transformacao.html"><a href="6-transformacao.html"><i class="fa fa-check"></i><b>6</b> Transformação</a><ul>
+<li class="chapter" data-level="6.1" data-path="6-1-arrumando-banco-de-dados-o-pacote-janitor.html"><a href="6-1-arrumando-banco-de-dados-o-pacote-janitor.html"><i class="fa fa-check"></i><b>6.1</b> Arrumando banco de dados: o pacote janitor</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="6-1-arrumando-banco-de-dados-o-pacote-janitor.html"><a href="6-1-arrumando-banco-de-dados-o-pacote-janitor.html#arrumando-o-nome-das-variaveis"><i class="fa fa-check"></i><b>6.1.1</b> Arrumando o nome das variáveis</a></li>
+<li class="chapter" data-level="6.1.2" data-path="6-1-arrumando-banco-de-dados-o-pacote-janitor.html"><a href="6-1-arrumando-banco-de-dados-o-pacote-janitor.html#removendo-linhas-e-colunas-vazias"><i class="fa fa-check"></i><b>6.1.2</b> Removendo linhas e colunas vazias</a></li>
+<li class="chapter" data-level="6.1.3" data-path="6-1-arrumando-banco-de-dados-o-pacote-janitor.html"><a href="6-1-arrumando-banco-de-dados-o-pacote-janitor.html#identificando-linhas-duplicadas"><i class="fa fa-check"></i><b>6.1.3</b> Identificando linhas duplicadas</a></li>
+<li class="chapter" data-level="6.1.4" data-path="6-1-arrumando-banco-de-dados-o-pacote-janitor.html"><a href="6-1-arrumando-banco-de-dados-o-pacote-janitor.html#outras-funcoes"><i class="fa fa-check"></i><b>6.1.4</b> Outras funções</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="6-2-skimr-estatisticas-basicas-com.html"><a href="6-2-skimr-estatisticas-basicas-com.html"><i class="fa fa-check"></i><b>6.2</b> Skimr: estatísticas básicas com ❤️</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="6-2-skimr-estatisticas-basicas-com.html"><a href="6-2-skimr-estatisticas-basicas-com.html#criando-suas-proprias-funcoes"><i class="fa fa-check"></i><b>6.2.1</b> Criando suas próprias funções</a></li>
+<li class="chapter" data-level="6.2.2" data-path="6-2-skimr-estatisticas-basicas-com.html"><a href="6-2-skimr-estatisticas-basicas-com.html#wrap-up-2"><i class="fa fa-check"></i><b>6.2.2</b> Wrap up</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="7-reflexoes.html"><a href="7-reflexoes.html"><i class="fa fa-check"></i><b>7</b> Reflexões</a><ul>
+<li class="chapter" data-level="7.1" data-path="7-1-manifesto-tidy.html"><a href="7-1-manifesto-tidy.html"><i class="fa fa-check"></i><b>7.1</b> Manifesto tidy</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="7-1-manifesto-tidy.html"><a href="7-1-manifesto-tidy.html#reutilizar-estruturas-de-dados-existentes"><i class="fa fa-check"></i><b>7.1.1</b> Reutilizar estruturas de dados existentes</a></li>
+<li class="chapter" data-level="7.1.2" data-path="7-1-manifesto-tidy.html"><a href="7-1-manifesto-tidy.html#organizar-funcoes-simples-usando-o-pipe"><i class="fa fa-check"></i><b>7.1.2</b> Organizar funções simples usando o <em>pipe</em></a></li>
+<li class="chapter" data-level="7.1.3" data-path="7-1-manifesto-tidy.html"><a href="7-1-manifesto-tidy.html#aderir-a-programacao-funcional"><i class="fa fa-check"></i><b>7.1.3</b> Aderir à programação funcional</a></li>
+<li class="chapter" data-level="7.1.4" data-path="7-1-manifesto-tidy.html"><a href="7-1-manifesto-tidy.html#projetado-para-ser-usado-por-seres-humanos"><i class="fa fa-check"></i><b>7.1.4</b> Projetado para ser usado por seres humanos</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="7-2-eu-a-estatistica-e-a-programacao.html"><a href="7-2-eu-a-estatistica-e-a-programacao.html"><i class="fa fa-check"></i><b>7.2</b> Eu, a Estatística e a programação</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="7-2-eu-a-estatistica-e-a-programacao.html"><a href="7-2-eu-a-estatistica-e-a-programacao.html#por-que-amar-a-estatistica"><i class="fa fa-check"></i><b>7.2.1</b> Por que amar a estatística?</a></li>
+<li class="chapter" data-level="7.2.2" data-path="7-2-eu-a-estatistica-e-a-programacao.html"><a href="7-2-eu-a-estatistica-e-a-programacao.html#preconceitos-no-aprendizado"><i class="fa fa-check"></i><b>7.2.2</b> Preconceitos no aprendizado</a></li>
+<li class="chapter" data-level="7.2.3" data-path="7-2-eu-a-estatistica-e-a-programacao.html"><a href="7-2-eu-a-estatistica-e-a-programacao.html#estatistica-e-programacao"><i class="fa fa-check"></i><b>7.2.3</b> Estatística e programação</a></li>
+<li class="chapter" data-level="7.2.4" data-path="7-2-eu-a-estatistica-e-a-programacao.html"><a href="7-2-eu-a-estatistica-e-a-programacao.html#wrap-up-3"><i class="fa fa-check"></i><b>7.2.4</b> Wrap-up</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="7-3-o-fluxo-do-web-scraping.html"><a href="7-3-o-fluxo-do-web-scraping.html"><i class="fa fa-check"></i><b>7.3</b> O Fluxo do Web Scraping</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="7-3-o-fluxo-do-web-scraping.html"><a href="7-3-o-fluxo-do-web-scraping.html#o-fluxo"><i class="fa fa-check"></i><b>7.3.1</b> O fluxo</a></li>
+<li class="chapter" data-level="7.3.2" data-path="7-3-o-fluxo-do-web-scraping.html"><a href="7-3-o-fluxo-do-web-scraping.html#conclusao-2"><i class="fa fa-check"></i><b>7.3.2</b> Conclusão</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="7-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><a href="7-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><i class="fa fa-check"></i><b>7.4</b> Tidy Data, Teste t Pareado e Modelos Mistos</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="7-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><a href="7-4-tidy-data-teste-t-pareado-e-modelos-mistos.html#tidy-data"><i class="fa fa-check"></i><b>7.4.1</b> Tidy Data</a></li>
+<li class="chapter" data-level="7.4.2" data-path="7-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><a href="7-4-tidy-data-teste-t-pareado-e-modelos-mistos.html#o-que-isso-tem-a-ver-com-teste-t-pareado-e-modelos-mistos"><i class="fa fa-check"></i><b>7.4.2</b> O que isso tem a ver com teste <span class="math inline">\(t\)</span>-pareado e modelos mistos?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referências</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Feito com <font color="red">❤</font>️ usando<strong> bookdown</strong></a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Como faz no R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="tidy-data-teste-t-pareado-e-modelos-mistos" class="section level2">
+<h2><span class="header-section-number">7.4</span> Tidy Data, Teste t Pareado e Modelos Mistos</h2>
+<div class="rmdtip">
+<p>
+Autor: Daniel
+</p>
+</div>
+<div class="rmdtip">
+<p>
+Dificuldade alta
+</p>
+</div>
+<div class="rmdimportant">
+<p>
+model
+</p>
+</div>
+<p>O que teste <span class="math inline">\(t\)</span>-pareado, modelos mistos e tidy data podem ter em comum?</p>
+<div id="tidy-data" class="section level3">
+<h3><span class="header-section-number">7.4.1</span> Tidy Data</h3>
+<p>Para começar, vamos relemebrar o que é <em>tidy data</em> para depois seguir ao ponto do post. Tidy data é um conceito introduzido pelo Hadley Wickham <a href="https://www.jstatsoft.org/article/view/v059i10/v59i10.pdf">neste paper</a>.</p>
+<p>Esse paper é, para mim, o melhor artigo do Hadley. A primeira frase da definição cita Tolstoi e diz:</p>
+<blockquote>
+<p>Like families, tidy datasets are all alike
+but every messy dataset is messy in its own way.</p>
+<p>– Leo Tolstoi</p>
+</blockquote>
+<p>Essa frase resume a vida de qualquer um que trabalha ou já trabalhou com análise de dados. O ponto mais importante do que significa <em>tidy data</em> também está neste primeiro parágrafo: são datasets em que a estrutura dos dados está ligada com o seu significado. A forma padronizada é:</p>
+<ol style="list-style-type: decimal">
+<li>Cada variável é uma coluna de uma tabela</li>
+<li>Cada observação é uma linha de uma tabela</li>
+<li>Cada tipo de unidade observacional forma uma tabela</li>
+</ol>
+<p>O exemplo cássico é o seguinte. Primeiro vamos ver um banco de dados <em>desarrumado</em>.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Pais</th>
+<th align="right">Idh2015</th>
+<th align="right">Idh2014</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Brasil</td>
+<td align="right">0.754</td>
+<td align="right">0.755</td>
+</tr>
+<tr class="even">
+<td align="left">Argentina</td>
+<td align="right">0.827</td>
+<td align="right">0.836</td>
+</tr>
+<tr class="odd">
+<td align="left">Chile</td>
+<td align="right">0.847</td>
+<td align="right">0.832</td>
+</tr>
+</tbody>
+</table>
+<p>Esse dataset está <em>desarrumado</em> pois existem duas colunas <strong>Idh2015</strong> e <strong>Idh2014</strong> que representam a mesma variável: <strong>IDH</strong> e uma variável implícita <strong>ANO</strong>, que também aparece nesta duas colunas. A forma <em>tidy</em> de representar este dataset seria:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Pais</th>
+<th align="right">ano</th>
+<th align="right">idh</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Brasil</td>
+<td align="right">2015</td>
+<td align="right">0.754</td>
+</tr>
+<tr class="even">
+<td align="left">Argentina</td>
+<td align="right">2015</td>
+<td align="right">0.827</td>
+</tr>
+<tr class="odd">
+<td align="left">Chile</td>
+<td align="right">2015</td>
+<td align="right">0.847</td>
+</tr>
+<tr class="even">
+<td align="left">Brasil</td>
+<td align="right">2014</td>
+<td align="right">0.755</td>
+</tr>
+<tr class="odd">
+<td align="left">Argentina</td>
+<td align="right">2014</td>
+<td align="right">0.836</td>
+</tr>
+<tr class="even">
+<td align="left">Chile</td>
+<td align="right">2014</td>
+<td align="right">0.832</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="o-que-isso-tem-a-ver-com-teste-t-pareado-e-modelos-mistos" class="section level3">
+<h3><span class="header-section-number">7.4.2</span> O que isso tem a ver com teste <span class="math inline">\(t\)</span>-pareado e modelos mistos?</h3>
+<p>Suponha que queremos inferir se houve alguma mudança na média do IDH de um ano para o outro. Ou seja, testar se a média do IDH de 2015 é diferente da média do IDH de 2014. Vamos considerar um banco de dados simulado:</p>
+<p>Uma forma de fazer isso é usar o teste <span class="math inline">\(t\)</span>-pareado, ensinado nos cursos introdutórios de estatística. Basicamente o que ele faz é testar se a média da diferença entre o IDH2015 e o IDH 2014 é diferente de zero. Isso é diferente de um teste <span class="math inline">\(t\)</span> usual, pois o teste <span class="math inline">\(t\)</span>-pareado ajusta o seu cálculo da variância para considerar que existem duas fontes de incerteza, eventualmente correlacionadas.</p>
+<p>No R a forma mais natural de fazer isso é:</p>
+<p>Note que o nosso banco de dados está <em>desarrumado</em> e mesmo assim foi muito simples fazer esse teste no R. Agora vamos arrumar o banco de dados.</p>
+<p>Agora para fazer o mesmo teste, poderíamos filtrar o banco de dados duas vezes, por exemplo:</p>
+<pre><code>    Paired t-test
+
+data:  df$idh[df$ano == 2015] and df$idh[df$ano == 2014]
+t = 27.355, df = 49, p-value &lt; 2.2e-16
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 0.09000554 0.10427822
+sample estimates:
+mean of the differences 
+             0.09714188 </code></pre>
+<p>Mas aí estamos voltando para a forma desarrumada para fazer o teste. Outra forma de fazer é considerar essa comparação de médias como um problema de regressão em que a suposição independência das observações não é válida, uma vez que para cada país, os IDHs de 2014 e de 2015 são correlacionados.</p>
+<p>Vamos ajustar um modelo com efeitos aleatórios para esse problema e comparar os resultados.</p>
+<pre><code>Linear mixed-effects model fit by REML
+ Data: df 
+        AIC       BIC   logLik
+  -184.7518 -174.4119 96.37588
+
+Random effects:
+ Formula: ~1 | Pais
+        (Intercept)   Residual
+StdDev:   0.3009017 0.01775584
+
+Fixed effects: idh ~ as.factor(ano) 
+                       Value  Std.Error DF  t-value p-value
+(Intercept)        0.4840132 0.04262795 49 11.35436       0
+as.factor(ano)2015 0.0971419 0.00355117 49 27.35491       0
+ Correlation: 
+                   (Intr)
+as.factor(ano)2015 -0.042
+
+Standardized Within-Group Residuals:
+        Min          Q1         Med          Q3         Max 
+-1.88877770 -0.44544521 -0.01239249  0.39934207  1.84475543 
+
+Number of Observations: 100
+Number of Groups: 50 </code></pre>
+<p>Estamos interessados em comparar a significância do efeito fixo da variável ano nesse
+modelo com a do teste <span class="math inline">\(t\)</span>-pareado. Veja que no caso a estatística <span class="math inline">\(t\)</span> do testes é idêntica: <code>27.35</code>.</p>
+<p>Vimos que a forma como os dados estão estruturados no seu banco de dados pode influenciar a operação utilizada para realizar a análise. Se ele estivesse na forma <em>desarrumada</em> o mais natural seria aplicar um teste <span class="math inline">\(t\)</span>-pareado, se ele estivesse em formado <em>tidy</em> o natural seria usar um modelo misto. Em seu paper, Hadley argumenta que a maioria dos softwares esperam que o seu banco de dados esteja <em>arrumado</em> no sentido de que cada variável é uma coluna e cada observação é uma linha.</p>
+</div>
+</div>
+<!-- </div> -->
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="7-3-o-fluxo-do-web-scraping.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="referencias.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/curso-r/livro-blog/edit/master/index.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

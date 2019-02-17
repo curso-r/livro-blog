@@ -34,7 +34,7 @@ library(tidywoe)
 
 # install.packages("FactoMineR")
 data(tea, package = "FactoMineR")
-tea_mini <- tea %>% select(breakfast, how, where, price)
+tea_mini <- tea %>% dplyr::select(breakfast, how, where, price)
 ```
 
 ### Como usar

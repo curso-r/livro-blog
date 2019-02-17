@@ -8,15 +8,15 @@ author: ["Caio"]
 summary: "De onde vem e como funciona o operador pipe."
 ---
 
+## Por que usar o %>%
 
 Provavelmente você já ouviu falar do operador pipe (`%>%`). Muita gente acha
 que ele é uma sequência mágica de símbolos que muda completamente o visual do
 seu código, mas na verdade ele não passa de uma função como outra qualquer.
-
-Nesse post vou explorar um pouco da história do pipe, como ele funciona e
+Vamos explorar um pouco da história do pipe, como ele funciona e
 por que utilizá-lo.
 
-## Origem
+### Origem
 
 O conceito de pipe existe pelo menos desde os anos 1970. De acordo com seu
 criador, o operador foi concebido em "uma noite febril" e tinha o objetivo de
@@ -37,14 +37,14 @@ ls | cat
 
 Por essa descrição já conseguimos ter uma ideia de onde vem o seu nome: _pipe_
 em inglês significa "cano", referindo-se ao transporte das saídas dos comandos.
-Em portugês o termo é traduzido como "canalização" ou "encadeamento", mas
+Em português o termo é traduzido como "canalização" ou "encadeamento", mas
 no dia-a-dia é mais comum usar o termo em inglês.
 
-A partir daí o pipe tem aparecido nas mais diversas aplicações, desde HTML até
-o nosso tão querido R. Ele pode ter múltiplos disfarces, mas o seu objetivo
+A partir daí o pipe tem aparecido nas mais diversas aplicações, desde `HTML` até
+o nosso tão querido `R`. Ele pode ter múltiplos disfarces, mas o seu objetivo
 é sempre o mesmo: transportar resultados.
 
-## Como funciona
+### Como funciona
 
 Em R o pipe tem uma cara meio estranha (`%>%`), mas no fundo ele não passa
 de uma função infixa, ou seja, uma função que aparece entre os seus argumentos
@@ -115,7 +115,7 @@ x %>% mais_n(4) %>% sobre_dois()
 #> [1] 2.5 3.0 3.5
 ```
 
-## Vantagens
+### Vantagens
 
 A grande vantagem do pipe não é só enxergar quais funções são aplicadas
 primeiro, mas sim nos ajudar a programar pipelines ("encanamento" em inglês)
@@ -150,7 +150,7 @@ agrupamos e resumimos; em cada linha temos uma operação e elas são executadas
 em sequência.
 
 Isso não melhora só a legibilidade do código, mas também a sua _debugabilidade_!
-Se tivermos encontrado um bug na pipeline, basta executar linha a linha do
+Se tivermos encontrado um *bug* na pipeline, basta executar linha a linha do
 encadeamento até que encontremos a linha problemática. Com o pipe podemos
 programar de forma mais compacta, legível e correta.
 
@@ -175,7 +175,7 @@ x %>%
 # [1] 0
 ```
 
-## Bônus
+### Bônus
 
 Agora que você já sabe dos usos mais comuns do pipe, aqui está uma outra
 funcionalidade interessante: funções unárias. Se você estiver familiarizado
@@ -195,7 +195,7 @@ m3_s2(x)
 Usando novamente o `.` definimos uma função que recebe apenas um argumento
 com uma sequência de aplicações de outras funções.
 
-## Conclusão
+### Conclusão
 
 O pipe não é apenas algo que deve ser usado pelos fãs do
 [tidyverse](https://www.tidyverse.org/). Ele é uma função extremamente útil

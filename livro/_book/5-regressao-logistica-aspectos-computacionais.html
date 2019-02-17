@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Capítulo 5 Regressão logística: aspectos computacionais | Como faz no R</title>
+  <meta name="description" content="Livro da Curso-R.">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Capítulo 5 Regressão logística: aspectos computacionais | Como faz no R />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Livro da Curso-R." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 5 Regressão logística: aspectos computacionais | Como faz no R />
+  
+  <meta name="twitter:description" content="Livro da Curso-R." />
+  
+
+<meta name="author" content="Curso-R">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="4-4-woe-em-r-com-tidywoe.html">
+<link rel="next" href="5-1-minimos-quadrados-com-restricoes-lineares.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<script src="libs/d3-3.3.8/d3.min.js"></script>
+<script src="libs/dagre-0.4.0/dagre-d3.min.js"></script>
+<link href="libs/mermaid-0.3.0/dist/mermaid.css" rel="stylesheet" />
+<script src="libs/mermaid-0.3.0/dist/mermaid.slim.min.js"></script>
+<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="libs/chromatography-0.1/chromatography.js"></script>
+<script src="libs/DiagrammeR-binding-1.0.0/DiagrammeR.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="assets/css/styles.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Como faz no R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introdução</a><ul>
+<li class="chapter" data-level="1.1" data-path="1-1-objetivos.html"><a href="1-1-objetivos.html"><i class="fa fa-check"></i><b>1.1</b> Por quê ler esse livro</a></li>
+<li class="chapter" data-level="1.2" data-path="1-2-organizacao.html"><a href="1-2-organizacao.html"><i class="fa fa-check"></i><b>1.2</b> Organização</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-analises.html"><a href="2-analises.html"><i class="fa fa-check"></i><b>2</b> Análises</a></li>
+<li class="chapter" data-level="3" data-path="3-tutoriais.html"><a href="3-tutoriais.html"><i class="fa fa-check"></i><b>3</b> Tutoriais</a><ul>
+<li class="chapter" data-level="3.1" data-path="3-1-por-que-usar-o.html"><a href="3-1-por-que-usar-o.html"><i class="fa fa-check"></i><b>3.1</b> Por que usar o %&gt;%</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="3-1-por-que-usar-o.html"><a href="3-1-por-que-usar-o.html#origem"><i class="fa fa-check"></i><b>3.1.1</b> Origem</a></li>
+<li class="chapter" data-level="3.1.2" data-path="3-1-por-que-usar-o.html"><a href="3-1-por-que-usar-o.html#como-funciona"><i class="fa fa-check"></i><b>3.1.2</b> Como funciona</a></li>
+<li class="chapter" data-level="3.1.3" data-path="3-1-por-que-usar-o.html"><a href="3-1-por-que-usar-o.html#vantagens"><i class="fa fa-check"></i><b>3.1.3</b> Vantagens</a></li>
+<li class="chapter" data-level="3.1.4" data-path="3-1-por-que-usar-o.html"><a href="3-1-por-que-usar-o.html#bonus"><i class="fa fa-check"></i><b>3.1.4</b> Bônus</a></li>
+<li class="chapter" data-level="3.1.5" data-path="3-1-por-que-usar-o.html"><a href="3-1-por-que-usar-o.html#conclusao"><i class="fa fa-check"></i><b>3.1.5</b> Conclusão</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="3-2-o-que-e-um-grafico-estatistico.html"><a href="3-2-o-que-e-um-grafico-estatistico.html"><i class="fa fa-check"></i><b>3.2</b> O que é um gráfico estatístico?</a></li>
+<li class="chapter" data-level="3.3" data-path="3-3-colando-textos-no-r.html"><a href="3-3-colando-textos-no-r.html"><i class="fa fa-check"></i><b>3.3</b> Colando textos no <code>R</code></a><ul>
+<li class="chapter" data-level="3.3.1" data-path="3-3-colando-textos-no-r.html"><a href="3-3-colando-textos-no-r.html#paste"><i class="fa fa-check"></i><b>3.3.1</b> <code>paste()</code></a></li>
+<li class="chapter" data-level="3.3.2" data-path="3-3-colando-textos-no-r.html"><a href="3-3-colando-textos-no-r.html#sprintf"><i class="fa fa-check"></i><b>3.3.2</b> <code>sprintf()</code></a></li>
+<li class="chapter" data-level="3.3.3" data-path="3-3-colando-textos-no-r.html"><a href="3-3-colando-textos-no-r.html#glue"><i class="fa fa-check"></i><b>3.3.3</b> <code>glue</code></a></li>
+<li class="chapter" data-level="3.3.4" data-path="3-3-colando-textos-no-r.html"><a href="3-3-colando-textos-no-r.html#resumo"><i class="fa fa-check"></i><b>3.3.4</b> Resumo</a></li>
+<li class="chapter" data-level="3.3.5" data-path="3-3-colando-textos-no-r.html"><a href="3-3-colando-textos-no-r.html#extra"><i class="fa fa-check"></i><b>3.3.5</b> Extra:</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="4-modelagem.html"><a href="4-modelagem.html"><i class="fa fa-check"></i><b>4</b> Modelagem</a><ul>
+<li class="chapter" data-level="4.1" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html"><i class="fa fa-check"></i><b>4.1</b> Monty hall e diagramas de influência</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html#redes-bayesianas"><i class="fa fa-check"></i><b>4.1.1</b> Redes bayesianas</a></li>
+<li class="chapter" data-level="4.1.2" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html#diagrama-de-influencias"><i class="fa fa-check"></i><b>4.1.2</b> Diagrama de influências</a></li>
+<li class="chapter" data-level="4.1.3" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html#voltando-ao-monty-hall"><i class="fa fa-check"></i><b>4.1.3</b> Voltando ao Monty Hall</a></li>
+<li class="chapter" data-level="4.1.4" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html#wrap-up"><i class="fa fa-check"></i><b>4.1.4</b> Wrap-up</a></li>
+<li class="chapter" data-level="4.1.5" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html#extra-1"><i class="fa fa-check"></i><b>4.1.5</b> Extra</a></li>
+<li class="chapter" data-level="4.1.6" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html#extra-2"><i class="fa fa-check"></i><b>4.1.6</b> Extra 2</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="4-2-construindo-autoencoders.html"><a href="4-2-construindo-autoencoders.html"><i class="fa fa-check"></i><b>4.2</b> Construindo Autoencoders</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="4-2-construindo-autoencoders.html"><a href="4-2-construindo-autoencoders.html#construindo-o-seu-primeiro-autoencoder"><i class="fa fa-check"></i><b>4.2.1</b> Construindo o seu primeiro autoencoder</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html"><a href="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html"><i class="fa fa-check"></i><b>4.3</b> Modelos beseados em árvores e a multicolinearidade</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html"><a href="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html#um-modelo-bonitinho"><i class="fa fa-check"></i><b>4.3.1</b> Um modelo bonitinho</a></li>
+<li class="chapter" data-level="4.3.2" data-path="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html"><a href="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html#um-modelo-com-feinho"><i class="fa fa-check"></i><b>4.3.2</b> Um modelo com feinho</a></li>
+<li class="chapter" data-level="4.3.3" data-path="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html"><a href="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html#selecao-de-variaveis-furado"><i class="fa fa-check"></i><b>4.3.3</b> Seleção de variáveis furado</a></li>
+<li class="chapter" data-level="4.3.4" data-path="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html"><a href="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html#como-tratar-multicolinearidade-entao"><i class="fa fa-check"></i><b>4.3.4</b> Como tratar multicolinearidade, então?</a></li>
+<li class="chapter" data-level="4.3.5" data-path="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html"><a href="4-3-modelos-beseados-em-arvores-e-a-multicolinearidade.html#conclusao-1"><i class="fa fa-check"></i><b>4.3.5</b> Conclusão</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="4-4-woe-em-r-com-tidywoe.html"><a href="4-4-woe-em-r-com-tidywoe.html"><i class="fa fa-check"></i><b>4.4</b> WoE em R com tidywoe</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="4-4-woe-em-r-com-tidywoe.html"><a href="4-4-woe-em-r-com-tidywoe.html#instalacao-e-dados"><i class="fa fa-check"></i><b>4.4.1</b> Instalação e dados</a></li>
+<li class="chapter" data-level="4.4.2" data-path="4-4-woe-em-r-com-tidywoe.html"><a href="4-4-woe-em-r-com-tidywoe.html#como-usar"><i class="fa fa-check"></i><b>4.4.2</b> Como usar</a></li>
+<li class="chapter" data-level="4.4.3" data-path="4-4-woe-em-r-com-tidywoe.html"><a href="4-4-woe-em-r-com-tidywoe.html#add_woe"><i class="fa fa-check"></i><b>4.4.3</b> add_woe()</a></li>
+<li class="chapter" data-level="4.4.4" data-path="4-4-woe-em-r-com-tidywoe.html"><a href="4-4-woe-em-r-com-tidywoe.html#woe_dictionary"><i class="fa fa-check"></i><b>4.4.4</b> woe_dictionary()</a></li>
+<li class="chapter" data-level="4.4.5" data-path="4-4-woe-em-r-com-tidywoe.html"><a href="4-4-woe-em-r-com-tidywoe.html#usando-um-dicionario-customizado"><i class="fa fa-check"></i><b>4.4.5</b> Usando um dicionário customizado</a></li>
+<li class="chapter" data-level="4.4.6" data-path="4-4-woe-em-r-com-tidywoe.html"><a href="4-4-woe-em-r-com-tidywoe.html#exemplo-de-exploracao"><i class="fa fa-check"></i><b>4.4.6</b> Exemplo de exploração</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="5-regressao-logistica-aspectos-computacionais.html"><a href="5-regressao-logistica-aspectos-computacionais.html"><i class="fa fa-check"></i><b>5</b> Regressão logística: aspectos computacionais</a><ul>
+<li class="chapter" data-level="5.0.1" data-path="5-regressao-logistica-aspectos-computacionais.html"><a href="5-regressao-logistica-aspectos-computacionais.html#introducao-o-tensorglm"><i class="fa fa-check"></i><b>5.0.1</b> Introdução: o <code>tensorglm</code></a></li>
+<li class="chapter" data-level="5.0.2" data-path="5-regressao-logistica-aspectos-computacionais.html"><a href="5-regressao-logistica-aspectos-computacionais.html#a-regressao-logistica"><i class="fa fa-check"></i><b>5.0.2</b> A regressão logística</a></li>
+<li class="chapter" data-level="5.0.3" data-path="5-regressao-logistica-aspectos-computacionais.html"><a href="5-regressao-logistica-aspectos-computacionais.html#o-problema"><i class="fa fa-check"></i><b>5.0.3</b> O Problema</a></li>
+<li class="chapter" data-level="5.0.4" data-path="5-regressao-logistica-aspectos-computacionais.html"><a href="5-regressao-logistica-aspectos-computacionais.html#a-binary-cross-entropy-no-tensorflow"><i class="fa fa-check"></i><b>5.0.4</b> A binary cross-entropy no Tensorflow</a></li>
+<li class="chapter" data-level="5.0.5" data-path="5-regressao-logistica-aspectos-computacionais.html"><a href="5-regressao-logistica-aspectos-computacionais.html#wrap-up-1"><i class="fa fa-check"></i><b>5.0.5</b> Wrap-up</a></li>
+<li class="chapter" data-level="5.1" data-path="5-1-minimos-quadrados-com-restricoes-lineares.html"><a href="5-1-minimos-quadrados-com-restricoes-lineares.html"><i class="fa fa-check"></i><b>5.1</b> Mínimos quadrados com restrições lineares</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="5-1-minimos-quadrados-com-restricoes-lineares.html"><a href="5-1-minimos-quadrados-com-restricoes-lineares.html#regressao-linear-e-programacao-quadratica"><i class="fa fa-check"></i><b>5.1.1</b> Regressão linear é programação quadrática</a></li>
+<li class="chapter" data-level="5.1.2" data-path="5-1-minimos-quadrados-com-restricoes-lineares.html"><a href="5-1-minimos-quadrados-com-restricoes-lineares.html#uma-regressao-linear-simples-mais-flexivel"><i class="fa fa-check"></i><b>5.1.2</b> Uma regressão linear simples mais flexível</a></li>
+<li class="chapter" data-level="5.1.3" data-path="5-1-minimos-quadrados-com-restricoes-lineares.html"><a href="5-1-minimos-quadrados-com-restricoes-lineares.html#o-pacote-quadprog"><i class="fa fa-check"></i><b>5.1.3</b> O pacote <code>quadprog</code></a></li>
+<li class="chapter" data-level="5.1.4" data-path="5-1-minimos-quadrados-com-restricoes-lineares.html"><a href="5-1-minimos-quadrados-com-restricoes-lineares.html#conclusoes"><i class="fa fa-check"></i><b>5.1.4</b> Conclusões</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="5-2-filtros-de-bloom-em-r.html"><a href="5-2-filtros-de-bloom-em-r.html"><i class="fa fa-check"></i><b>5.2</b> Filtros de Bloom em R</a></li>
+<li class="chapter" data-level="5.3" data-path="5-3-modelando-a-variancia-da-normal.html"><a href="5-3-modelando-a-variancia-da-normal.html"><i class="fa fa-check"></i><b>5.3</b> Modelando a variância da normal</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="5-3-modelando-a-variancia-da-normal.html"><a href="5-3-modelando-a-variancia-da-normal.html#usando-o-pacote-gamlss"><i class="fa fa-check"></i><b>5.3.1</b> Usando o pacote <code>gamlss</code></a></li>
+<li class="chapter" data-level="5.3.2" data-path="5-3-modelando-a-variancia-da-normal.html"><a href="5-3-modelando-a-variancia-da-normal.html#usando-o-pacote-dglm"><i class="fa fa-check"></i><b>5.3.2</b> Usando o pacote <code>dglm</code></a></li>
+<li class="chapter" data-level="5.3.3" data-path="5-3-modelando-a-variancia-da-normal.html"><a href="5-3-modelando-a-variancia-da-normal.html#usando-o-pacote-rstan"><i class="fa fa-check"></i><b>5.3.3</b> Usando o pacote <code>rstan</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="6-transformacao.html"><a href="6-transformacao.html"><i class="fa fa-check"></i><b>6</b> Transformação</a><ul>
+<li class="chapter" data-level="6.1" data-path="6-1-arrumando-banco-de-dados-o-pacote-janitor.html"><a href="6-1-arrumando-banco-de-dados-o-pacote-janitor.html"><i class="fa fa-check"></i><b>6.1</b> Arrumando banco de dados: o pacote janitor</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="6-1-arrumando-banco-de-dados-o-pacote-janitor.html"><a href="6-1-arrumando-banco-de-dados-o-pacote-janitor.html#arrumando-o-nome-das-variaveis"><i class="fa fa-check"></i><b>6.1.1</b> Arrumando o nome das variáveis</a></li>
+<li class="chapter" data-level="6.1.2" data-path="6-1-arrumando-banco-de-dados-o-pacote-janitor.html"><a href="6-1-arrumando-banco-de-dados-o-pacote-janitor.html#removendo-linhas-e-colunas-vazias"><i class="fa fa-check"></i><b>6.1.2</b> Removendo linhas e colunas vazias</a></li>
+<li class="chapter" data-level="6.1.3" data-path="6-1-arrumando-banco-de-dados-o-pacote-janitor.html"><a href="6-1-arrumando-banco-de-dados-o-pacote-janitor.html#identificando-linhas-duplicadas"><i class="fa fa-check"></i><b>6.1.3</b> Identificando linhas duplicadas</a></li>
+<li class="chapter" data-level="6.1.4" data-path="6-1-arrumando-banco-de-dados-o-pacote-janitor.html"><a href="6-1-arrumando-banco-de-dados-o-pacote-janitor.html#outras-funcoes"><i class="fa fa-check"></i><b>6.1.4</b> Outras funções</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="6-2-skimr-estatisticas-basicas-com.html"><a href="6-2-skimr-estatisticas-basicas-com.html"><i class="fa fa-check"></i><b>6.2</b> Skimr: estatísticas básicas com ❤️</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="6-2-skimr-estatisticas-basicas-com.html"><a href="6-2-skimr-estatisticas-basicas-com.html#criando-suas-proprias-funcoes"><i class="fa fa-check"></i><b>6.2.1</b> Criando suas próprias funções</a></li>
+<li class="chapter" data-level="6.2.2" data-path="6-2-skimr-estatisticas-basicas-com.html"><a href="6-2-skimr-estatisticas-basicas-com.html#wrap-up-2"><i class="fa fa-check"></i><b>6.2.2</b> Wrap up</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="7-reflexoes.html"><a href="7-reflexoes.html"><i class="fa fa-check"></i><b>7</b> Reflexões</a><ul>
+<li class="chapter" data-level="7.1" data-path="7-1-manifesto-tidy.html"><a href="7-1-manifesto-tidy.html"><i class="fa fa-check"></i><b>7.1</b> Manifesto tidy</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="7-1-manifesto-tidy.html"><a href="7-1-manifesto-tidy.html#reutilizar-estruturas-de-dados-existentes"><i class="fa fa-check"></i><b>7.1.1</b> Reutilizar estruturas de dados existentes</a></li>
+<li class="chapter" data-level="7.1.2" data-path="7-1-manifesto-tidy.html"><a href="7-1-manifesto-tidy.html#organizar-funcoes-simples-usando-o-pipe"><i class="fa fa-check"></i><b>7.1.2</b> Organizar funções simples usando o <em>pipe</em></a></li>
+<li class="chapter" data-level="7.1.3" data-path="7-1-manifesto-tidy.html"><a href="7-1-manifesto-tidy.html#aderir-a-programacao-funcional"><i class="fa fa-check"></i><b>7.1.3</b> Aderir à programação funcional</a></li>
+<li class="chapter" data-level="7.1.4" data-path="7-1-manifesto-tidy.html"><a href="7-1-manifesto-tidy.html#projetado-para-ser-usado-por-seres-humanos"><i class="fa fa-check"></i><b>7.1.4</b> Projetado para ser usado por seres humanos</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="7-2-eu-a-estatistica-e-a-programacao.html"><a href="7-2-eu-a-estatistica-e-a-programacao.html"><i class="fa fa-check"></i><b>7.2</b> Eu, a Estatística e a programação</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="7-2-eu-a-estatistica-e-a-programacao.html"><a href="7-2-eu-a-estatistica-e-a-programacao.html#por-que-amar-a-estatistica"><i class="fa fa-check"></i><b>7.2.1</b> Por que amar a estatística?</a></li>
+<li class="chapter" data-level="7.2.2" data-path="7-2-eu-a-estatistica-e-a-programacao.html"><a href="7-2-eu-a-estatistica-e-a-programacao.html#preconceitos-no-aprendizado"><i class="fa fa-check"></i><b>7.2.2</b> Preconceitos no aprendizado</a></li>
+<li class="chapter" data-level="7.2.3" data-path="7-2-eu-a-estatistica-e-a-programacao.html"><a href="7-2-eu-a-estatistica-e-a-programacao.html#estatistica-e-programacao"><i class="fa fa-check"></i><b>7.2.3</b> Estatística e programação</a></li>
+<li class="chapter" data-level="7.2.4" data-path="7-2-eu-a-estatistica-e-a-programacao.html"><a href="7-2-eu-a-estatistica-e-a-programacao.html#wrap-up-3"><i class="fa fa-check"></i><b>7.2.4</b> Wrap-up</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="7-3-o-fluxo-do-web-scraping.html"><a href="7-3-o-fluxo-do-web-scraping.html"><i class="fa fa-check"></i><b>7.3</b> O Fluxo do Web Scraping</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="7-3-o-fluxo-do-web-scraping.html"><a href="7-3-o-fluxo-do-web-scraping.html#o-fluxo"><i class="fa fa-check"></i><b>7.3.1</b> O fluxo</a></li>
+<li class="chapter" data-level="7.3.2" data-path="7-3-o-fluxo-do-web-scraping.html"><a href="7-3-o-fluxo-do-web-scraping.html#conclusao-2"><i class="fa fa-check"></i><b>7.3.2</b> Conclusão</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="7-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><a href="7-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><i class="fa fa-check"></i><b>7.4</b> Tidy Data, Teste t Pareado e Modelos Mistos</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="7-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><a href="7-4-tidy-data-teste-t-pareado-e-modelos-mistos.html#tidy-data"><i class="fa fa-check"></i><b>7.4.1</b> Tidy Data</a></li>
+<li class="chapter" data-level="7.4.2" data-path="7-4-tidy-data-teste-t-pareado-e-modelos-mistos.html"><a href="7-4-tidy-data-teste-t-pareado-e-modelos-mistos.html#o-que-isso-tem-a-ver-com-teste-t-pareado-e-modelos-mistos"><i class="fa fa-check"></i><b>7.4.2</b> O que isso tem a ver com teste <span class="math inline">\(t\)</span>-pareado e modelos mistos?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referências</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Feito com <font color="red">❤</font>️ usando<strong> bookdown</strong></a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Como faz no R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="regressao-logistica-aspectos-computacionais" class="section level1">
+<h1><span class="header-section-number">Capítulo 5</span> Regressão logística: aspectos computacionais</h1>
+<p>Neste texto vamos discutir um pouco sobre regressão logística, tensorflow e Modelos Lineares Generalizados (<em>Generalized Linear Models</em>, GLMs). Não vou economizar nas matemáticas nem nos códigos.</p>
+<ul>
+<li>Se você não conhece GLMs, recomendo dar uma lida, pelo menos na introdução, do <a href="https://www.ime.usp.br/~giapaula/texto_2013.pdf">livro do professor Gilberto A. Paula</a>.</li>
+<li>Se você não conhece o Tensorflow, recomendo ver <a href="https://tensorflow.rstudio.com/">a página do RStudio sobre Tensorflow</a>.</li>
+<li>Se você curte a parte computacional da estatística, <a href="http://www.leg.ufpr.br/~paulojus/mcie/MCIE.pdf">esse livro do LEG-UFPR é obrigatório</a>. Eles são os melhores.</li>
+</ul>
+<div id="introducao-o-tensorglm" class="section level3">
+<h3><span class="header-section-number">5.0.1</span> Introdução: o <code>tensorglm</code></h3>
+<p>Um de meus interesses no momento é implementar GLMs usando <a href="https://tensorflow.org">Tensorflow</a>. O Tensorflow é uma biblioteca computacional mantida pela Google que utiliza paralelização e o poder das GPUs (<em>Graphical Processing Units</em>) para fazer contas. O Tensorflow foi especialmente desenhado para facilitar o ajuste de redes neurais profundas e outros modelos sofisticados.</p>
+<p>GLMs são casos particulares de redes neurais. Uma rede neural com apenas uma camada e com funções de perda / verossimilhanças baseadas na Divergência de Kullback-Leibler são exatamente iguais aos GLMs. Por exemplo, essa divergência equivale ao erro quadrático médio para a distribuição gaussiana e <em>binary-crossentropy</em> para logística.</p>
+<p>Por isso, não é de se surpreender que já existam soluções prontas para modelos específicos, como regressão linear normal, logística, e até Poisson. No entanto, essas soluções têm duas limitações:</p>
+<ol style="list-style-type: decimal">
+<li><p>Não são extensivas. Por exemplo, não achei códigos para as distribuições normal inversa, gama e binomial negativa.</p></li>
+<li><p>As soluções atuais utilizam o algoritmo <strong>descida de gradiente</strong> para otimização, que é muito legal, mas não se aproveita de alguns resultados que temos na área de GLMs, como o <strong>IWLS</strong> (<em>Iterated Weighted Least Squares</em>), que é uma derivação do algoritmo Fisher-scoring, que reduz o problema do ajuste ao cálculo iterado de inversas e multiplicações de matrizes.</p></li>
+</ol>
+<p>Meu intuito é, então, montar uma solução alternativa que funcione igual à função <code>glm()</code> do R, mas usando Tensorflow no backend ao invés do algoritmo atual, que é em Fortran. Com isso, espero que o ajuste seja mais eficiente quando os dados são grandes e permita trabalhar com dados que não cabem na memória.</p>
+</div>
+<div id="a-regressao-logistica" class="section level3">
+<h3><span class="header-section-number">5.0.2</span> A regressão logística</h3>
+<p>Meu primeiro experimento com o <code>tensorglm</code> foi implementar a regressão logística usando tensorflow, com descida de gradiente. Considere o problema</p>
+<p><span class="math display">\[P(Y=1\;|\;\mu, x) = \mu = \sigma(\alpha + \beta x),\]</span></p>
+<p>em que <span class="math inline">\(Y\)</span> é nossa variável resposta, <span class="math inline">\(x\)</span> é nossa variável explicativa, <span class="math inline">\(\alpha\)</span> e <span class="math inline">\(\beta\)</span> são os parâmetros que queremos estimar e <span class="math inline">\(\sigma(\cdot)\)</span> é a função sigmoide, cuja inversa é a função de ligação logística.</p>
+<p><span class="math display">\[\sigma(\eta) = \frac{1}{1 + e^{-\eta}}\]</span></p>
+<p>Considerando que temos observações <span class="math inline">\(Y_1, \dots, Y_n\)</span> condicionalmente independentes, já temos o suficiente para especificar nosso modelo de regressão logística. O próximo passo é definir, com base nisso, a função que queremos otimizar.</p>
+<p>A partir de uma amostra <span class="math inline">\(y_1, \dots, y_n\)</span> e observando que <span class="math inline">\(\mu_i = \sigma(\alpha + \beta x_i)\)</span>, a verossimilhança do modelo é dada por</p>
+<p><span class="math display">\[
+\mathcal L((\alpha, \beta)|\mathbf y) = \prod_{i=1}^n f(y_i|(\alpha, \beta), x_i) = \prod_{i=1}^n\mu_i^{y_i}(1-\mu_i)^{1-y_i}
+\]</span></p>
+<p>O logaritmo da verossimilhança é dado por</p>
+<p><span class="math display">\[
+\begin{aligned}
+l((\alpha, \beta)|\mathbf y) &amp;= \sum_{i=1}^n y_i\log(\mu_i) + (1-y_i)\log(1-\mu_i)\\
+&amp;= \sum_{i=1}^n y_i\log(\sigma(\alpha + \beta x_i)) + (1-y_i)\log(1 - \sigma(\alpha + \beta x_i))
+\end{aligned}
+\]</span></p>
+<p>Nosso objetivo é maximizar <span class="math inline">\(l\)</span> com relação à <span class="math inline">\(\alpha\)</span> e <span class="math inline">\(\beta\)</span>.</p>
+<blockquote>
+<p>Detalhe: essa soma, se multiplicada por <code>-1</code>, também é chamada de função de perda
+<em>binary cross-entropy</em>. Por isso que tanto faz você definir GLMs a partir de
+<span class="math inline">\(P(Y|x)\)</span> ou a partir da função de perda!</p>
+</blockquote>
+<p>OK, problema dado! vamos implementar usando tensorflow!</p>
+<p>Feito! Agora podemos usar a magia do tensorflow, que é esperto o suficiente para otimizar essa perda sem a gente se preocupar em calcular derivadas na mão. Para quem não conhece o algoritmo de descida de gradiente, ele funciona assim:</p>
+<p><span class="math display">\[
+(\alpha, \beta)_{\text{novo}} = (\alpha, \beta)_{\text{velho}} + k \nabla_{(\alpha, \beta)} l((\alpha, \beta)_{\text{velho}}), 
+\]</span></p>
+<p>onde</p>
+<ul>
+<li><p><span class="math inline">\(\nabla_{(\alpha, \beta)} l((\alpha, \beta)_{\text{velho}})\)</span> é o <strong>gradiente</strong> da verossimilhança em relação ao vetor <span class="math inline">\((\alpha, \beta)\)</span>, ou seja, são as derivadas parciais de <span class="math inline">\(l\)</span> em relação à <span class="math inline">\(\alpha\)</span> e <span class="math inline">\(\beta\)</span>. Isso dá a direção e intensidade em que os valores devem ser atualizados.</p></li>
+<li><p><span class="math inline">\(k\)</span> é chamado de <em>learning rate</em>, é um fator usado para controlar o tamanho do passo dado pelo gradiente. Esse valor normalmente é definido à mão. No caso dos GLMs, <span class="math inline">\(k\)</span> é substituído pelo inverso da segunda derivada da <span class="math inline">\(l\)</span> em relação aos parâmetros, gerando assim os algoritmos de Newton-Raphson e Fisher-scoring.</p></li>
+</ul>
+<p>Detalhe: se você procurar esse algoritmo na internet, você vai encontrar um <span class="math inline">\(-\)</span> e não um <span class="math inline">\(+\)</span>. Isso acontece porque estamos usando a verossimilhança e não a perda.</p>
+<pre><code>FALSE Iter: 01, alpha=2.32, beta=3.593
+FALSE Iter: 02, alpha=1.56, beta=3.409
+FALSE Iter: 03, alpha=1.411, beta=2.989
+FALSE Iter: 04, alpha=1.261, beta=2.665
+FALSE Iter: 05, alpha=1.153, beta=2.422
+FALSE Iter: 06, alpha=1.078, beta=2.257
+FALSE Iter: 07, alpha=1.033, beta=2.154
+FALSE Iter: 08, alpha=1.006, beta=2.095
+FALSE Iter: 09, alpha=0.992, beta=2.062
+FALSE Iter: 10, alpha=0.984, beta=2.045</code></pre>
+<pre><code>Iter: 01, alpha=2.32, beta=3.593
+Iter: 02, alpha=1.56, beta=3.409
+Iter: 03, alpha=1.411, beta=2.989
+Iter: 04, alpha=1.261, beta=2.665
+Iter: 05, alpha=1.153, beta=2.422
+Iter: 06, alpha=1.078, beta=2.257
+Iter: 07, alpha=1.033, beta=2.154
+Iter: 08, alpha=1.006, beta=2.095
+Iter: 09, alpha=0.992, beta=2.062
+Iter: 10, alpha=0.984, beta=2.045</code></pre>
+<p>Parece que funcionou! Agora sabemos ajustar uma regressão logística na mão, com o algoritmo de descida de gradiente… ou será que não?</p>
+</div>
+<div id="o-problema" class="section level3">
+<h3><span class="header-section-number">5.0.3</span> O Problema</h3>
+<p>Vamos considerar o mesmo problema, mas agora com duas explicativas. temos</p>
+<p><span class="math display">\[P(Y=1\;|\;\mu, x) = \mu = \sigma(\alpha + \beta_1 x_2+ \beta_2 x_2),\]</span></p>
+<p>As contas são exatamente as mesmas e vou omitir, mostrando apenas o código novo.</p>
+<pre><code>FALSE Iter: 01, alpha=1.674, beta1=2.703, beta2=3.461
+FALSE Iter: 02, alpha=NaN, beta1=NaN, beta2=NaN
+FALSE Iter: 03, alpha=NaN, beta1=NaN, beta2=NaN
+FALSE Iter: 04, alpha=NaN, beta1=NaN, beta2=NaN
+FALSE Iter: 05, alpha=NaN, beta1=NaN, beta2=NaN
+FALSE Iter: 06, alpha=NaN, beta1=NaN, beta2=NaN
+FALSE Iter: 07, alpha=NaN, beta1=NaN, beta2=NaN
+FALSE Iter: 08, alpha=NaN, beta1=NaN, beta2=NaN
+FALSE Iter: 09, alpha=NaN, beta1=NaN, beta2=NaN
+FALSE Iter: 10, alpha=NaN, beta1=NaN, beta2=NaN</code></pre>
+<pre><code>Iter: 01, alpha=1.674, beta1=2.703, beta2=3.461
+Iter: 02, alpha=NaN, beta1=NaN, beta2=NaN
+Iter: 03, alpha=NaN, beta1=NaN, beta2=NaN
+Iter: 04, alpha=NaN, beta1=NaN, beta2=NaN
+Iter: 05, alpha=NaN, beta1=NaN, beta2=NaN
+Iter: 06, alpha=NaN, beta1=NaN, beta2=NaN
+Iter: 07, alpha=NaN, beta1=NaN, beta2=NaN
+Iter: 08, alpha=NaN, beta1=NaN, beta2=NaN
+Iter: 09, alpha=NaN, beta1=NaN, beta2=NaN
+Iter: 10, alpha=NaN, beta1=NaN, beta2=NaN</code></pre>
+<p>Oops! Explodiu! Por que será???</p>
+<p>Uma forma de corrigir esse problema é considerando uma taxa de aprendizado <code>k</code> um pouco menor. Com os mesmos dados e modelo acima, ao fazer</p>
+<p>e rodar novamente, já conseguimos chegar nos resultados abaixo.</p>
+<pre><code>Iter: 01, alpha=1.525, beta1=2.492, beta2=3.205
+Iter: 02, alpha=1.183, beta1=2.32, beta2=3.36
+Iter: 03, alpha=1.122, beta1=2.248, beta2=3.34
+Iter: 04, alpha=1.101, beta1=2.208, beta2=3.296
+Iter: 05, alpha=1.085, beta1=2.178, beta2=3.254
+Iter: 06, alpha=1.073, beta1=2.152, beta2=3.216
+Iter: 07, alpha=1.062, beta1=2.13, beta2=3.183
+Iter: 08, alpha=1.053, beta1=2.112, beta2=3.154
+Iter: 09, alpha=1.044, beta1=2.095, beta2=3.13
+Iter: 10, alpha=1.037, beta1=2.082, beta2=3.109</code></pre>
+<p>Mais algumas iterações e o modelo converge.</p>
+<p>Mas nós não queremos ficar fazendo um ajuste tão fino no valor de <code>k</code>, certo? Afinal, queremos resolver problemas do mundo real, não ficar escolhendo valores de <code>k</code>… Outra forma de resolver isso é evitando problemas numéricos nas contas. O cálculo da função de perda, por exemplo, pode ser melhorado. Mas como?</p>
+<p>Bom, problemas numéricos não são minha especialidade, então agora é hora de seguir os mestres. Vamos olhar como o R e como o Tensorflow implementam as funções de perda para regressão logística.</p>
+<div id="os-objetos-de-classe-family-no-r" class="section level4">
+<h4><span class="header-section-number">5.0.3.1</span> Os objetos de classe <code>family</code> no R</h4>
+<p>No R, os GLMs buscam informações de objetos da classe <code>family()</code> para realizar os ajustes. No caso da logística, o objeto é retornado por uma função chamada <code>binomial()</code>.</p>
+<p>O resultado disso é uma lista com vários métodos implementados. Por exemplo, a variância da binomial é dada por:</p>
+<pre><code>FALSE function (mu) 
+FALSE mu * (1 - mu)
+FALSE &lt;bytecode: 0x7fa83fe769e8&gt;
+FALSE &lt;environment: 0x7fa83fe7dbd8&gt;</code></pre>
+<pre><code>function (mu) 
+mu * (1 - mu)
+&lt;bytecode: 0x55fc8e220a18&gt;
+&lt;environment: 0x55fca4eb5040&gt;</code></pre>
+<p>A função de perda é dada pelo método <code>fam$dev.resids()</code> (resíduos deviance), e o código fonte é:</p>
+<pre><code>FALSE function (y, mu, wt) 
+FALSE .Call(C_binomial_dev_resids, y, mu, wt)
+FALSE &lt;bytecode: 0x7fa83fe76278&gt;
+FALSE &lt;environment: 0x7fa83fe7dbd8&gt;</code></pre>
+<pre><code>function (y, mu, wt) 
+.Call(C_binomial_dev_resids, y, mu, wt)
+&lt;bytecode: 0x55fc8e2253a0&gt;
+&lt;environment: 0x55fca4eb5040&gt;</code></pre>
+<p>Hmm, parece que é uma função feita em C. Como as contas da nossa perda (soma, logaritmo, multiplicação e divisão) já são todas implementadas em C, provavelmente a conta foi implementada em C para garantir estabilidade numérica.</p>
+<p>Olhando o <a href="">código-fonte do pacote stats</a>, encontramos a definição da função. A função é um pouco longa, então eu mantive apenas as partes importantes:</p>
+<pre class="sourceCode c"><code class="sourceCode c"><span class="dt">static</span> R_INLINE
+<span class="dt">double</span> y_log_y(<span class="dt">double</span> y, <span class="dt">double</span> mu)
+{
+    <span class="cf">return</span> (y != <span class="fl">0.</span>) ? (y * log(y/mu)) : <span class="dv">0</span>;
+}
+
+SEXP binomial_dev_resids(SEXP y, SEXP mu, SEXP wt)
+{
+
+  <span class="co">/* inicialização de variáveis e verificações */</span>
+  
+  <span class="co">/* rmu e ry são os valores de mu e y transformados para reais */</span>
+  <span class="co">/* rmu e ry são os valores de mu e y transformados para reais */</span>
+  
+    <span class="cf">for</span> (i = <span class="dv">0</span>; i &lt; n; i++) {
+      mui = rmu[i];
+      yi = ry[i];
+      rans[i] = <span class="dv">2</span> * rwt[lwt &gt; <span class="dv">1</span> ? i : <span class="dv">0</span>] * 
+        (y_log_y(yi, mui) + y_log_y(<span class="dv">1</span> - yi, <span class="dv">1</span> - mui));
+    }
+  
+  <span class="co">/* outros códigos não muito importantes */</span>
+  
+  UNPROTECT(nprot);
+  <span class="cf">return</span> ans;
+}</code></pre>
+<p>Eu não programo muito em C, mas desse código dá para ver duas coisas importantes: i) a função <code>y_log_y</code> só faz a conta se o valor de <span class="math inline">\(y\)</span> for diferente de zero, se não, ela já retorna zero; ii) a função <code>y_log_y</code> faz a conta <span class="math inline">\(y\log({y}/{\mu})\)</span>, ao invés de apenas <span class="math inline">\(y\log({\mu})\)</span>. Isso acontece pois no R estamos minimizando o Desvio do modelo, dado por</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;D(\mathbf y, \mu) = 2[l(\mathbf y|\mathbf y) - l(\mathbf y|(\alpha, \beta))]\\
+&amp;=2\left[\sum_{i=1}^n y_i\log(y_i) + (1-y_i)\log(1-y_i)\right. - \\
+&amp;\left. -\sum_{i=1}^n y_i\log(\mu_i) + (1-y_i)\log(1-\mu_i)\right] \\
+&amp;=2\left[\sum_{i=1}^n y_i\log\left(\frac{y_i}{\mu_i}\right) + (1-y_i)\log\left(\frac{1-y_i}{1-\mu_i}\right)\right].
+\end{aligned}
+\]</span></p>
+<p>Essa é a formulação usual na literatura de GLMs, que apresenta uma série de propriedades estatísticas. Minimizar o desvio equivale a maximizar a verossimilhança. Será que isso ajuda nos problemas numéricos? Vamos ver:</p>
+<pre><code>Iter: 01, alpha=NaN, beta1=NaN, beta2=NaN
+Iter: 02, alpha=NaN, beta1=NaN, beta2=NaN
+Iter: 03, alpha=NaN, beta1=NaN, beta2=NaN
+Iter: 04, alpha=NaN, beta1=NaN, beta2=NaN
+Iter: 05, alpha=NaN, beta1=NaN, beta2=NaN
+Iter: 06, alpha=NaN, beta1=NaN, beta2=NaN
+Iter: 07, alpha=NaN, beta1=NaN, beta2=NaN
+Iter: 08, alpha=NaN, beta1=NaN, beta2=NaN
+Iter: 09, alpha=NaN, beta1=NaN, beta2=NaN
+Iter: 10, alpha=NaN, beta1=NaN, beta2=NaN</code></pre>
+<p>Hmm, parece que não. Se olharmos mais atentamente para a função desvio, como <span class="math inline">\(y\)</span> pode assumir apenas os valores zero ou um, é possível observar que a conta é equivalente à perda calculada anteriormente. Possivelmente o problema aqui é que o tensorflow não trabalha muito bem com essas condições (<code>tf$where</code>) na perda, e isso dá problemas na hora de calcular o gradiente.</p>
+<p>Essa função do R simplesmente não resolve o problema inicial. Melhor olhar o que o tensorflow faz!</p>
+</div>
+</div>
+<div id="a-binary-cross-entropy-no-tensorflow" class="section level3">
+<h3><span class="header-section-number">5.0.4</span> A binary cross-entropy no Tensorflow</h3>
+<p>Eu escondi de vocês, mas o tensorflow já tem a função de perda implementada: <code>tf$nn$sigmoid_cross_entropy_with_logits</code>. Ela já assume que a função de ligação é logística, por isso o <code>sigmoid_</code> no início. Traduzindo livremente <a href="https://www.tensorflow.org/api_docs/python/tf/nn/sigmoid_cross_entropy_with_logits">o help da função</a>, temos o seguinte (<code>z</code>=<span class="math inline">\(y\)</span> e <code>x</code>=<span class="math inline">\(\eta = \alpha + \beta x\)</span>)</p>
+<pre><code>  z * -log(sigmoid(x)) + (1 - z) * -log(1 - sigmoid(x))
+= z * -log(1 / (1 + exp(-x))) + (1 - z) * -log(exp(-x) / (1 + exp(-x)))
+= z * log(1 + exp(-x)) + (1 - z) * (-log(exp(-x)) + log(1 + exp(-x)))
+= z * log(1 + exp(-x)) + (1 - z) * (x + log(1 + exp(-x))
+= (1 - z) * x + log(1 + exp(-x))
+= x - x * z + log(1 + exp(-x))</code></pre>
+<p>Para <span class="math inline">\(\eta &lt; 0\)</span> para evitar problemas numéricos com <span class="math inline">\(\exp(-\eta)\)</span>, reformulamos para</p>
+<pre><code>  x - x * z + log(1 + exp(-x))
+= log(exp(x)) - x * z + log(1 + exp(-x))
+= - x * z + log(1 + exp(x))</code></pre>
+<p>Então, para garantir estabilidade e evitar problemas numéricos, a implementação usa essa formulação equivalente</p>
+<pre><code>max(x, 0) - x * z + log(1 + exp(-abs(x)))</code></pre>
+<p>Beleza, vamos tentar!</p>
+<pre><code>Iter: 01, alpha=1.674, beta1=2.703, beta2=3.461
+Iter: 02, alpha=1.276, beta1=2.495, beta2=3.608
+Iter: 03, alpha=1.197, beta1=2.396, beta2=3.562
+Iter: 04, alpha=1.164, beta1=2.335, beta2=3.489
+Iter: 05, alpha=1.14, beta1=2.287, beta2=3.42
+Iter: 06, alpha=1.12, beta1=2.245, beta2=3.358
+Iter: 07, alpha=1.102, beta1=2.21, beta2=3.303
+Iter: 08, alpha=1.086, beta1=2.178, beta2=3.256
+Iter: 09, alpha=1.073, beta1=2.152, beta2=3.215
+Iter: 10, alpha=1.061, beta1=2.129, beta2=3.18</code></pre>
+<p>Funcionou! :)</p>
+</div>
+<div id="wrap-up-1" class="section level3">
+<h3><span class="header-section-number">5.0.5</span> Wrap-up</h3>
+<ol style="list-style-type: decimal">
+<li>Tensorflow é uma biblioteca interessante a ser explorada.</li>
+<li>É possível implementar uma regressão logística do zero em poucos passos.</li>
+<li>Precisamos tomar cuidado com problemas numéricos!</li>
+</ol>
+<p>No futuro, brincaremos também com o algoritmo IWLS. Será que ele roda mais rápido que a descida de gradiente?</p>
+</div> 
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="4-4-woe-em-r-com-tidywoe.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="5-1-minimos-quadrados-com-restricoes-lineares.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/curso-r/livro-blog/edit/master/index.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
