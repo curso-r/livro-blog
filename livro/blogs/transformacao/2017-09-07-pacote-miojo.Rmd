@@ -1,17 +1,29 @@
 ---
-title: "Pacotes miojo - como fazer um pacote no R em 3 minutos"
 date: "2017-09-07T23:26:00+03:00"
-tags: ["miojo"]
+tags: ["usethis"]
 categories: ["tutoriais", "r"]
 banner: "img/banners/package.png"
 author: ["Julio"]
-summary: "Veja como fazer um pacote em R e fazer seus códigos voarem na velocidade da luz"
-draft: false
 ---
 
 ```{r include=FALSE}
 knitr::opts_chunk$set(collapse = TRUE, cache = TRUE)
 ```
+
+# Pacotes miojo: como fazer um pacote no R em 3 minutos
+
+```{block, type='rmdtip', echo=TRUE}
+Autor: Daniel
+```
+
+```{block, type='rmdtip', echo=TRUE}
+Dificuldade baixa
+```
+
+```{block, type='rmdimportant', echo=TRUE}
+program
+```
+
 
 Nesse post vou mostrar como fazer um pacote em R muito, muito rápido. Tirei várias coisas que costumo fazer nos pacotes, com dor no coração, tudo pela velocidade, mantendo só o essencial.
 
