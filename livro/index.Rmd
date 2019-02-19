@@ -90,6 +90,8 @@ library(tidyverse)
 ```{r child="blogs/transformacao/2017-06-17-skimr.Rmd"}
 ```
 
+```{r child="blogs/transformacao/2017-09-07-pacote-miojo.Rmd"}
+```
 
 
 # Reflexões

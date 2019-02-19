@@ -217,6 +217,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.2.1" data-path="6-2-skimr-estatisticas-basicas-com.html"><a href="6-2-skimr-estatisticas-basicas-com.html#criando-suas-proprias-funcoes"><i class="fa fa-check"></i><b>6.2.1</b> Criando suas próprias funções</a></li>
 <li class="chapter" data-level="6.2.2" data-path="6-2-skimr-estatisticas-basicas-com.html"><a href="6-2-skimr-estatisticas-basicas-com.html#wrap-up-2"><i class="fa fa-check"></i><b>6.2.2</b> Wrap up</a></li>
 </ul></li>
+<li class="chapter" data-level="6.3" data-path="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><i class="fa fa-check"></i><b>6.3</b> Pacotes miojo: como fazer um pacote no R em 3 minutos</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#passo-1-crie-um-pacote-no-r"><i class="fa fa-check"></i><b>6.3.1</b> Passo 1: Crie um pacote no R</a></li>
+<li class="chapter" data-level="6.3.2" data-path="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#passo-2-adicione-git-e-github-no-seu-pacote"><i class="fa fa-check"></i><b>6.3.2</b> Passo 2: Adicione git e github no seu pacote</a></li>
+<li class="chapter" data-level="6.3.3" data-path="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#parenteses-github_pat"><i class="fa fa-check"></i><b>6.3.3</b> Parênteses: <code>GITHUB_PAT</code></a></li>
+<li class="chapter" data-level="6.3.4" data-path="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#passo-3-adicione-coisas-de-interesse"><i class="fa fa-check"></i><b>6.3.4</b> Passo 3: Adicione coisas de interesse</a></li>
+<li class="chapter" data-level="6.3.5" data-path="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#passo-4-crie-sua-funcao"><i class="fa fa-check"></i><b>6.3.5</b> Passo 4: Crie sua função</a></li>
+<li class="chapter" data-level="6.3.6" data-path="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#passo-5-document-commit-e-push"><i class="fa fa-check"></i><b>6.3.6</b> Passo 5: document, commit e push!</a></li>
+<li class="chapter" data-level="6.3.7" data-path="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#passo-6-instalar-o-pacote-em-outra-maquina"><i class="fa fa-check"></i><b>6.3.7</b> Passo 6: Instalar o pacote em outra máquina</a></li>
+<li class="chapter" data-level="6.3.8" data-path="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#conclusoes-1"><i class="fa fa-check"></i><b>6.3.8</b> Conclusões</a></li>
+<li class="chapter" data-level="6.3.9" data-path="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#outras-pequenas-dicas-praticas"><i class="fa fa-check"></i><b>6.3.9</b> Outras pequenas dicas práticas</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="7-reflexoes.html"><a href="7-reflexoes.html"><i class="fa fa-check"></i><b>7</b> Reflexões</a><ul>
 <li class="chapter" data-level="7.1" data-path="7-1-manifesto-tidy.html"><a href="7-1-manifesto-tidy.html"><i class="fa fa-check"></i><b>7.1</b> Manifesto tidy</a><ul>
@@ -474,7 +485,7 @@ tea_mini <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"
 <div id="exemplo-de-exploracao" class="section level3">
 <h3><span class="header-section-number">4.4.6</span> Exemplo de exploração</h3>
 <p>O <code>woe_dictionary()</code> devolve uma tabela arrumada, bem conveniente para explorar mais. Por exemplo, a tabela está pronta para o ggplot.</p>
-<p><img src="bookdown_files/figure-html/unnamed-chunk-69-1.svg" width="864" /></p>
+<p><img src="bookdown_files/figure-html/unnamed-chunk-70-1.svg" width="864" /></p>
 <p>Aqui está o <a href="https://github.com/Athospd/tidywoe">github do pacote</a> para contribuições. Pretendo colocar bastante coisa nova no pacote ainda.</p>
 </div>
 </div>

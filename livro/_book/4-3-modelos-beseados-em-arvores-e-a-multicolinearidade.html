@@ -217,6 +217,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.2.1" data-path="6-2-skimr-estatisticas-basicas-com.html"><a href="6-2-skimr-estatisticas-basicas-com.html#criando-suas-proprias-funcoes"><i class="fa fa-check"></i><b>6.2.1</b> Criando suas próprias funções</a></li>
 <li class="chapter" data-level="6.2.2" data-path="6-2-skimr-estatisticas-basicas-com.html"><a href="6-2-skimr-estatisticas-basicas-com.html#wrap-up-2"><i class="fa fa-check"></i><b>6.2.2</b> Wrap up</a></li>
 </ul></li>
+<li class="chapter" data-level="6.3" data-path="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><i class="fa fa-check"></i><b>6.3</b> Pacotes miojo: como fazer um pacote no R em 3 minutos</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#passo-1-crie-um-pacote-no-r"><i class="fa fa-check"></i><b>6.3.1</b> Passo 1: Crie um pacote no R</a></li>
+<li class="chapter" data-level="6.3.2" data-path="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#passo-2-adicione-git-e-github-no-seu-pacote"><i class="fa fa-check"></i><b>6.3.2</b> Passo 2: Adicione git e github no seu pacote</a></li>
+<li class="chapter" data-level="6.3.3" data-path="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#parenteses-github_pat"><i class="fa fa-check"></i><b>6.3.3</b> Parênteses: <code>GITHUB_PAT</code></a></li>
+<li class="chapter" data-level="6.3.4" data-path="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#passo-3-adicione-coisas-de-interesse"><i class="fa fa-check"></i><b>6.3.4</b> Passo 3: Adicione coisas de interesse</a></li>
+<li class="chapter" data-level="6.3.5" data-path="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#passo-4-crie-sua-funcao"><i class="fa fa-check"></i><b>6.3.5</b> Passo 4: Crie sua função</a></li>
+<li class="chapter" data-level="6.3.6" data-path="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#passo-5-document-commit-e-push"><i class="fa fa-check"></i><b>6.3.6</b> Passo 5: document, commit e push!</a></li>
+<li class="chapter" data-level="6.3.7" data-path="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#passo-6-instalar-o-pacote-em-outra-maquina"><i class="fa fa-check"></i><b>6.3.7</b> Passo 6: Instalar o pacote em outra máquina</a></li>
+<li class="chapter" data-level="6.3.8" data-path="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#conclusoes-1"><i class="fa fa-check"></i><b>6.3.8</b> Conclusões</a></li>
+<li class="chapter" data-level="6.3.9" data-path="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="6-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#outras-pequenas-dicas-praticas"><i class="fa fa-check"></i><b>6.3.9</b> Outras pequenas dicas práticas</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="7-reflexoes.html"><a href="7-reflexoes.html"><i class="fa fa-check"></i><b>7</b> Reflexões</a><ul>
 <li class="chapter" data-level="7.1" data-path="7-1-manifesto-tidy.html"><a href="7-1-manifesto-tidy.html"><i class="fa fa-check"></i><b>7.1</b> Manifesto tidy</a><ul>
@@ -270,24 +281,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="um-modelo-bonitinho" class="section level3">
 <h3><span class="header-section-number">4.3.1</span> Um modelo bonitinho</h3>
 <p>Primeiro vamos ajustar um modelo bonitinho, livre de multicolinearidade. Suponha que queiramos prever <code>Petal.Length</code> utilizando as medidas das sépalas (<code>Sepal.Width</code> e <code>Sepal.Length</code>) da nossa boa e velha base <code>iris</code>.</p>
-<p><img src="bookdown_files/figure-html/unnamed-chunk-54-1.svg" width="864" /></p>
-<p>O gráfico acima mostra que as variáveis explicativas não são fortemente correlacionadas. Ajustando uma random fores, temos a seguinte ordem de importância das variáveis:</p>
 <p><img src="bookdown_files/figure-html/unnamed-chunk-55-1.svg" width="864" /></p>
+<p>O gráfico acima mostra que as variáveis explicativas não são fortemente correlacionadas. Ajustando uma random fores, temos a seguinte ordem de importância das variáveis:</p>
+<p><img src="bookdown_files/figure-html/unnamed-chunk-56-1.svg" width="864" /></p>
 <p>Sem surpresas. Agora vamos para o problema!</p>
 </div>
 <div id="um-modelo-com-feinho" class="section level3">
 <h3><span class="header-section-number">4.3.2</span> Um modelo com feinho</h3>
 <p>Vamos forjar uma situação extrema em que muitas variáveis sejam multicolineares. Vou fazer isso repetindo a coluna <code>Sepal.Length</code> várias vezes.</p>
-<p><img src="bookdown_files/figure-html/unnamed-chunk-56-1.svg" width="864" /></p>
+<p><img src="bookdown_files/figure-html/unnamed-chunk-57-1.svg" width="864" /></p>
 <p>Agora a coisa tá feia! Temos 20 variáveis perfeitamente colineares. Mesmo assim um random forest nessa nova base não perderia poder preditivo.</p>
 <p>Mas como ficou a importância das variáveis?</p>
-<p><img src="bookdown_files/figure-html/unnamed-chunk-57-1.svg" width="864" /></p>
+<p><img src="bookdown_files/figure-html/unnamed-chunk-58-1.svg" width="864" /></p>
 <p>Aqui o jogo já se inverteu: concluiríamos que <code>Sepal.Width</code> é mais importante de todas as variáveis!</p>
 </div>
 <div id="selecao-de-variaveis-furado" class="section level3">
 <h3><span class="header-section-number">4.3.3</span> Seleção de variáveis furado</h3>
 <p>O gráfico abaixo mostra que quanto mais variáveis correlacionadas tivermos, menor a importância de TODAS ELAS SIMULTANEAMENTE! É como se as variáveis colineares repartissem a importância entre elas.</p>
-<p><img src="bookdown_files/figure-html/unnamed-chunk-58-1.svg" width="864" /></p>
+<p><img src="bookdown_files/figure-html/unnamed-chunk-59-1.svg" width="864" /></p>
 <p>Na prática, se estabelecessemos um corte no valor de importância pra descartar variáveis (como ilustrado pela linha vermelha), teríamos um problema em potencial: poderíamos estar jogando fora informação muito importante.</p>
 </div>
 <div id="como-tratar-multicolinearidade-entao" class="section level3">

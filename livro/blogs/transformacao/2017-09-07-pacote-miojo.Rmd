@@ -10,14 +10,14 @@ author: ["Julio"]
 knitr::opts_chunk$set(collapse = TRUE, cache = TRUE)
 ```
 
-# Pacotes miojo: como fazer um pacote no R em 3 minutos
+## Pacotes miojo: como fazer um pacote no R em 3 minutos
 
 ```{block, type='rmdtip', echo=TRUE}
-Autor: Daniel
+Autor: Julio
 ```
 
 ```{block, type='rmdtip', echo=TRUE}
-Dificuldade baixa
+Dificuldade média
 ```
 
 ```{block, type='rmdimportant', echo=TRUE}
@@ -35,7 +35,7 @@ Duas restrições que usei são
 Essa é a solução que eu acho mais segura e rápida. Você também pode [usar o próprio RStudio para criar pacotes ou clonar coisas do github](http://curso-r.com/blog/2017/07/17/2017-07-17-rstudio-e-github/), mas isso pode dar alguns bugs.
 
 
-## Passo 1: Crie um pacote no R
+### Passo 1: Crie um pacote no R
 
 Rode
 
@@ -55,7 +55,7 @@ usethis::create_package("~/Documents/pacote")
 
 Pronto! pacote feito.
 
-## Passo 2: Adicione git e github no seu pacote
+### Passo 2: Adicione git e github no seu pacote
 
 ```{r}
 usethis::use_git()
@@ -79,7 +79,7 @@ usethis::use_github(protocol = "https")
     3: Yup
 
 
-## Parênteses: `GITHUB_PAT`
+### Parênteses: `GITHUB_PAT`
 
 Se você não tiver um `GITHUB_PAT`, tem um passo adicional:
 
@@ -105,7 +105,7 @@ Adicione
 
 Salve e restarte sua sessão.
 
-## Passo 3: Adicione coisas de interesse
+### Passo 3: Adicione coisas de interesse
 
 README:
 
@@ -133,7 +133,7 @@ usethis::use_pipe()
     ✔ Writing 'R/utils-pipe.R'
     ● Run `devtools::document()`
 
-## Passo 4: Crie sua função
+### Passo 4: Crie sua função
 
 Exemplo:
 
@@ -157,7 +157,7 @@ soma_2 <- function(x) {
     - a parte que começa com `@param` descreve o que é o parâmetro de entrada
     - a parte que começa com `@export` diz para o pacote que essa função deve estar disponível para o usuário quando ele rodar `library(nomeDoPacote)`.
 
-## Passo 5: document, commit e push!
+### Passo 5: document, commit e push!
 
 1. Rode `devtools::document()`.
 1. Commite suas alterações.
@@ -165,7 +165,7 @@ soma_2 <- function(x) {
 
 Se não saba o que é commitar e pushar, veja o artigo do [Athos](http://curso-r.com/author/athos/) sobre [o uso do git e do  GitHub](http://curso-r.com/blog/2017/07/17/2017-07-17-rstudio-e-github/).
 
-## Passo 6: Instalar o pacote em outra máquina
+### Passo 6: Instalar o pacote em outra máquina
 
 1. Mande o nome do seu usuário do GitHub e o nome do seu pacote para sua migue.
 1. Peça para ela rodar:
@@ -189,12 +189,12 @@ Você também pode ver o help da função com `?soma_2`:
 
 FIM!
 
-## Conclusões
+### Conclusões
 
 - Agora você não tem desculpa para não empacotar suas soluções em R.
 - Esse tutorial é incompleto! Para acessar mais detalhes, veja http://r-pkgs.had.co.nz, elaborado por você sabe quem.
 
-## Outras pequenas dicas práticas
+### Outras pequenas dicas práticas
 
 - Use sempre `devtools::check()` para checar se seu pacote está 100% bem construído.
 - Use `usethis::use_package()` para usar funções de outros pacotes. 
