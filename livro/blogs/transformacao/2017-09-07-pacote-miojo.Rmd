@@ -185,7 +185,7 @@ soma_2(1:10)
 
 Você também pode ver o help da função com `?soma_2`:
 
-![](assets/documentacao.png)
+![](blogs/transformacao/assets/documentacao.png)
 
 FIM!
 
