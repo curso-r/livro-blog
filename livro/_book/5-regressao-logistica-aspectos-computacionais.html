@@ -315,16 +315,6 @@ l((\alpha, \beta)|\mathbf y) &amp;= \sum_{i=1}^n y_i\log(\mu_i) + (1-y_i)\log(1-
 <li><p><span class="math inline">\(k\)</span> é chamado de <em>learning rate</em>, é um fator usado para controlar o tamanho do passo dado pelo gradiente. Esse valor normalmente é definido à mão. No caso dos GLMs, <span class="math inline">\(k\)</span> é substituído pelo inverso da segunda derivada da <span class="math inline">\(l\)</span> em relação aos parâmetros, gerando assim os algoritmos de Newton-Raphson e Fisher-scoring.</p></li>
 </ul>
 <p>Detalhe: se você procurar esse algoritmo na internet, você vai encontrar um <span class="math inline">\(-\)</span> e não um <span class="math inline">\(+\)</span>. Isso acontece porque estamos usando a verossimilhança e não a perda.</p>
-<pre><code>FALSE Iter: 01, alpha=2.32, beta=3.593
-FALSE Iter: 02, alpha=1.56, beta=3.409
-FALSE Iter: 03, alpha=1.411, beta=2.989
-FALSE Iter: 04, alpha=1.261, beta=2.665
-FALSE Iter: 05, alpha=1.153, beta=2.422
-FALSE Iter: 06, alpha=1.078, beta=2.257
-FALSE Iter: 07, alpha=1.033, beta=2.154
-FALSE Iter: 08, alpha=1.006, beta=2.095
-FALSE Iter: 09, alpha=0.992, beta=2.062
-FALSE Iter: 10, alpha=0.984, beta=2.045</code></pre>
 <pre><code>Iter: 01, alpha=2.32, beta=3.593
 Iter: 02, alpha=1.56, beta=3.409
 Iter: 03, alpha=1.411, beta=2.989
@@ -342,16 +332,6 @@ Iter: 10, alpha=0.984, beta=2.045</code></pre>
 <p>Vamos considerar o mesmo problema, mas agora com duas explicativas. temos</p>
 <p><span class="math display">\[P(Y=1\;|\;\mu, x) = \mu = \sigma(\alpha + \beta_1 x_2+ \beta_2 x_2),\]</span></p>
 <p>As contas são exatamente as mesmas e vou omitir, mostrando apenas o código novo.</p>
-<pre><code>FALSE Iter: 01, alpha=1.674, beta1=2.703, beta2=3.461
-FALSE Iter: 02, alpha=NaN, beta1=NaN, beta2=NaN
-FALSE Iter: 03, alpha=NaN, beta1=NaN, beta2=NaN
-FALSE Iter: 04, alpha=NaN, beta1=NaN, beta2=NaN
-FALSE Iter: 05, alpha=NaN, beta1=NaN, beta2=NaN
-FALSE Iter: 06, alpha=NaN, beta1=NaN, beta2=NaN
-FALSE Iter: 07, alpha=NaN, beta1=NaN, beta2=NaN
-FALSE Iter: 08, alpha=NaN, beta1=NaN, beta2=NaN
-FALSE Iter: 09, alpha=NaN, beta1=NaN, beta2=NaN
-FALSE Iter: 10, alpha=NaN, beta1=NaN, beta2=NaN</code></pre>
 <pre><code>Iter: 01, alpha=1.674, beta1=2.703, beta2=3.461
 Iter: 02, alpha=NaN, beta1=NaN, beta2=NaN
 Iter: 03, alpha=NaN, beta1=NaN, beta2=NaN
@@ -382,19 +362,11 @@ Iter: 10, alpha=1.037, beta1=2.082, beta2=3.109</code></pre>
 <h4><span class="header-section-number">5.0.3.1</span> Os objetos de classe <code>family</code> no R</h4>
 <p>No R, os GLMs buscam informações de objetos da classe <code>family()</code> para realizar os ajustes. No caso da logística, o objeto é retornado por uma função chamada <code>binomial()</code>.</p>
 <p>O resultado disso é uma lista com vários métodos implementados. Por exemplo, a variância da binomial é dada por:</p>
-<pre><code>FALSE function (mu) 
-FALSE mu * (1 - mu)
-FALSE &lt;bytecode: 0x7fa83fe769e8&gt;
-FALSE &lt;environment: 0x7fa83fe7dbd8&gt;</code></pre>
 <pre><code>function (mu) 
 mu * (1 - mu)
 &lt;bytecode: 0x55fc8e220a18&gt;
 &lt;environment: 0x55fca4eb5040&gt;</code></pre>
 <p>A função de perda é dada pelo método <code>fam$dev.resids()</code> (resíduos deviance), e o código fonte é:</p>
-<pre><code>FALSE function (y, mu, wt) 
-FALSE .Call(C_binomial_dev_resids, y, mu, wt)
-FALSE &lt;bytecode: 0x7fa83fe76278&gt;
-FALSE &lt;environment: 0x7fa83fe7dbd8&gt;</code></pre>
 <pre><code>function (y, mu, wt) 
 .Call(C_binomial_dev_resids, y, mu, wt)
 &lt;bytecode: 0x55fc8e2253a0&gt;

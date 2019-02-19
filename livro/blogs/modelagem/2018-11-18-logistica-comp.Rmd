@@ -65,7 +65,7 @@ Nosso objetivo é maximizar $l$ com relação à $\alpha$ e $\beta$.
 
 OK, problema dado! vamos implementar usando tensorflow!
 
-```{r}
+```{r eval=FALSE}
 library(tensorflow)
 
 # gerando X usando uma distribuição qualquer
@@ -107,7 +107,7 @@ onde
 
 Detalhe: se você procurar esse algoritmo na internet, você vai encontrar um $-$ e não um $+$. Isso acontece porque estamos usando a verossimilhança e não a perda.
 
-```{r}
+```{r eval=FALSE}
 # definindo o otimizador
 k <- 0.001 # essa é a taxa de aprendizado k: learning rate
 otimizador <- tf$train$GradientDescentOptimizer(k)
@@ -154,7 +154,7 @@ $$P(Y=1\;|\;\mu, x) = \mu = \sigma(\alpha + \beta_1 x_2+ \beta_2 x_2),$$
 
 As contas são exatamente as mesmas e vou omitir, mostrando apenas o código novo.
 
-```{r}
+```{r eval=FALSE}
 # gerando X usando uma distribuição qualquer
 set.seed(1)
 N <- 10000
@@ -204,7 +204,7 @@ Oops! Explodiu! Por que será???
 
 Uma forma de corrigir esse problema é considerando uma taxa de aprendizado `k` um pouco menor. Com os mesmos dados e modelo acima, ao fazer
 
-```{r}
+```{r eval=FALSE}
 k <- 0.00094
 ```
 
@@ -231,13 +231,13 @@ Bom, problemas numéricos não são minha especialidade, então agora é hora de
 
 No R, os GLMs buscam informações de objetos da classe `family()` para realizar os ajustes. No caso da logística, o objeto é retornado por uma função chamada `binomial()`.
 
-```{r}
+```{r eval=FALSE}
 fam <- binomial()
 ```
 
 O resultado disso é uma lista com vários métodos implementados. Por exemplo, a variância da binomial é dada por:
 
-```{r}
+```{r eval=FALSE}
 fam$variance
 ```
 
@@ -248,7 +248,7 @@ fam$variance
 
 A função de perda é dada pelo método `fam$dev.resids()` (resíduos deviance), e o código fonte é:
 
-```{r}
+```{r eval=FALSE}
 fam$dev.resid
 ```
 
@@ -304,7 +304,7 @@ $$
 
 Essa é a formulação usual na literatura de GLMs, que apresenta uma série de propriedades estatísticas. Minimizar o desvio equivale a maximizar a verossimilhança. Será que isso ajuda nos problemas numéricos? Vamos ver:
 
-```{r}
+```{r eval=FALSE}
 ## mesmos códigos de antes...
 ## só substitua a perda por essas duas linhas
 
@@ -353,7 +353,7 @@ Então, para garantir estabilidade e evitar problemas numéricos, a implementaç
 
 Beleza, vamos tentar!
 
-```{r}
+```{r eval=FALSE}
 ## mesmos códigos de antes...
 ## só substitua a perda por essas duas linhas
 
