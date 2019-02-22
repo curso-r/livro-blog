@@ -8,7 +8,7 @@ summary: "Nesse post vamos discutir um pouco sobre regressão logística, tensor
 draft: false
 ---
 
-# Regressão logística: aspectos computacionais
+## Regressão logística: aspectos computacionais
 
 Neste texto vamos discutir um pouco sobre regressão logística, tensorflow e Modelos Lineares Generalizados (*Generalized Linear Models*, GLMs). Não vou economizar nas matemáticas nem nos códigos.
 
