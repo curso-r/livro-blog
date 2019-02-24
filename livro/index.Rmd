@@ -55,10 +55,8 @@ library(tidyverse)
 ```{r child="blogs/modelagem/2017-06-26-construindo-autoencoders.Rmd"}
 ```
 
-
 ```{r child="blogs/modelagem/2018-05-22-arvore-e-multicolinearidade.Rmd"}
 ```
-
 
 ```{r child="blogs/modelagem/2017-07-06-tidywoe.Rmd"}
 ```
@@ -69,12 +67,15 @@ library(tidyverse)
 ```{r child="blogs/modelagem/2017-04-10-sao-paulo.Rmd"}
 ```
 
+```{r child="blogs/modelagem/2017-05-01-marvel-vs-dc.Rmd"}
+```
+
+
 ```{r child="blogs/modelagem/2017-08-07-minimos-quadrados-restrito.Rmd"}
 ```
 
 ```{r child="blogs/modelagem/2017-09-18-bloom-filter.Rmd"}
 ```
-
 
 ```{r child="blogs/modelagem/2017-02-21-regressao-heterocedastica.Rmd"}
 ```

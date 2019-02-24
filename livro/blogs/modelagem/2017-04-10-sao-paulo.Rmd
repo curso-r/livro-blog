@@ -6,6 +6,8 @@ banner: "img/banners/pug_knapsack.png"
 author: ["Julio"]
 ---
 
+## São Paulo e o problema da mochila
+
 ```{r echo=F}
 knitr::opts_chunk$set(collapse=TRUE, cache=TRUE)
 ```
@@ -21,8 +23,6 @@ Dificuldade média
 ```{block, type='rmdimportant', echo=TRUE}
 model
 ```
-
-## São Paulo e o problema da mochila
 
 São Paulo é a minha cidade preferida, não só porque moro aqui, mas também porque é uma cidade cheia de diversidade, boa gastronomia e oportunidades. Para sentir um pouco dessa *vibe*, recomendo passear na avenida Paulista aos domingos. É sensacional!
 
