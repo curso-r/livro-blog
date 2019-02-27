@@ -48,6 +48,18 @@
 
 
 <script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.2/leaflet.js"></script>
+<link href="libs/leaflet-markercluster-1.0.5/MarkerCluster.css" rel="stylesheet" />
+<link href="libs/leaflet-markercluster-1.0.5/MarkerCluster.Default.css" rel="stylesheet" />
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.js"></script>
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.freezable.js"></script>
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.layersupport.js"></script>
 <script src="libs/d3-3.3.8/d3.min.js"></script>
 <script src="libs/dagre-0.4.0/dagre-d3.min.js"></script>
 <link href="libs/mermaid-0.3.0/dist/mermaid.css" rel="stylesheet" />
@@ -158,6 +170,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3.4" data-path="3-3-colando-textos-no-r.html"><a href="3-3-colando-textos-no-r.html#resumo"><i class="fa fa-check"></i><b>3.3.4</b> Resumo</a></li>
 <li class="chapter" data-level="3.3.5" data-path="3-3-colando-textos-no-r.html"><a href="3-3-colando-textos-no-r.html#extra"><i class="fa fa-check"></i><b>3.3.5</b> Extra:</a></li>
 </ul></li>
+<li class="chapter" data-level="3.4" data-path="3-4-leaflet-com-markercluster.html"><a href="3-4-leaflet-com-markercluster.html"><i class="fa fa-check"></i><b>3.4</b> leaflet com markerCluster</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="4-modelagem.html"><a href="4-modelagem.html"><i class="fa fa-check"></i><b>4</b> Modelagem</a><ul>
 <li class="chapter" data-level="4.1" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html"><i class="fa fa-check"></i><b>4.1</b> Monty Hall e diagramas de influência</a><ul>
@@ -301,10 +314,10 @@ model
 <p>Você está num jogo na TV e o apresentador pede para escolher uma entre 3 portas. Atrás de uma dessas portas tem uma <strong>Ferrari</strong> e nas outras duas temos <strong>cabras</strong>. Você escolhe uma porta. Depois, o apresentador retira uma porta que tem uma cabra e pergunta: <strong>você quer trocar de porta?</strong></p>
 <p>A princípio, você pode achar que sua probabilidade de ganhar é 1/2, já que uma das portas foi retirada, então não importa se você troca ou não. Mas a resposta é que sim, vale à pena trocar de porta! A probabilidade de vencer o jogo trocando a porta é de 2/3.</p>
 <center>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-45"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-53"></span>
 <img src="https://imgs.xkcd.com/comics/monty_hall.png" alt="Brincadeira do [XKCD](https://xkcd.com/1282/)."  />
 <p class="caption">
-Figura 2.1: Brincadeira do <a href="https://xkcd.com/1282/">XKCD</a>.
+Figura 2.2: Brincadeira do <a href="https://xkcd.com/1282/">XKCD</a>.
 </p>
 </div>
 </center>

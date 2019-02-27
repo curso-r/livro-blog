@@ -1,0 +1,94 @@
+---
+pubdate: "2017-03-04T23:26:00+03:00"
+date: "2017-03-01T23:26:00+03:00"
+tags: ["mapas", "leaflet"]
+categories: ["tutoriais", "r"]
+banner: "img/banners/markercluster.png"
+author: ["Julio"]
+summary: "O leaflet é uma biblioteca javascript para criação de mapas interativos. O pacote leaflet do R é um htmlwidget que permite gerar esses mapas de forma direta no R, para usar em documentos `RMarkdown` e Shiny."
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, cache = TRUE)
+```
+
+## leaflet com markerCluster
+
+```{r echo=F}
+knitr::opts_chunk$set(collapse=TRUE, cache=TRUE)
+```
+
+```{block, type='rmdtip', echo=TRUE}
+Autor: Julio
+```
+
+```{block, type='rmdtip', echo=TRUE}
+Dificuldade baixa
+```
+
+```{block, type='rmdimportant', echo=TRUE}
+model
+```
+
+O [*leaflet*](leafletjs.com) é uma biblioteca javascript para criação de mapas interativos. O pacote [`leaflet`](https://rstudio.github.io/leaflet/) do R é um [`htmlwidget`](www.htmlwidgets.org/) que permite gerar esses mapas de forma direta no R, para usar em documentos RMarkdown e Shiny.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, eval=FALSE}
+library(dplyr)
+library(tidyr)
+library(abjData)
+
+# Constrói base de dados com label das varas
+dados_aj_lab <- dados_aj %>%
+  filter(tipo == 'Justiça Estadual e DF') %>%
+  replace_na(list(tel = 'Telefone indisponível')) %>% 
+  mutate(lab = paste(sprintf('<b>%s</b>', nome), 
+                     endereco1, endereco2, municipio_uf, tel,
+                     sep = '<br/>')) %>% 
+  select(lat, long, uf, municipio, nome, lab)
+```
+
+Uma das ferramentas que mais gosto do leaflet é a função `markerClusterOptions()`, que permite agrupar pontos no mapa em conjuntos de vários pontos.
+
+Como exemplo, utilizaremos uma base de dados que contém a localização e informações das varas da Justiça Estadual no Brasil. A Tabela abaixo mostra as primeiras linhas dessa base. A coluna `lab` já foi trabalhada para ser adicionada nos marcadores do mapa como popup.
+
+```{r aj, echo=FALSE, eval=FALSE}
+dados_aj_lab %>% 
+  head(5) %>% 
+  knitr::kable(caption = "Primeiras cinco linhas da base de dados de varas estaduais do Brasil.")
+```
+
+|        lat|      long|uf |municipio            |nome                                    |lab                                                                                                                                                                |
+|----------:|---------:|:--|:--------------------|:---------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| -21.243369| -48.80407|SP |Santa Adélia         |VARA ÚNICA                              |<b>VARA ÚNICA</b><br/>PRAÇA DR. ADHEMAR DE BARROS 255<br/>Santa Adélia - SP, CEP 15950-000<br/>Santa Adélia - SP<br/>Telefone indisponível                         |
+|  -3.102226| -67.95186|AM |Santo Antônio do Içá |VARA DA COMARCA DE SANTO ANTÔNIO DO IÇÁ |<b>VARA DA COMARCA DE SANTO ANTÔNIO DO IÇÁ</b><br/>HUGO RIBEIRO S/N<br/>Santo Antônio do Içá - AM, CEP 69680-000<br/>Santo Antônio do Içá - AM<br/>(097) 9791-8763 |
+|  -3.067617| -59.95668|AM |Manaus               |2º VARA DE FAMÍLIA E SUCESSÕES          |<b>2º VARA DE FAMÍLIA E SUCESSÕES</b><br/>RUA PARAIBA S/N<br/>Manaus - AM, CEP 69079-265<br/>Manaus - AM<br/>(092) 9233-0351                                       |
+
+Para utilizar o pacote `leaflet`, basta instalar o pacote via `install.packages()`. Na Figura \@ref(fig:mapa-leaflet), experimente passear pelo mapa. Procure também algum lugar que tenha várias varas juntas, para ver o que o `markerCluster` faz nesse caso.
+
+```{r, eval=FALSE, echo=TRUE}
+library(magrittr)
+library(leaflet)
+dados_aj_lab %>% 
+  leaflet() %>% 
+  addTiles() %>% 
+  addMarkers(
+    lng = ~long, 
+    lat = ~lat, 
+    popup = ~lab,
+    clusterOptions = markerClusterOptions()
+  )
+```
+
+```{r mapa-leaflet, fig.align='center', fig.cap='Mapa das varas estaduais do Brasil.', cache=FALSE, echo=FALSE}
+library(leaflet)
+readr::read_rds("assets/leaflet.rds")
+```
+
+- A função `leaflet()` carrega o motor do *leaflet*, ainda em branco.
+- A função `addTiles()` adiciona as camadas de mapas de acordo com o zoom. É possível escolher temas para essas camadas.
+- A função `addMarkers()` mapeia as varas da base de dados de acordo com as respectivas latitude e longitude. 
+    - Note que é necessário adicionar um `~` antes das variáveis para mapeá-las da base de dados. 
+    - A opção `popup` permite adicionar um balão com informações ao clicar num marcador.
+    - A opção `clusterOptions` faz a mágica que agrupa os pontos. A região azul observada ao colocar o mouse sobre um cluster é a casca convexa dos marcadores agrupados.
+
+É isso!

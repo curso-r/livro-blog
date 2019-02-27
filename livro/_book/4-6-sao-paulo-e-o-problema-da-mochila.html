@@ -48,6 +48,18 @@
 
 
 <script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.2/leaflet.js"></script>
+<link href="libs/leaflet-markercluster-1.0.5/MarkerCluster.css" rel="stylesheet" />
+<link href="libs/leaflet-markercluster-1.0.5/MarkerCluster.Default.css" rel="stylesheet" />
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.js"></script>
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.freezable.js"></script>
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.layersupport.js"></script>
 <script src="libs/d3-3.3.8/d3.min.js"></script>
 <script src="libs/dagre-0.4.0/dagre-d3.min.js"></script>
 <link href="libs/mermaid-0.3.0/dist/mermaid.css" rel="stylesheet" />
@@ -158,6 +170,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3.4" data-path="3-3-colando-textos-no-r.html"><a href="3-3-colando-textos-no-r.html#resumo"><i class="fa fa-check"></i><b>3.3.4</b> Resumo</a></li>
 <li class="chapter" data-level="3.3.5" data-path="3-3-colando-textos-no-r.html"><a href="3-3-colando-textos-no-r.html#extra"><i class="fa fa-check"></i><b>3.3.5</b> Extra:</a></li>
 </ul></li>
+<li class="chapter" data-level="3.4" data-path="3-4-leaflet-com-markercluster.html"><a href="3-4-leaflet-com-markercluster.html"><i class="fa fa-check"></i><b>3.4</b> leaflet com markerCluster</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="4-modelagem.html"><a href="4-modelagem.html"><i class="fa fa-check"></i><b>4</b> Modelagem</a><ul>
 <li class="chapter" data-level="4.1" data-path="4-1-monty-hall-e-diagramas-de-influencia.html"><a href="4-1-monty-hall-e-diagramas-de-influencia.html"><i class="fa fa-check"></i><b>4.1</b> Monty Hall e diagramas de influência</a><ul>
@@ -305,17 +318,17 @@ model
 <div id="o-problema-da-mochila" class="section level3">
 <h3><span class="header-section-number">4.6.1</span> O problema da mochila</h3>
 <p>Considere o seguinte contexto: você tem uma mochila com capacidade de 15kg e precisa carregar a combinação de itens com maior valor, com cada item possuindo valores e pesos diferentes.</p>
-<div class="figure"><span id="fig:unnamed-chunk-91"></span>
+<div class="figure"><span id="fig:unnamed-chunk-99"></span>
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Knapsack.svg/250px-Knapsack.svg.png" alt="Knapsack problem. Retirado do [Wikipedia](https://en.wikipedia.org/wiki/Knapsack_problem#/media/File:Knapsack.svg)."  />
 <p class="caption">
-Figura 2.2: Knapsack problem. Retirado do <a href="https://en.wikipedia.org/wiki/Knapsack_problem#/media/File:Knapsack.svg">Wikipedia</a>.
+Figura 2.3: Knapsack problem. Retirado do <a href="https://en.wikipedia.org/wiki/Knapsack_problem#/media/File:Knapsack.svg">Wikipedia</a>.
 </p>
 </div>
 <p>Outra forma de pensar nesse problema é com um cardápio de restaurante:</p>
-<div class="figure"><span id="fig:unnamed-chunk-92"></span>
+<div class="figure"><span id="fig:unnamed-chunk-100"></span>
 <img src="https://imgs.xkcd.com/comics/np_complete.png" alt="XKCD sobre o knapsack problem."  />
 <p class="caption">
-Figura 2.3: XKCD sobre o knapsack problem.
+Figura 2.4: XKCD sobre o knapsack problem.
 </p>
 </div>
 <p>Em linguagem matemática, o que temos é a task:</p>
@@ -430,11 +443,11 @@ Figura 2.3: XKCD sobre o knapsack problem.
 <div id="mapa-final" class="section level3">
 <h3><span class="header-section-number">4.6.6</span> Mapa final</h3>
 <p>Visualmente, a solução ótima e a solução adhoc são idênticas. Por isso vou mostrar apenas como fica o mapa para a solução ótima.</p>
-<p>O resultado aparece na Figura <a href="4-6-sao-paulo-e-o-problema-da-mochila.html#fig:final">2.4</a>. É realmente impressionante ver que aquela regiãozinha vermelha tem a mesma população que toda a região azul do mapa.</p>
+<p>O resultado aparece na Figura <a href="4-6-sao-paulo-e-o-problema-da-mochila.html#fig:final">2.5</a>. É realmente impressionante ver que aquela regiãozinha vermelha tem a mesma população que toda a região azul do mapa.</p>
 <div class="figure"><span id="fig:final"></span>
 <img src="assets/imgs/sao-paulo/sao-paulo.png" alt="Mapa do Brasil final." width="566" />
 <p class="caption">
-Figura 2.4: Mapa do Brasil final.
+Figura 2.5: Mapa do Brasil final.
 </p>
 </div>
 <p>É isso! Happy coding ;)</p>

@@ -37,6 +37,7 @@ library(tidyverse)
 
 # Tutoriais
 
+
 ```{r child="blogs/tutoriais/2018-07-03-tutorial-pipe.Rmd"}
 ```
 
@@ -44,6 +45,9 @@ library(tidyverse)
 ```
 
 ```{r child="blogs/tutoriais/2017-04-08-glue.Rmd"}
+```
+
+```{r child="blogs/tutoriais/2017-02-21-markercluster.Rmd"}
 ```
 
 
@@ -85,7 +89,6 @@ library(tidyverse)
 
 ```{r child="blogs/transformacao/2017-07-24-janitor.Rmd"}
 ```
-
 
 ```{r child="blogs/transformacao/2017-06-17-skimr.Rmd"}
 ```
