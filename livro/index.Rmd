@@ -96,6 +96,9 @@ library(tidyverse)
 ```{r child="blogs/transformacao/2017-09-07-pacote-miojo.Rmd"}
 ```
 
+```{r child="blogs/transformacao/2019-02-10-pvec.Rmd"}
+```
+
 
 # Reflexões
 

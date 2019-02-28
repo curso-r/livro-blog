@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>4.10 Modelando a variância da normal | Como faz no R</title>
+  <title>5.4 pvec: O laço perfeito | Como faz no R</title>
   <meta name="description" content="Livro da Curso-R.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="4.10 Modelando a variância da normal | Como faz no R />
+  <meta property="og:title" content="5.4 pvec: O laço perfeito | Como faz no R />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4.10 Modelando a variância da normal | Como faz no R />
+  <meta name="twitter:title" content="5.4 pvec: O laço perfeito | Como faz no R />
   
   <meta name="twitter:description" content="Livro da Curso-R." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="4-9-filtros-de-bloom-em-r.html">
-<link rel="next" href="5-transformacao.html">
+<link rel="prev" href="5-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html">
+<link rel="next" href="6-reflexoes.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -279,117 +279,129 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="modelando-a-variancia-da-normal" class="section level2">
-<h2><span class="header-section-number">4.10</span> Modelando a variância da normal</h2>
-<p>Verificar as suposições dos modelos é muito importante quando fazemos inferência estatística. Em particular, a suposição de homocedasticidade<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> dos modelos de regressão linear é especialmente importante, pois modifica o cálculo de erros padrão, intervalos de confiança e valores-p.</p>
-<p>Neste post, vou mostrar três pacotes do R que ajustam modelos da forma</p>
-<p><span class="math display">\[ Y_i = \beta_0 + \sum_{k=1}^p\beta_kx_{ik} + \epsilon_i, \ i = 1,\ldots,n\]</span></p>
-<p><span class="math display">\[ \epsilon_{i} \sim \textrm{N}(0,\sigma_i), \ i = 1,\ldots,n \ \textrm{independentes, com }\sigma_i^2 = \alpha x_i^2.  \]</span></p>
-<p>Além de mostrar como se faz, também vou ilustrar o desempenho dos pacotes em um exemplo simulado. O modelo que gerará os dados do exemplo terá a seguinte forma funcional</p>
-<p><span class="math display">\[ Y_i = \beta x_i + \epsilon_i, \ i = 1,...n \]</span>
-<span class="math display">\[ \epsilon_i \sim N(0, \sigma_i)\text{ independentes, com }\sigma_i = \alpha\sqrt{|x_i|},\]</span></p>
-<p>e os parâmetros do modelo serão os valores <span class="math inline">\(\beta = 1\)</span> e <span class="math inline">\(\alpha = 4\)</span>. A heterocedasticidade faz com que os pontos desenhem um cone ao redor da reta de regressão.</p>
-<p><img src="bookdown_files/figure-html/unnamed-chunk-126-1.svg" width="864" /></p>
-<div id="usando-o-pacote-gamlss" class="section level3">
-<h3><span class="header-section-number">4.10.1</span> Usando o pacote <code>gamlss</code></h3>
-<p>Quando se ajusta um GAMLSS, você pode modelar os parâmetros de locação, escala e curtose ao mesmo tempo em que escolhe a distribuição dos dados dentre uma grande gama de opções. Escolhendo a distribuição normal e modelando apenas os parâmetros de locação e escala, o GAMLSS ajusta modelos lineares normais com heterocedasticidade.</p>
-<p>No código abaixo, o parâmetro <code>formula = Y ~ X-1</code> indica que a função de regressão será constituída por um preditor linear em <code>X</code> sem intercepto. Já o parâmetro <code>sigma.formula = ~X2-1</code> indica que o desvio padrão será modelado por um preditor linear em <code>X2</code> (ou raiz de <code>X</code>), também sem intercepto.</p>
-<pre><code>FALSE GAMLSS-RS iteration 1: Global Deviance = 17872.29 
-FALSE GAMLSS-RS iteration 2: Global Deviance = 17870.67 
-FALSE GAMLSS-RS iteration 3: Global Deviance = 17870.67</code></pre>
-<p>Conforme descrito no sumário abaixo, a estimativa de alfa está muito abaixo do valor simulado.</p>
-<pre><code>FALSE ******************************************************************
-FALSE Family:  c(&quot;NO&quot;, &quot;Normal&quot;) 
-FALSE 
-FALSE Call:  gamlss::gamlss(formula = Y ~ X - 1, sigma.formula = ~X2 -  
-FALSE     1, family = NO(), data = dataset) 
-FALSE 
-FALSE Fitting method: RS() 
-FALSE 
-FALSE ------------------------------------------------------------------
-FALSE Mu link function:  identity
-FALSE Mu Coefficients:
-FALSE   Estimate Std. Error t value Pr(&gt;|t|)    
-FALSE X 0.996942   0.005131   194.3   &lt;2e-16 ***
-FALSE ---
-FALSE Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-FALSE 
-FALSE ------------------------------------------------------------------
-FALSE Sigma link function:  log
-FALSE Sigma Coefficients:
-FALSE     Estimate Std. Error t value Pr(&gt;|t|)    
-FALSE X2 0.1791449  0.0009606   186.5   &lt;2e-16 ***
-FALSE ---
-FALSE Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-FALSE 
-FALSE ------------------------------------------------------------------
-FALSE No. of observations in the fit:  1000 
-FALSE Degrees of Freedom for the fit:  2
-FALSE       Residual Deg. of Freedom:  998 
-FALSE                       at cycle:  3 
-FALSE  
-FALSE Global Deviance:     17870.67 
-FALSE             AIC:     17874.67 
-FALSE             SBC:     17884.49 
-FALSE ******************************************************************</code></pre>
+<div id="pvec-o-laco-perfeito" class="section level2">
+<h2><span class="header-section-number">5.4</span> pvec: O laço perfeito</h2>
+<div class="rmdtip">
+<p>
+Autor: Julio
+</p>
 </div>
-<div id="usando-o-pacote-dglm" class="section level3">
-<h3><span class="header-section-number">4.10.2</span> Usando o pacote <code>dglm</code></h3>
-<p>Quando se ajusta um Modelo Linear Generalizado Duplo (MLGD em português e DGLM em inglês), você tem uma flexibilidade parecida com a de um GAMLSS. Entretanto, você não pode definir um modelo para a curtose e a classe de distribuições disponível é bem menor.</p>
-<p>O código abaixo, similar ao utilizado para ajustar o GAMLSS, ajusta um DGLM aos dados simulados.</p>
-<p>Novamente, verifica-se que o alfa estimado está muito distante do verdadeiro alfa.</p>
-<pre><code>FALSE 
-FALSE Call: dglm(formula = Y ~ X - 1, dformula = ~X2 - 1, family = gaussian, 
-FALSE     data = dataset, method = &quot;reml&quot;)
-FALSE 
-FALSE Mean Coefficients:
-FALSE    Estimate  Std. Error t value Pr(&gt;|t|)
-FALSE X 0.9969432 0.008981392 111.001        0
-FALSE (Dispersion Parameters for gaussian family estimated as below )
-FALSE 
-FALSE     Scaled Null Deviance: 27197.48 on 1000 degrees of freedom
-FALSE Scaled Residual Deviance: 3090.08 on 999 degrees of freedom
-FALSE 
-FALSE Dispersion Coefficients:
-FALSE     Estimate  Std. Error  z value Pr(&gt;|z|)
-FALSE X2 0.3577322 0.001166004 306.8019        0
-FALSE (Dispersion parameter for Gamma family taken to be 2 )
-FALSE 
-FALSE     Scaled Null Deviance: 1628.301 on 1000 degrees of freedom
-FALSE Scaled Residual Deviance: 6526.59 on 999 degrees of freedom
-FALSE 
-FALSE Minus Twice the Log-Likelihood: 17870.76 
-FALSE Number of Alternating Iterations: 18</code></pre>
+<div class="rmdtip">
+<p>
+Dificuldade baixa
+</p>
 </div>
-<div id="usando-o-pacote-rstan" class="section level3">
-<h3><span class="header-section-number">4.10.3</span> Usando o pacote <code>rstan</code></h3>
-<p><a href="http://mc-stan.org/">Stan</a> é uma linguagem de programação voltada para descrever e manipular objetos probabilísticos, como por exemplo variáveis aleatórias, processos estocásticos, distribuições de probabilidades etc. Essa linguagem foi projetada para tornar intuitivo e simples o ajuste de modelos estatísticos. Em particular, a forma de descrever modelos bayesianos é bem cômoda.</p>
-<p>O <code>stan</code> possui várias interfaces para <code>R</code>. A mais básica é o <code>rstan</code>, que será utilizada aqui. A principal função desse pacote é a função <code>rstan</code>, que possui dois parâmetros básicos:</p>
+<div class="rmdimportant">
+<p>
+model
+</p>
+</div>
+<p>Quando usamos laços para rodar algoritmos complexos em uma lista de <em>inputs</em>, podemos pensar em <em>power-ups</em>. Tratam-se de funcionalidades que ajudam na aplicação dos laços, tanto do ponto de vista de eficiência do código quanto do ponto de vista de eficiência do trabalho do cientista de dados.</p>
+<p>Aqui na Curso-R nós já vimos três desses power-ups:</p>
 <ul>
-<li>um parâmetro <code>model_code =</code>, que recebe um código que descreve o modelo na linguagem <code>stan</code>.</li>
-<li>um parâmetro <code>data =</code>, que recebe uma lista contendo os inputs do modelo, tais como dados coletados, parâmetros de distribuições a priori, etc.</li>
+<li>Como fazer <a href="https://www.curso-r.com/blog/2017-03-14-parallel/">laços em paralelo</a>.</li>
+<li>Como usar <a href="https://www.curso-r.com/blog/2017-04-08-progress/">barras de progresso</a></li>
+<li>Como fazer <a href="https://www.curso-r.com/blog/2017-04-09-try/">tratamento de erros</a>.</li>
 </ul>
-<p>Embora esse seja o mínimo que a função precisa, também podemos passar outras componentes. O parâmetro <code>verbose = FALSE</code> faz com que a função não imprima nada enquanto roda e o parâmetro <code>control = list(...)</code> passa uma lista de opções de controle para o algoritmo de ajuste.</p>
-<p>O retorno da função <code>stan()</code> é um objeto do tipo <code>stanfit</code>, que pode ser sumarizado da mesma forma que outros modelos em R, utilizando a função <code>summary()</code> e a função <code>plot()</code>.</p>
-<p>O código abaixo ilustra a aplicação da função <code>stan()</code> ao nosso exemplo.</p>
-<p>A figura abaixo descreve os intervalos de credibilidade obtidos para cada parâmetro do modelo. O ponto central de cada intervalo representa as estimativas pontuais dos parâmetros. Como se nota, as estimativas do modelo utilizando <code>stan</code> estão bem próximas dos valores verdadeiros.</p>
-<p><img src="assets/imgs/regressao-heterocedastica/imagem_fernando_1.jpg" width="70%" style="display: block; margin: auto;" /></p>
+<p>Mas será que tem um jeito de juntar essas três funcionalidades em apenas uma operação?</p>
+<p><img src="assets/pvec/nao_tinha_agora_tem.jpg" /></p>
+<p>Sim, é claro que tem. E se algo é possível no R, o <a href="https://ctlente.com">Caio Lente</a> já fez. Trata-se da operação <code>pvec()</code>, do pacote <code>abjutils</code>.</p>
+<p>Para utilizá-la, você precisará instalar a versão de desenvolvimento do <code>abjutils</code> no GitHub:</p>
+<p>Pode ser que o <code>pvec()</code> não funcione muito bem no Windows. Isso é algo que vamos trabalhar no futuro.</p>
+<div id="como-funciona-1" class="section level3">
+<h3><span class="header-section-number">5.4.1</span> Como funciona</h3>
+<p>O <code>pvec()</code> recebe duas informações de entrada: uma lista ou vetor de <code>inputs</code> e uma função a ser aplicada. O <code>pvec()</code> funciona exatamente como um <code>purrr::map()</code>, mas retorna um <code>data.frame</code> com os outputs.</p>
+<p>Por exemplo, digamos que nosso objetivo seja aplicar a função</p>
+<p>em uma lista de entradas, dada por</p>
+<p>O resultado é dado por:</p>
+<pre><code># A tibble: 4 x 3
+     id return output           
+  &lt;int&gt; &lt;chr&gt;  &lt;list&gt;           
+1     1 result &lt;dbl [1]&gt;        
+2     2 result &lt;dbl [1]&gt;        
+3     3 result &lt;dbl [1]&gt;        
+4     4 error  &lt;S3: simpleError&gt;</code></pre>
+<p>Ou seja, o resultado é um <code>data.frame</code>, que tem o número de linhas exatamente igual ao comprimento do vetor ou lista de entrada, e três colunas específicas.</p>
+<ol style="list-style-type: decimal">
+<li><code>id</code>, que guarda o índice de entrada. Se a lista de entrada é nomeada, <code>id</code> guarda esses nomes.</li>
+<li><code>return</code> identifica se a aplicação retornou num resultado (<code>result</code>) ou erro (<code>error</code>)</li>
+<li><code>output</code> é uma coluna-lista que contém os resultados. Quando o resultado é um erro, o erro é capturado e colocado no elemento correspondente.</li>
+</ol>
+<p>Ou seja, uma característica do <code>pvec()</code> é que ele <strong>nunca irá travar</strong>. Se essa operação travar, é porque o computador todo travou.</p>
+<p>É importante notar que alguns resultados nesse caso são <code>NaN</code>. Isso ocorre pois <code>log(-1)</code> resulta em <code>NaN</code>, acompanhado de um warning. O <code>pvec()</code> não trabalha com warnings.</p>
+<p>Outra característica importante do <code>pvec()</code> é que ele roda em paralelo. Você pode controlar a quantidade de núcleos de processamento com o parâmetro <code>.cores</code>. Por padrão, ele usará o número de núcleos da sua máquina.</p>
+<p>Finalmente, o que não poderia faltar no <code>pvec()</code> é a utilização de barras de progresso. Por exemplo, considerando como input</p>
+<p>O resultado é</p>
+<pre><code>Progress: ───────────────────────────────                              100%
+
+Progress: ──────────────────────────────────────────────────────────── 100%
+
+# A tibble: 8 x 3
+  id    return output           
+  &lt;chr&gt; &lt;chr&gt;  &lt;list&gt;           
+1 a     result &lt;dbl [1]&gt;        
+2 b     result &lt;dbl [1]&gt;        
+3 c     result &lt;dbl [1]&gt;        
+4 d     error  &lt;S3: simpleError&gt;
+5 e     result &lt;dbl [1]&gt;        
+6 f     result &lt;dbl [1]&gt;        
+7 g     result &lt;dbl [1]&gt;        
+8 h     error  &lt;S3: simpleError&gt;</code></pre>
+<p>Se você quiser desligar a barra de progresso, basta adicionar <code>.progress = FALSE</code>.</p>
+</div>
+<div id="o-parametro-.flatten" class="section level3">
+<h3><span class="header-section-number">5.4.2</span> O parâmetro <code>.flatten</code></h3>
+<p>Esse é o parâmetro dos preguiçosos (eu que pedi para o Caio adicionar). Em muitas operações, o resultado que sai no <code>output</code> é uma lista de <code>data.frame</code>s ou uma lista de vetores. A opção <code>.flatten</code> faz <code>tidyr::unnest()</code>, empilhando os resultados e colando tudo num vetor ou <code>data.frame</code>.</p>
+<p>O único problema é que nesse caso não é possível guardar os erros. Por isso, o <code>pvec()</code> retorna um warning:</p>
+<pre><code>Progress: ──────────────────────────────────────────────────────────── 100%
+
+# A tibble: 6 x 2
+  id     output
+  &lt;chr&gt;   &lt;dbl&gt;
+1 a       0    
+2 b       0.693
+3 c     NaN    
+4 e       0.693
+5 f       1.10 
+6 g     NaN    
+
+Warning message:
+Since &#39;.flatten = TRUE&#39;, a total of 2 errors are being ignored     </code></pre>
+<p>Note que o resultado tem 6 linhas, menor que a entrada, que tem 8 elementos. Por isso, use <code>.flatten</code> somente quando você tem certeza do que está fazendo.</p>
+</div>
+<div id="por-tras-dos-panos-o-furrr" class="section level3">
+<h3><span class="header-section-number">5.4.3</span> Por trás dos panos: o <code>furrr</code></h3>
+<p>O <code>pvec()</code> só funciona por conta de dois excelentes pacotes:</p>
+<ul>
+<li>o <code>future</code>, que é um novo paradigma de computação em paralelo no R.</li>
+<li>o <code>furrr</code>, que faz todo o trabalho sujo e implementa a maioria das operações do <code>purrr</code> usando <code>future</code>.</li>
+</ul>
+<p>Se quiser estudar esses pacotes e implementar suas próprias soluções, recomendo acessar <a href="https://github.com/HenrikBengtsson/future">aqui</a> e <a href="https://github.com/DavisVaughan/furrr">aqui</a>. Não incluí detalhes desses pacotes aqui para não sair do foco.</p>
+<p>Se quiser adicionar opções do <code>future</code> no <code>pvec()</code>, basta adicioná-las na opção <code>.options</code>. Por padrão, passamos <code>furrr::future_options()</code> nesse argumento.</p>
+<div id="discussao-o-future-e-o-futuro-do-purrr" class="section level4">
+<h4><span class="header-section-number">5.4.3.1</span> Discussão: o <code>future</code> é o futuro do <code>purrr</code>?</h4>
+<p>O <code>purrr</code> contém uma série de <a href="https://github.com/tidyverse/purrr/milestone/2">discussões no GitHub</a> sobre a possibilidade de rodar funções em paralelo e com barras de progresso. Pode ser que a funcionalidade do <code>pvec()</code> passe a ser parte oficial no futuro.</p>
+<p>Veremos!</p>
+</div>
+</div>
+<div id="wrap-up-3" class="section level3">
+<h3><span class="header-section-number">5.4.4</span> Wrap-up</h3>
+<ol style="list-style-type: decimal">
+<li><code>abjutils::pvec()</code> é um <code>map()</code> que roda em paralelo, tem barras de progresso e trata erros automaticamente.</li>
+<li>Você pode brincar com as opções <code>.cores</code>, <code>.progress</code> e <code>.flatten</code> para controlar o comportamento do <code>pvec()</code>. Tome muito cuidado com o <code>.flatten</code>, pois ele pode não tratar os erros da forma que você imagina!</li>
+<li>Estude <code>future</code> e <code>furrr</code> se quiser estender as funcionalidades do <code>pvec()</code>.</li>
+</ol>
+<p>É isso pessoal. Happy coding ;)</p>
 </div>
 </div>
 <!-- </div> -->
-<div class="footnotes">
-<hr />
-<ol start="5">
-<li id="fn5"><p>Uma regressão linear é homocedástica quando a variabilidade dos erros não depende das covariáveis do modelo.<a href="4-10-modelando-a-variancia-da-normal.html#fnref5" class="footnote-back">↩</a></p></li>
-</ol>
-</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="4-9-filtros-de-bloom-em-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="5-transformacao.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="5-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="6-reflexoes.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
