@@ -5,14 +5,10 @@ author: ["Julio"]
 ---
 
 ```{r, include=FALSE}
-knitr::opts_chunk$set(collapse = TRUE, cache = FALSE, eval = FALSE)
+knitr::opts_chunk$set(eval = FALSE)
 ```
 
 ## pvec: O laço perfeito
-
-```{r echo=F}
-knitr::opts_chunk$set(collapse=TRUE, cache=TRUE)
-```
 
 ```{block, type='rmdtip', echo=TRUE}
 Autor: Julio
@@ -42,7 +38,7 @@ Sim, é claro que tem. E se algo é possível no R, o [Caio Lente](https://ctlen
 
 Para utilizá-la, você precisará instalar a versão de desenvolvimento do `abjutils` no GitHub:
 
-```{r}
+```{r eval=FALSE}
 devtools::install_github("abjur/abjutils")
 ```
 
@@ -54,7 +50,7 @@ O `pvec()` recebe duas informações de entrada: uma lista ou vetor de `inputs` 
 
 Por exemplo, digamos que nosso objetivo seja aplicar a função 
 
-```{r}
+```{r eval=FALSE}
 funcao <- function(x) {
   # dorme 1s
   Sys.sleep(1)
@@ -65,13 +61,13 @@ funcao <- function(x) {
 
 em uma lista de entradas, dada por
 
-```{r}
+```{r eval=FALSE}
 input <- list(1, 2, -1, "a")
 ```
 
 O resultado é dado por:
 
-```{r}
+```{r eval=FALSE}
 resultado <- abjutils::pvec(input, funcao)
 resultado
 ```
@@ -98,14 +94,14 @@ Outra característica importante do `pvec()` é que ele roda em paralelo. Você 
 
 Finalmente, o que não poderia faltar no `pvec()` é a utilização de barras de progresso. Por exemplo, considerando como input
 
-```{r}
+```{r eval=FALSE}
 input <- list(a = 1, b = 2, c = -1, d = "a",
               e = 2, f = 3, g = -2, h = "b")
 ```
 
 O resultado é
 
-```{r}
+```{r eval=FALSE}
 abjutils::pvec(input, funcao)
 ```
 
@@ -134,7 +130,7 @@ Esse é o parâmetro dos preguiçosos (eu que pedi para o Caio adicionar). Em mu
 
 O único problema é que nesse caso não é possível guardar os erros. Por isso, o `pvec()` retorna um warning:
 
-```{r}
+```{r eval=FALSE}
 abjutils::pvec(input, funcao, .flatten = TRUE)
 ```
 

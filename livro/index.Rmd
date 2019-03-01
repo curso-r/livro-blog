@@ -50,7 +50,6 @@ library(tidyverse)
 ```{r child="blogs/tutoriais/2017-02-21-markercluster.Rmd"}
 ```
 
-
 # Modelagem 
 
 ```{r child="blogs/modelagem/2018-09-03-monty-hall.Rmd"}
@@ -97,6 +96,9 @@ library(tidyverse)
 ```
 
 ```{r child="blogs/transformacao/2019-02-10-pvec.Rmd"}
+```
+
+```{r child="blogs/transformacao/2017-11-23-union-sf.Rmd"}
 ```
 
 

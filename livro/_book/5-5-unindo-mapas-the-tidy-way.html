@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>5.2 Skimr: estatísticas básicas com ❤️ | Como faz no R</title>
+  <title>5.5 Unindo mapas: the tidy way | Como faz no R</title>
   <meta name="description" content="Livro da Curso-R.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="5.2 Skimr: estatísticas básicas com ❤️ | Como faz no R />
+  <meta property="og:title" content="5.5 Unindo mapas: the tidy way | Como faz no R />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5.2 Skimr: estatísticas básicas com ❤️ | Como faz no R />
+  <meta name="twitter:title" content="5.5 Unindo mapas: the tidy way | Como faz no R />
   
   <meta name="twitter:description" content="Livro da Curso-R." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="5-1-arrumando-banco-de-dados-o-pacote-janitor.html">
-<link rel="next" href="5-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html">
+<link rel="prev" href="5-4-pvec-o-laco-perfeito.html">
+<link rel="next" href="6-reflexoes.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -306,251 +306,133 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="skimr-estatisticas-basicas-com" class="section level2">
-<h2><span class="header-section-number">5.2</span> Skimr: estatísticas básicas com ❤️</h2>
-<p>Entre os dias 25 e 27 de maio aconteceu a <a href="http://unconf17.ropensci.org/">ROpenSci Unconf 2017</a>. O encontro reuniu vários pop stars da comunidade R como <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://github.com/jcheng5">Joe Cheng</a> (criador do shiny), <a href="https://github.com/jeroen">Jeroen Ooms</a> (criador do OpenCPU e autor de vários pacotes bacanas), <a href="https://github.com/jennybc">Jenny Bryan</a> (autora de vários pacotes bacanas como <code>googlesheets</code>), várias pessoas do <a href="http://rladies.org/">#R-Ladies</a> e muito mais.</p>
-<p>Uma coisa muito legal dessa conferência é que ela funcionou como uma hackathon. Foi criada uma nova organização no github chamada <a href="https://github.com/ropenscilabs">ROpenSci Labs</a>, e os presentes simplesmente começaram a subir pacotes fantásticos lá dentro. Recomendo muito dar uma olhada.</p>
-<p>Dentre os pacotes que olhei, o que mais me chamou atenção foi o <a href="https://github.com/ropenscilabs/skimr"><code>skimr</code></a> e por isso estou fazendo esse post! O propósito do <code>skimr</code> é simples: fazer algumas estatísticas básicas univariadas de uma base de dados.</p>
-<p>O <code>skimr</code> ainda não está no CRAN, então para instalar recomendamos utilizar o <code>devtools</code> para instalar direto do GitHub, conforme código abaixo. Note que também será necessário instalar o pacote <code>colformat</code> do Hadley.</p>
-<p>A função <code>skim()</code> calcula estatísticas básicas das variáveis e imprime no seu console. Note que a função separa estatísticas para variáveis numéricas ou fatores.</p>
-<pre><code>FALSE Skim summary statistics
-FALSE  n obs: 150 
-FALSE  n variables: 5 
-FALSE 
-FALSE ── Variable type:factor ────────────────────────────────────────────────────────────────────────────────────────
-FALSE  variable missing complete   n n_unique                       top_counts
-FALSE   Species       0      150 150        3 set: 50, ver: 50, vir: 50, NA: 0
-FALSE  ordered
-FALSE    FALSE
-FALSE 
-FALSE ── Variable type:numeric ───────────────────────────────────────────────────────────────────────────────────────
-FALSE      variable missing complete   n mean   sd  p0 p25  p50 p75 p100
-FALSE  Petal.Length       0      150 150 3.76 1.77 1   1.6 4.35 5.1  6.9
-FALSE   Petal.Width       0      150 150 1.2  0.76 0.1 0.3 1.3  1.8  2.5
-FALSE  Sepal.Length       0      150 150 5.84 0.83 4.3 5.1 5.8  6.4  7.9
-FALSE   Sepal.Width       0      150 150 3.06 0.44 2   2.8 3    3.3  4.4
-FALSE      hist
-FALSE  ▇▁▁▂▅▅▃▁
-FALSE  ▇▁▁▅▃▃▂▂
-FALSE  ▂▇▅▇▆▅▂▂
-FALSE  ▁▂▅▇▃▂▁▁</code></pre>
-<p>E tem mais! O mais legal do <code>skimr</code> é que ele usa a função <code>colformat::spark_bar()</code> para desenhar histogramas direto no seu console!</p>
-<table>
-<caption><span id="tab:unnamed-chunk-149">Tabela 2.3: </span>HISTOGRAMA NA TABELA PORQUE SIM!</caption>
-<thead>
-<tr class="header">
-<th align="left">variable</th>
-<th align="left">type</th>
-<th align="left">stat</th>
-<th align="left">level</th>
-<th align="right">value</th>
-<th align="left">formatted</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Sepal.Length</td>
-<td align="left">numeric</td>
-<td align="left">hist</td>
-<td align="left">.all</td>
-<td align="right">NA</td>
-<td align="left">▂▇▅▇▆▅▂▂</td>
-</tr>
-<tr class="even">
-<td align="left">Sepal.Width</td>
-<td align="left">numeric</td>
-<td align="left">hist</td>
-<td align="left">.all</td>
-<td align="right">NA</td>
-<td align="left">▁▂▅▇▃▂▁▁</td>
-</tr>
-<tr class="odd">
-<td align="left">Petal.Length</td>
-<td align="left">numeric</td>
-<td align="left">hist</td>
-<td align="left">.all</td>
-<td align="right">NA</td>
-<td align="left">▇▁▁▂▅▅▃▁</td>
-</tr>
-<tr class="even">
-<td align="left">Petal.Width</td>
-<td align="left">numeric</td>
-<td align="left">hist</td>
-<td align="left">.all</td>
-<td align="right">NA</td>
-<td align="left">▇▁▁▅▃▃▂▂</td>
-</tr>
-</tbody>
-</table>
-<p>O <code>skimr</code> também possui padrões de estatísticas básicas para cada tipo de variável. Você pode checar esses tipos com <code>show_skimmers()</code>:</p>
-<table>
-<caption><span id="tab:unnamed-chunk-150">Tabela 2.4: </span>Estatísticas básicas para cada tipo de variável.</caption>
-<thead>
-<tr class="header">
-<th align="left">tipo</th>
-<th align="left">stats</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">AsIs</td>
-<td align="left">missing, complete, n, n_unique, min_length, max_length</td>
-</tr>
-<tr class="even">
-<td align="left">character</td>
-<td align="left">missing, complete, n, min, max, empty, n_unique</td>
-</tr>
-<tr class="odd">
-<td align="left">complex</td>
-<td align="left">missing, complete, n</td>
-</tr>
-<tr class="even">
-<td align="left">date</td>
-<td align="left">missing, complete, n, min, max, median, n_unique</td>
-</tr>
-<tr class="odd">
-<td align="left">Date</td>
-<td align="left">missing, complete, n, min, max, median, n_unique</td>
-</tr>
-<tr class="even">
-<td align="left">difftime</td>
-<td align="left">missing, complete, n, min, max, median, n_unique</td>
-</tr>
-<tr class="odd">
-<td align="left">factor</td>
-<td align="left">missing, complete, n, n_unique, top_counts, ordered</td>
-</tr>
-<tr class="even">
-<td align="left">integer</td>
-<td align="left">missing, complete, n, mean, sd, p0, p25, p50, p75, p100, hist</td>
-</tr>
-<tr class="odd">
-<td align="left">list</td>
-<td align="left">missing, complete, n, n_unique, min_length, median_length, max_length</td>
-</tr>
-<tr class="even">
-<td align="left">logical</td>
-<td align="left">missing, complete, n, mean, count</td>
-</tr>
-<tr class="odd">
-<td align="left">numeric</td>
-<td align="left">missing, complete, n, mean, sd, p0, p25, p50, p75, p100, hist</td>
-</tr>
-<tr class="even">
-<td align="left">POSIXct</td>
-<td align="left">missing, complete, n, min, max, median, n_unique</td>
-</tr>
-<tr class="odd">
-<td align="left">ts</td>
-<td align="left">missing, complete, n, start, end, frequency, deltat, mean, sd, min, max, median, line_graph</td>
-</tr>
-</tbody>
-</table>
-<div id="criando-suas-proprias-funcoes" class="section level3">
-<h3><span class="header-section-number">5.2.1</span> Criando suas próprias funções</h3>
-<p>Você também pode usar funções próprias com o <code>skimr</code>. Por exemplo, digamos que você queira calcular o coeficiente de variação. Primeiro, adicione sua função dentro de uma lista:</p>
-<p>e depois aplique a função <code>skim_with()</code>:</p>
-<p>E pronto! Agora você pode rodar <code>skim()</code> novamente:</p>
-<table>
-<caption><span id="tab:unnamed-chunk-153">Tabela 2.5: </span>Histograma e coeficiente de variação.</caption>
-<thead>
-<tr class="header">
-<th align="left">variable</th>
-<th align="left">type</th>
-<th align="left">stat</th>
-<th align="left">level</th>
-<th align="right">value</th>
-<th align="left">formatted</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Sepal.Length</td>
-<td align="left">numeric</td>
-<td align="left">hist</td>
-<td align="left">.all</td>
-<td align="right">NA</td>
-<td align="left">▂▇▅▇▆▅▂▂</td>
-</tr>
-<tr class="even">
-<td align="left">Sepal.Length</td>
-<td align="left">numeric</td>
-<td align="left">cv</td>
-<td align="left">.all</td>
-<td align="right">0.1417113</td>
-<td align="left">0.14</td>
-</tr>
-<tr class="odd">
-<td align="left">Sepal.Width</td>
-<td align="left">numeric</td>
-<td align="left">hist</td>
-<td align="left">.all</td>
-<td align="right">NA</td>
-<td align="left">▁▂▅▇▃▂▁▁</td>
-</tr>
-<tr class="even">
-<td align="left">Sepal.Width</td>
-<td align="left">numeric</td>
-<td align="left">cv</td>
-<td align="left">.all</td>
-<td align="right">0.1425642</td>
-<td align="left">0.14</td>
-</tr>
-<tr class="odd">
-<td align="left">Petal.Length</td>
-<td align="left">numeric</td>
-<td align="left">hist</td>
-<td align="left">.all</td>
-<td align="right">NA</td>
-<td align="left">▇▁▁▂▅▅▃▁</td>
-</tr>
-<tr class="even">
-<td align="left">Petal.Length</td>
-<td align="left">numeric</td>
-<td align="left">cv</td>
-<td align="left">.all</td>
-<td align="right">0.4697441</td>
-<td align="left">0.47</td>
-</tr>
-<tr class="odd">
-<td align="left">Petal.Width</td>
-<td align="left">numeric</td>
-<td align="left">hist</td>
-<td align="left">.all</td>
-<td align="right">NA</td>
-<td align="left">▇▁▁▅▃▃▂▂</td>
-</tr>
-<tr class="even">
-<td align="left">Petal.Width</td>
-<td align="left">numeric</td>
-<td align="left">cv</td>
-<td align="left">.all</td>
-<td align="right">0.6355511</td>
-<td align="left">0.64</td>
-</tr>
-</tbody>
-</table>
-<p>Para retornar ao <code>skim()</code> padrão, rode <code>skim_with_defaults()</code>.</p>
+<div id="unindo-mapas-the-tidy-way" class="section level2">
+<h2><span class="header-section-number">5.5</span> Unindo mapas: the tidy way</h2>
+<div class="rmdtip">
+<p>
+Autor: Julio
+</p>
 </div>
-<div id="wrap-up-2" class="section level3">
-<h3><span class="header-section-number">5.2.2</span> Wrap up</h3>
+<div class="rmdtip">
+<p>
+Dificuldade alta
+</p>
+</div>
+<div class="rmdimportant">
+<p>
+model
+</p>
+</div>
+<p>Eu precisava escrever esse post porque estou morrendo de tesão por essa linguagem maravilhosa. O R é incrível. O <a href="https://tidyverse.org"><code>tidyverse</code></a> é incrível. Estatística é incrível. Não me aguento!</p>
+<p>Hoje mais uma vez fui salvo por uma feature pensada no universo <code>tidy</code>. Dessa vez, o grande herói foi o pacote <a href="https://github.com/r-spatial/sf"><code>sf</code></a>, um pacote ainda em estágio de desenvolvimento, mas que já considero pacas.</p>
+<p>O <code>sf</code>, <em>a.k.a.</em> Simple Features, é um pacote para trabalhar com mapas. Com ele é possível fazer projeções, gráficos, leitura/gravação de diversos formatos de mapas, entre muitas outras coisas. Esse é um dos pacotes patrocinados pelo <a href="https://www.r-consortium.org/">R Consortium</a>, uma iniciativa criada por várias empresas e pela R Foundation para injetar dinheiro em projetos de R que tenham alta relevância.</p>
+<p>O pacote <code>sf</code> é tão sensacional que merece um post só para ele. Hoje, eu falarei de apenas de uma de suas vantagens, que é sua integração perfeita com o <code>tidyverse</code>.</p>
+<div id="contexto" class="section level3">
+<h3><span class="header-section-number">5.5.1</span> Contexto</h3>
+<p>Eu faço parte da <a href="http://abj.org.br">Associação Brasileira de Jurimetria (ABJ)</a>, uma entidade sem fins lucrativos que faz pesquisa aplicada na área do Direito. Na ABJ produzimos diversas soluções tecnológicas para problemas do Direito, especialmente em questões relacionadas à elaboração de políticas públicas e administração dos tribunais.</p>
+<p>Num projeto recente, eu precisava levantar uma tabela de <strong>municípios</strong>, <strong>comarcas</strong>, <strong>circunscrições</strong> e <strong>regiões administrativas</strong> do Tribunal de Justiça de São Paulo. Minha tarefa era visualizar essas informações em mapas. Fazendo curta uma história longa, podemos dizer que:</p>
 <ul>
-<li>Instale usando <code>devtools::install_github()</code></li>
-<li>Rode a função <code>skim()</code>. Use <code>dplyr::filter()</code> para filtrar as estatísticas de interesse.</li>
-<li>Você pode adicionar suas próprias estatísticas com <code>skim_with()</code>.</li>
-<li>Acompanhe a evolução do <code>skimr</code> <a href="https://github.com/ropenscilabs/skimr">nesta página</a>.</li>
+<li>uma <strong>comarca</strong> é o conjunto de um ou mais municípios contíguos
+<ul>
+<li>(contíguos = municípios que se tocam);</li>
+</ul></li>
+<li>uma <strong>circunscrição</strong> é um conjunto de uma ou mais comarcas contíguas;</li>
+<li>e uma <strong>região</strong> é… adivinha?</li>
 </ul>
-<p>O pacote ainda vai evoluir muito e não duvido nada que seja um bom candidado a entrar no <code>tidyverse</code>. O que vocês acham? Escrevam nos comentários!</p>
-<p>É isso. Happy coding ;)</p>
+<p>No Estado de São Paulo, temos no total:</p>
+<ul>
+<li>645 municípios</li>
+<li>319 comarcas</li>
+<li>57 circunscrições</li>
+<li>10 regiões administrativas</li>
+</ul>
+<p>O problema é que não existe uma base de dados pública que relacione todos os 645 municípios com as respectivas regiões que as contêm. Então partimos para a obtenção via robizinhos.</p>
+<blockquote>
+<p>P.S.: Não se esqueça do ciclo da ciência de dados! Vou falar disso sem parar para explicar. Na dúvida, leia o <a href="http://r4ds.had.co.nz/" class="uri">http://r4ds.had.co.nz/</a></p>
+</blockquote>
+<p><img src="assets/imgs/union-sf/data-science.png" /></p>
+<p><br/></p>
+<p>As partes de <code>import</code> e <code>tidy</code> desse projeto processo foram sofríveis. Precisei fazer vários web scrapers e diversos códigos para lidar com nomes zoados dos municípios de São Paulo, como Moji/Mogi, Estrela D’Oeste/Doeste, Brodowski/Brodosqui etc. Quem quiser pode dar uma olhada nos códigos do <a href="https://github.com/abjur/abjMaps">github da ABJ</a>.</p>
+</div>
+<div id="o-problema-1" class="section level3">
+<h3><span class="header-section-number">5.5.2</span> O problema</h3>
+<p>Após passar o dia todo pegando esses dados, finalmente cheguei na parte de <code>transform</code> e <code>visualize</code>. Nossos objetivos nessa parte são:</p>
+<ol style="list-style-type: decimal">
+<li>Carregar um mapa dos municípios de São Paulo no R.</li>
+<li>Agrupar as formas dos municípios em comarcas, circunscrições e regiões.</li>
+<li>Fazer mapas dos resultados obtidos.</li>
+</ol>
+<p>Em experiências anteriores já passei por maus bocados tentando completar a parte (2). Antigamente, a única função conhecida que fazia a união de polígonos era a <code>maptools::unionSpatialPolygons()</code>, que é contraintuitiva, mal documentada e difícil de usar na prática. Na verdade, tudo era difícil: desde ler o arquivo <code>.shp</code> baixado da internet até a parte de fazer o gráfico. Era R <strong>raiz</strong> mesmo. Mas hoje, para a felicidade de todos, temos a solução <strong>nutella</strong> ;)</p>
+<blockquote>
+<p>Curiosamente, o Edzer Pebesma, autor do <code>sf</code>, também é contributor do <code>maptools</code> e mantenedor do <code>sp</code>, os pacotes mais importantes de análise espacial pré-tidyverse. Ou seja, ele não só manja do assunto como sabia que os pacotes dele precisavam melhorar. E, olha, ele mandou bem dessa vez.</p>
+</blockquote>
+</div>
+<div id="solucao" class="section level3">
+<h3><span class="header-section-number">5.5.3</span> Solução</h3>
+<p>Vamos utilizar o <code>tidyverse</code> e o pacote <code>sf</code>. Para instalar o <code>tidyverse</code>, rode</p>
+<blockquote>
+<p>Para quem não sabe: o tidyverse é um pacote que instala muitos outros pacotes por trás, como <code>httr</code>, <code>ggplot2</code> e <code>dplyr</code>. Isso significa que pode demorar bastante tempo para instalar!</p>
+</blockquote>
+<p>A instalação do <code>sf</code> pode ser um tanto trabalhosa. Se você usa Windows, basta instalar o <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a> e depois rodar</p>
+<p>Se você usa Mac ou Linux, recomendo ler a primeira página <a href="https://r-spatial.github.io/sf/">da documentação oficial do pacote</a>. Lá você pode checar todos os requerimentos do pacote em detalhe. Eu recomendo que você instale logo a versão de desenvolvimento:</p>
+<p>Para rodar as funções gráficas, também recomendo que você instale a versão de desenvolvimento do <code>ggplot2</code>, rodando</p>
+<p>Outros pacotes que usaremos no meio do código são</p>
+<div id="parte-1-baixando-os-dados" class="section level4">
+<h4><span class="header-section-number">5.5.3.1</span> Parte 1: baixando os dados</h4>
+<p>Primeiro, vamos baixar da internet! Obviamente, o melhor lugar para baixar esses arquivos é no FTP do <a href="ftp://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/">Instituto Brasileiro de Geografia e Estatística</a>.</p>
+<p>Utilizamos o pacote <code>httr</code> para baixar o arquivo zipado.</p>
+<p>E usamos <code>unzip()</code> para dezipar os dados.</p>
+<p>No final, você terá esses arquivos na pasta:</p>
+<p>Para ler esses arquivos estranhos num objeto do R, utilizamos a função <code>sf::st_read()</code>, simples assim:</p>
+<p>Observe que temos três colunas na base de dados, nome do município, código do município e <code>geometry</code>. Essa terceira é do tipo <code>simple_feature</code> e carrega objetos do tipo <code>MULTIPOLYGON</code>. Ou seja, um objeto lido pelo <code>sf</code> nada mais é do que um <code>data.frame</code> que tem uma coluna especial, capaz de guardar objetos mais complexos, como polígonos.</p>
+<blockquote>
+<p>Chamamos esse tipo de coluna especial de <code>list-column</code>. Quem faz nossos <a href="http://curso-r.com/cursos/r4ds/">cursos avançados</a> acaba aprendendo esses conceitos a partir do aninhamento de objetos e utilização de algoritmos mais complexos usando o pacote <code>purrr</code>.</p>
+</blockquote>
+<p>Agora, queremos juntar essa base com nossos dados de comarcas, circunscrições e regiões.</p>
+<p>Para isso, vamos primeiro arrumar os nomes de <code>d_sf_municipio</code> e depois usar <code>dplyr::inner_join()</code>, assim:</p>
+<p>Se você quiser fazer um gráfico feinho só pra saber o que está rolando, use <code>plot()</code>:</p>
+<p><img src="assets/imgs/union-sf/sf_blog01.png" /></p>
+</div>
+<div id="parte-2-agrupando-os-municipios" class="section level4">
+<h4><span class="header-section-number">5.5.3.2</span> Parte 2: agrupando os municípios</h4>
+<p>Aqui é onde a mágica acontece! Para unir os polígonos do mapa, por incrível que pareça, utilizaremos o pacote <code>dplyr</code>. O autor do pacote <code>sf</code>, Edzer Pebesma, teve a incrível ideia de criar um método <code>S3</code> para objetos do tipo <code>sf</code> (como é nosso caso), já fazendo algumas operações para nós. Na prática, o pacote estende e reimplementa mais de 20 funções provenientes do <code>dplyr</code>. Veja <code>?sf::dplyr</code> para detalhes.</p>
+<p>No nosso caso, vamos usar <code>group_by()</code> (ou <code>sf::group_by.sf()</code>) e <code>summarise()</code> (ou<code>sf::summarise.sf()</code>):</p>
+<p>Simples assim! Note que agora temos 319 objetos, que é exatamente o número de comarcas. Se quiser adicionar mais variáveis, basta incluí-las no <code>summarise()</code>:</p>
+<p>Para criar <code>d_sf_circunscricao</code> e <code>d_sf_regiao</code> utilizamos o mesmo procedimento.</p>
+</div>
+<div id="parte-3-montando-os-graficos" class="section level4">
+<h4><span class="header-section-number">5.5.3.3</span> Parte 3: montando os gráficos</h4>
+<p>Agora digamos que você tenha essa lista de mapas</p>
+<p>E você quer desenhar mapas com esses títulos</p>
+<p>Vamos usar o <code>purrr::map2()</code> para montar nossos gráficos em <code>ggplot2</code> e guardar numa lista. Internamente, utilizaremos o <code>geom_sf()</code>, uma extensão do <code>ggplot2</code> criada para tratar objetos do pacote <code>sf</code>. Um código minimalista seria</p>
+<p>Você pode usar a função <code>gridExtra::grid.arrange()</code> para juntar essa lista de gráficos em um gráfico só, rodando</p>
+<p>O resultado final é o gráfico abaixo.</p>
+<p><img src="assets/imgs/union-sf/sf_blog02.png" /></p>
+<p>Coisa mais linda!</p>
 </div>
 </div>
+<div id="wrap-up-4" class="section level3">
+<h3><span class="header-section-number">5.5.4</span> Wrap-up</h3>
+<ul>
+<li>O pacote <code>sf</code> coloca a análise espacial no <code>tidyverse</code></li>
+<li>Use <code>st_read()</code> para ler <em>shapefiles</em> (arquivos SHP)
+<ul>
+<li>O objeto resultante é um <code>data.frame</code> com uma coluna <code>geometry</code> especial que guarda os polígonos.</li>
+</ul></li>
+<li>Várias funções do <code>dplyr</code> foram reimplementadas para funcionar com o <code>sf</code>. <code>summarise</code>, por exemplo, faz a união de polígonos, o que resolve nosso problema.</li>
+<li>Você pode usar <code>geom_sf()</code> para fazer gráficos com <code>sf</code> usando o poderoso <code>ggplot2</code>.</li>
+</ul>
+<p>É isso pessoal. Espero que seja tão life saver para vocês como foi para mim. Happy coding ;)</p>
+</div>
+</div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="5-1-arrumando-banco-de-dados-o-pacote-janitor.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="5-3-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="5-4-pvec-o-laco-perfeito.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="6-reflexoes.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
