@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Referências | Como faz no R</title>
+  <title>4.4 Modelos beseados em árvores e a multicolinearidade | Como faz no R</title>
   <meta name="description" content="Livro da Curso-R.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Referências | Como faz no R />
+  <meta property="og:title" content="4.4 Modelos beseados em árvores e a multicolinearidade | Como faz no R />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Referências | Como faz no R />
+  <meta name="twitter:title" content="4.4 Modelos beseados em árvores e a multicolinearidade | Como faz no R />
   
   <meta name="twitter:description" content="Livro da Curso-R." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="6-reflexoes.html">
-
+<link rel="prev" href="4-3-construindo-autoencoders.html">
+<link rel="next" href="4-5-woe-em-r-com-tidywoe.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -291,27 +291,56 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="referencias" class="section level1 unnumbered">
-<h1>Referências</h1>
-
+<div id="modelos-beseados-em-arvores-e-a-multicolinearidade" class="section level2">
+<h2><span class="header-section-number">4.4</span> Modelos beseados em árvores e a multicolinearidade</h2>
+<p>Modelos baseados em árvores como árvores de decisão, random forest, ligthGBM e xgboost são conhecidos, dentre outras qualidades, pela sua robustês diante do problema de multicolinearidade. É sabido que seu poder preditivo não se abala na presença de variáveis extremamente correlacionadas.</p>
+<p>Porém, quem nunca usou um Random Forest pra fazer seleção de variáveis? Pegar, por exemplo, as top 10 mais importantes e descartar o resto?</p>
+<p>Ou até mesmo arriscou uma interpretação e concluiu sobre a ordem das variáveis mais importantes?</p>
+<p>Abaixo mostraremos o porquê não devemos ignorar a questão da multicolinearidade completamente!</p>
+<div id="um-modelo-bonitinho" class="section level3">
+<h3><span class="header-section-number">4.4.1</span> Um modelo bonitinho</h3>
+<p>Primeiro vamos ajustar um modelo bonitinho, livre de multicolinearidade. Suponha que queiramos prever <code>Petal.Length</code> utilizando as medidas das sépalas (<code>Sepal.Width</code> e <code>Sepal.Length</code>) da nossa boa e velha base <code>iris</code>.</p>
+<p><img src="bookdown_files/figure-html/unnamed-chunk-83-1.svg" width="864" /></p>
+<p>O gráfico acima mostra que as variáveis explicativas não são fortemente correlacionadas. Ajustando uma random fores, temos a seguinte ordem de importância das variáveis:</p>
+<p><img src="bookdown_files/figure-html/unnamed-chunk-84-1.svg" width="864" /></p>
+<p>Sem surpresas. Agora vamos para o problema!</p>
 </div>
-
-
-
-
-
-
-
-
-
-
+<div id="um-modelo-com-feinho" class="section level3">
+<h3><span class="header-section-number">4.4.2</span> Um modelo com feinho</h3>
+<p>Vamos forjar uma situação extrema em que muitas variáveis sejam multicolineares. Vou fazer isso repetindo a coluna <code>Sepal.Length</code> várias vezes.</p>
+<p><img src="bookdown_files/figure-html/unnamed-chunk-85-1.svg" width="864" /></p>
+<p>Agora a coisa tá feia! Temos 20 variáveis perfeitamente colineares. Mesmo assim um random forest nessa nova base não perderia poder preditivo.</p>
+<p>Mas como ficou a importância das variáveis?</p>
+<p><img src="bookdown_files/figure-html/unnamed-chunk-86-1.svg" width="864" /></p>
+<p>Aqui o jogo já se inverteu: concluiríamos que <code>Sepal.Width</code> é mais importante de todas as variáveis!</p>
+</div>
+<div id="selecao-de-variaveis-furado" class="section level3">
+<h3><span class="header-section-number">4.4.3</span> Seleção de variáveis furado</h3>
+<p>O gráfico abaixo mostra que quanto mais variáveis correlacionadas tivermos, menor a importância de TODAS ELAS SIMULTANEAMENTE! É como se as variáveis colineares repartissem a importância entre elas.</p>
+<p><img src="bookdown_files/figure-html/unnamed-chunk-87-1.svg" width="864" /></p>
+<p>Na prática, se estabelecessemos um corte no valor de importância pra descartar variáveis (como ilustrado pela linha vermelha), teríamos um problema em potencial: poderíamos estar jogando fora informação muito importante.</p>
+</div>
+<div id="como-tratar-multicolinearidade-entao" class="section level3">
+<h3><span class="header-section-number">4.4.4</span> Como tratar multicolinearidade, então?</h3>
+<p>Algumas maneiras de lidar com multicolinearidade são:</p>
+<ul>
+<li>Observar a matriz de correlação</li>
+<li><a href="http://www.sthda.com/english/articles/39-regression-model-diagnostics/160-multicollinearity-essentials-and-vif-in-r/">VIF</a></li>
+<li><a href="https://machinelearningmastery.com/feature-selection-with-the-caret-r-package/">Recursive feature elimination</a></li>
+</ul>
+</div>
+<div id="conclusao-1" class="section level3">
+<h3><span class="header-section-number">4.4.5</span> Conclusão</h3>
+<p>Cuidado ao jogar tudo no caldeirão! Devemos sempre nos preocupar com multicolinearidade, mesmo ajustando modelos baseados em árvores.</p>
+</div>
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="6-reflexoes.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="4-3-construindo-autoencoders.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="4-5-woe-em-r-com-tidywoe.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

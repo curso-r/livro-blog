@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Referências | Como faz no R</title>
+  <title>4.11 Modelando a variância da normal | Como faz no R</title>
   <meta name="description" content="Livro da Curso-R.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Referências | Como faz no R />
+  <meta property="og:title" content="4.11 Modelando a variância da normal | Como faz no R />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Referências | Como faz no R />
+  <meta name="twitter:title" content="4.11 Modelando a variância da normal | Como faz no R />
   
   <meta name="twitter:description" content="Livro da Curso-R." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="6-reflexoes.html">
-
+<link rel="prev" href="4-10-filtros-de-bloom-em-r.html">
+<link rel="next" href="5-transformacao.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -291,27 +291,117 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="referencias" class="section level1 unnumbered">
-<h1>Referências</h1>
-
+<div id="modelando-a-variancia-da-normal" class="section level2">
+<h2><span class="header-section-number">4.11</span> Modelando a variância da normal</h2>
+<p>Verificar as suposições dos modelos é muito importante quando fazemos inferência estatística. Em particular, a suposição de homocedasticidade<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> dos modelos de regressão linear é especialmente importante, pois modifica o cálculo de erros padrão, intervalos de confiança e valores-p.</p>
+<p>Neste post, vou mostrar três pacotes do R que ajustam modelos da forma</p>
+<p><span class="math display">\[ Y_i = \beta_0 + \sum_{k=1}^p\beta_kx_{ik} + \epsilon_i, \ i = 1,\ldots,n\]</span></p>
+<p><span class="math display">\[ \epsilon_{i} \sim \textrm{N}(0,\sigma_i), \ i = 1,\ldots,n \ \textrm{independentes, com }\sigma_i^2 = \alpha x_i^2.  \]</span></p>
+<p>Além de mostrar como se faz, também vou ilustrar o desempenho dos pacotes em um exemplo simulado. O modelo que gerará os dados do exemplo terá a seguinte forma funcional</p>
+<p><span class="math display">\[ Y_i = \beta x_i + \epsilon_i, \ i = 1,...n \]</span>
+<span class="math display">\[ \epsilon_i \sim N(0, \sigma_i)\text{ independentes, com }\sigma_i = \alpha\sqrt{|x_i|},\]</span></p>
+<p>e os parâmetros do modelo serão os valores <span class="math inline">\(\beta = 1\)</span> e <span class="math inline">\(\alpha = 4\)</span>. A heterocedasticidade faz com que os pontos desenhem um cone ao redor da reta de regressão.</p>
+<p><img src="bookdown_files/figure-html/unnamed-chunk-138-1.svg" width="864" /></p>
+<div id="usando-o-pacote-gamlss" class="section level3">
+<h3><span class="header-section-number">4.11.1</span> Usando o pacote <code>gamlss</code></h3>
+<p>Quando se ajusta um GAMLSS, você pode modelar os parâmetros de locação, escala e curtose ao mesmo tempo em que escolhe a distribuição dos dados dentre uma grande gama de opções. Escolhendo a distribuição normal e modelando apenas os parâmetros de locação e escala, o GAMLSS ajusta modelos lineares normais com heterocedasticidade.</p>
+<p>No código abaixo, o parâmetro <code>formula = Y ~ X-1</code> indica que a função de regressão será constituída por um preditor linear em <code>X</code> sem intercepto. Já o parâmetro <code>sigma.formula = ~X2-1</code> indica que o desvio padrão será modelado por um preditor linear em <code>X2</code> (ou raiz de <code>X</code>), também sem intercepto.</p>
+<pre><code>FALSE GAMLSS-RS iteration 1: Global Deviance = 17872.29 
+FALSE GAMLSS-RS iteration 2: Global Deviance = 17870.67 
+FALSE GAMLSS-RS iteration 3: Global Deviance = 17870.67</code></pre>
+<p>Conforme descrito no sumário abaixo, a estimativa de alfa está muito abaixo do valor simulado.</p>
+<pre><code>FALSE ******************************************************************
+FALSE Family:  c(&quot;NO&quot;, &quot;Normal&quot;) 
+FALSE 
+FALSE Call:  gamlss::gamlss(formula = Y ~ X - 1, sigma.formula = ~X2 -  
+FALSE     1, family = NO(), data = dataset) 
+FALSE 
+FALSE Fitting method: RS() 
+FALSE 
+FALSE ------------------------------------------------------------------
+FALSE Mu link function:  identity
+FALSE Mu Coefficients:
+FALSE   Estimate Std. Error t value Pr(&gt;|t|)    
+FALSE X 0.996942   0.005131   194.3   &lt;2e-16 ***
+FALSE ---
+FALSE Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+FALSE 
+FALSE ------------------------------------------------------------------
+FALSE Sigma link function:  log
+FALSE Sigma Coefficients:
+FALSE     Estimate Std. Error t value Pr(&gt;|t|)    
+FALSE X2 0.1791449  0.0009606   186.5   &lt;2e-16 ***
+FALSE ---
+FALSE Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+FALSE 
+FALSE ------------------------------------------------------------------
+FALSE No. of observations in the fit:  1000 
+FALSE Degrees of Freedom for the fit:  2
+FALSE       Residual Deg. of Freedom:  998 
+FALSE                       at cycle:  3 
+FALSE  
+FALSE Global Deviance:     17870.67 
+FALSE             AIC:     17874.67 
+FALSE             SBC:     17884.49 
+FALSE ******************************************************************</code></pre>
 </div>
-
-
-
-
-
-
-
-
-
-
+<div id="usando-o-pacote-dglm" class="section level3">
+<h3><span class="header-section-number">4.11.2</span> Usando o pacote <code>dglm</code></h3>
+<p>Quando se ajusta um Modelo Linear Generalizado Duplo (MLGD em português e DGLM em inglês), você tem uma flexibilidade parecida com a de um GAMLSS. Entretanto, você não pode definir um modelo para a curtose e a classe de distribuições disponível é bem menor.</p>
+<p>O código abaixo, similar ao utilizado para ajustar o GAMLSS, ajusta um DGLM aos dados simulados.</p>
+<p>Novamente, verifica-se que o alfa estimado está muito distante do verdadeiro alfa.</p>
+<pre><code>FALSE 
+FALSE Call: dglm(formula = Y ~ X - 1, dformula = ~X2 - 1, family = gaussian, 
+FALSE     data = dataset, method = &quot;reml&quot;)
+FALSE 
+FALSE Mean Coefficients:
+FALSE    Estimate  Std. Error t value Pr(&gt;|t|)
+FALSE X 0.9969432 0.008981392 111.001        0
+FALSE (Dispersion Parameters for gaussian family estimated as below )
+FALSE 
+FALSE     Scaled Null Deviance: 27197.48 on 1000 degrees of freedom
+FALSE Scaled Residual Deviance: 3090.08 on 999 degrees of freedom
+FALSE 
+FALSE Dispersion Coefficients:
+FALSE     Estimate  Std. Error  z value Pr(&gt;|z|)
+FALSE X2 0.3577322 0.001166004 306.8019        0
+FALSE (Dispersion parameter for Gamma family taken to be 2 )
+FALSE 
+FALSE     Scaled Null Deviance: 1628.301 on 1000 degrees of freedom
+FALSE Scaled Residual Deviance: 6526.59 on 999 degrees of freedom
+FALSE 
+FALSE Minus Twice the Log-Likelihood: 17870.76 
+FALSE Number of Alternating Iterations: 18</code></pre>
+</div>
+<div id="usando-o-pacote-rstan" class="section level3">
+<h3><span class="header-section-number">4.11.3</span> Usando o pacote <code>rstan</code></h3>
+<p><a href="http://mc-stan.org/">Stan</a> é uma linguagem de programação voltada para descrever e manipular objetos probabilísticos, como por exemplo variáveis aleatórias, processos estocásticos, distribuições de probabilidades etc. Essa linguagem foi projetada para tornar intuitivo e simples o ajuste de modelos estatísticos. Em particular, a forma de descrever modelos bayesianos é bem cômoda.</p>
+<p>O <code>stan</code> possui várias interfaces para <code>R</code>. A mais básica é o <code>rstan</code>, que será utilizada aqui. A principal função desse pacote é a função <code>rstan</code>, que possui dois parâmetros básicos:</p>
+<ul>
+<li>um parâmetro <code>model_code =</code>, que recebe um código que descreve o modelo na linguagem <code>stan</code>.</li>
+<li>um parâmetro <code>data =</code>, que recebe uma lista contendo os inputs do modelo, tais como dados coletados, parâmetros de distribuições a priori, etc.</li>
+</ul>
+<p>Embora esse seja o mínimo que a função precisa, também podemos passar outras componentes. O parâmetro <code>verbose = FALSE</code> faz com que a função não imprima nada enquanto roda e o parâmetro <code>control = list(...)</code> passa uma lista de opções de controle para o algoritmo de ajuste.</p>
+<p>O retorno da função <code>stan()</code> é um objeto do tipo <code>stanfit</code>, que pode ser sumarizado da mesma forma que outros modelos em R, utilizando a função <code>summary()</code> e a função <code>plot()</code>.</p>
+<p>O código abaixo ilustra a aplicação da função <code>stan()</code> ao nosso exemplo.</p>
+<p>A figura abaixo descreve os intervalos de credibilidade obtidos para cada parâmetro do modelo. O ponto central de cada intervalo representa as estimativas pontuais dos parâmetros. Como se nota, as estimativas do modelo utilizando <code>stan</code> estão bem próximas dos valores verdadeiros.</p>
+<p><img src="assets/imgs/regressao-heterocedastica/imagem_fernando_1.jpg" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<!-- </div> -->
+<div class="footnotes">
+<hr />
+<ol start="5">
+<li id="fn5"><p>Uma regressão linear é homocedástica quando a variabilidade dos erros não depende das covariáveis do modelo.<a href="4-11-modelando-a-variancia-da-normal.html#fnref5" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="6-reflexoes.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="4-10-filtros-de-bloom-em-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="5-transformacao.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

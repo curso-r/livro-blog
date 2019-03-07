@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Referências | Como faz no R</title>
+  <title>4.10 Filtros de Bloom em R | Como faz no R</title>
   <meta name="description" content="Livro da Curso-R.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Referências | Como faz no R />
+  <meta property="og:title" content="4.10 Filtros de Bloom em R | Como faz no R />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Referências | Como faz no R />
+  <meta name="twitter:title" content="4.10 Filtros de Bloom em R | Como faz no R />
   
   <meta name="twitter:description" content="Livro da Curso-R." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="6-reflexoes.html">
-
+<link rel="prev" href="4-9-minimos-quadrados-com-restricoes-lineares.html">
+<link rel="next" href="4-11-modelando-a-variancia-da-normal.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -291,27 +291,103 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="referencias" class="section level1 unnumbered">
-<h1>Referências</h1>
+<div id="filtros-de-bloom-em-r" class="section level2">
+<h2><span class="header-section-number">4.10</span> Filtros de Bloom em R</h2>
+<p><a href="https://en.wikipedia.org/wiki/Bloom_filter">Filtro de Bloom</a> é um algoritmo muito
+interessante para testar se um elemento pertence a um conjunto. Ele é considerado
+uma estrutura de dados probabilística, ou seja, o resultado pode não estar correto
+com alguma probabilidade. Especificamente para o filtro de bloom, existe a possibilidade
+de falsos positivos mas não de falsos negativos: o algoritmo pode dizer que o elemento
+pertence ao conjunto, mas na verdade não pertencer, mas nunca dirá que ele não pertence
+sendo que ele pertence.</p>
+<p>Bloom Filters são úteis em diversas situações, geralmente relacionadas ao ganho
+de velocidade e de espaço que o seu uso pode trazer. Muitos sistemas de bancos de
+dados usam bloom filters para reduzir o número de buscas no disco (ex. <a href="https://docs.datastax.com/en/cassandra/2.1/cassandra/operations/ops_tuning_bloom_filters_c.html">Cassandra</a>). O <a href="https://blog.medium.com/what-are-bloom-filters-1ec2a50c68ff">Medium</a> usa para evitar recomendar uma paǵina que você já leu.
+Recentemente, encontraram até <a href="https://arxiv.org/abs/1706.03993">aplicações para bloom filters em machine learning</a>.</p>
+<p>Nesse post vamos implementar uma versão simplificada, nada otimizada dos filtros de
+Bloom em R. Mas antes disso, vale a pena ler o <a href="https://en.wikipedia.org/wiki/Bloom_filter">verbete da Wikipedia sobre o assunto</a>.</p>
+<p>Essencialmente, um filtro de bloom é um vetor de <code>TRUE</code>s e <code>FALSES</code> de tamanho <span class="math inline">\(m\)</span>.
+Inicializamos esse vetor com <code>FALSES</code>. Em seguida para cada elemento do conjunto
+que você deseja representar pelo filtro, repetimos o seguinte processo: Hasheamos
+o elemento usando <span class="math inline">\(k\)</span> funções de hash diferentes. Cada uma dessas funções indicará
+um elemento do vetor que deve ser marcado como <code>TRUE</code>. Armazenamos então esse vetor
+de bits. São os valores de <span class="math inline">\(m\)</span> e de <span class="math inline">\(k\)</span> que controlam a probabilidade de falsos
+positivos.</p>
+<p>Veja como podemos criar uma função em R para fazer essas operações. Essa função
+inicializa o vetor de bits de tamanho <span class="math inline">\(m\)</span> com <code>FALSES</code> e em seguida, para cada
+uma das <span class="math inline">\(k\)</span> funções de hash (no caso apenas variamos a semente do hash MurMur32)
+e para cada elemento de <code>x</code> calculamos o elemento do vetor <code>vec</code> que deve se tornar
+<code>TRUE</code>. No final, ela retorna o vetor <code>vec</code>, onde armazenamos como atributos
+os parâmetros usados na sua construção.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(digest)
+<span class="kw">library</span>(magrittr)
 
+criar_vetor_de_bits &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">m =</span> <span class="dv">1000</span>, <span class="dt">k =</span> <span class="dv">7</span>){
+  
+  vec &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">FALSE</span>, m)
+  
+  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>k) {
+    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(x)) {
+      
+      hash &lt;-<span class="st"> </span><span class="kw">digest</span>(x[j], <span class="dt">algo =</span> <span class="st">&quot;murmur32&quot;</span>, <span class="dt">serialize =</span> <span class="ot">FALSE</span>, <span class="dt">seed =</span> i) <span class="op">%&gt;%</span>
+<span class="st">        </span>Rmpfr<span class="op">::</span><span class="kw">mpfr</span>(<span class="dt">base =</span> <span class="dv">16</span>) <span class="op">%%</span><span class="st"> </span>
+<span class="st">        </span>m <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">        </span><span class="kw">as.integer</span>()
+      
+      vec[hash <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="ot">TRUE</span>
+      
+    }
+  }
+  
+  <span class="co"># armazenamos os parâmetros usados na construção</span>
+  <span class="kw">attributes</span>(vec) &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">m =</span> m, <span class="dt">k=</span> k)
+  
+  <span class="kw">return</span>(vec)
+}</code></pre>
+<p>Dado um conjunto de strings, podemos criar o vetor de bits que o representa.</p>
+<pre class="sourceCode r"><code class="sourceCode r">vect &lt;-<span class="st"> </span><span class="kw">criar_vetor_de_bits</span>(<span class="kw">c</span>(<span class="st">&quot;eu&quot;</span>, <span class="st">&quot;pertenco&quot;</span>, <span class="st">&quot;ao&quot;</span>, <span class="st">&quot;conjunto&quot;</span>, <span class="st">&quot;de&quot;</span>,
+                              <span class="st">&quot;strings&quot;</span>), <span class="dt">m =</span> <span class="dv">1000</span>, <span class="dt">k =</span> <span class="dv">7</span>)</code></pre>
+<p>Agora vamos definir uma função que verifica se uma string pertence ao conjunto, dada
+apenas a representação dos bits desse conjunto. Hasheamos o elemento que desejamos
+verificar a presença no conjunto com a primeira função de hash. Se ela indicar um
+elemento do vetor que já está marcado com <code>TRUE</code> então continuamos, se não, retorna
+<code>FALSE</code> indicando que o elemento não pertence ao conjunto. Continuamos até acabarem
+as funções de hash ou até 1 <code>FALSE</code> ter sido retornado.</p>
+<pre class="sourceCode r"><code class="sourceCode r">verificar_presenca &lt;-<span class="st"> </span><span class="cf">function</span>(x, vetor_de_bits){
+  
+  k &lt;-<span class="st"> </span><span class="kw">attr</span>(vetor_de_bits, <span class="st">&quot;k&quot;</span>)
+  m &lt;-<span class="st"> </span><span class="kw">attr</span>(vetor_de_bits, <span class="st">&quot;m&quot;</span>)
+  
+  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>k){
+    hash &lt;-<span class="st"> </span><span class="kw">digest</span>(x, <span class="dt">algo =</span> <span class="st">&quot;murmur32&quot;</span>, <span class="dt">serialize =</span> <span class="ot">FALSE</span>, <span class="dt">seed =</span> i) <span class="op">%&gt;%</span>
+<span class="st">        </span>Rmpfr<span class="op">::</span><span class="kw">mpfr</span>(<span class="dt">base =</span> <span class="dv">16</span>) <span class="op">%%</span><span class="st"> </span>
+<span class="st">        </span>m <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">        </span><span class="kw">as.integer</span>()
+    
+    <span class="cf">if</span>(<span class="op">!</span>vetor_de_bits[hash <span class="op">+</span><span class="st"> </span><span class="dv">1</span>]) {
+      <span class="kw">return</span>(<span class="ot">FALSE</span>)
+    }
+  }
+  <span class="kw">return</span>(<span class="ot">TRUE</span>)
+}
+
+<span class="kw">verificar_presenca</span>(<span class="st">&quot;nao&quot;</span>, vect)
+<span class="kw">verificar_presenca</span>(<span class="st">&quot;eu&quot;</span>, vect)
+<span class="kw">verificar_presenca</span>(<span class="st">&quot;abc&quot;</span>, vect)</code></pre>
+<p>Com <code>m = 1000</code> e <code>k = 7</code> não consegui encontrar nenhum falso positivo, mas basta
+diminuir o tamanho de <code>m</code> e de <code>k</code> que encontraremos. No verbete da Wikipedia a
+conta está bonitinha mas de fato a probabilidade de falsos positivos pode ser estimada
+em função dos parâmetros <span class="math inline">\(k\)</span> e <span class="math inline">\(m\)</span> e <span class="math inline">\(n\)</span> (tamanho do conjunto representado) é dada por</p>
+<p><span class="math display">\[(1 - e^{-kn/m})^k\]</span></p>
+<p>No caso apresentado, a probabilidade de colisão é de 1.991256e-10.</p>
 </div>
-
-
-
-
-
-
-
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="6-reflexoes.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="4-9-minimos-quadrados-com-restricoes-lineares.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="4-11-modelando-a-variancia-da-normal.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

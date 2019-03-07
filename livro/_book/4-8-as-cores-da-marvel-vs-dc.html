@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Referências | Como faz no R</title>
+  <title>4.8 As cores da Marvel vs DC | Como faz no R</title>
   <meta name="description" content="Livro da Curso-R.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Referências | Como faz no R />
+  <meta property="og:title" content="4.8 As cores da Marvel vs DC | Como faz no R />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Referências | Como faz no R />
+  <meta name="twitter:title" content="4.8 As cores da Marvel vs DC | Como faz no R />
   
   <meta name="twitter:description" content="Livro da Curso-R." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="6-reflexoes.html">
-
+<link rel="prev" href="4-7-sao-paulo-e-o-problema-da-mochila.html">
+<link rel="next" href="4-9-minimos-quadrados-com-restricoes-lineares.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -291,27 +291,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="referencias" class="section level1 unnumbered">
-<h1>Referências</h1>
-
+<div id="as-cores-da-marvel-vs-dc" class="section level2">
+<h2><span class="header-section-number">4.8</span> As cores da Marvel vs DC</h2>
+<div class="rmdtip">
+<p>
+Autor: William
+</p>
 </div>
-
-
-
-
-
-
-
-
-
-
+<div class="rmdtip">
+<p>
+Dificuldade média
+</p>
+</div>
+<div class="rmdimportant">
+<p>
+model
+</p>
+</div>
+<p>A cor é uma diferença notável entre os filmes da Marvel e da DC. Enquanto a Disney/Marvel Studios costuma lançar filmes com tons mais claros e alegres, a Warner tem optado por cenários escuros, com um aspecto mais sombrios. Essas escolhas são um reflexo do clima das histórias de cada universo: aventuras engraçaralhas com um drama superficial vs seja lá o que passa na cabeça do <a href="http://retalhoclub.com.br/wp-content/uploads/2017/03/03.jpg">Zack Snyder</a>.</p>
+<p>Para estudar melhor a paleta de cores utilizadas nos filmes, vamos aplicar a análise introduzida pelo Dani <a href="https://www.curso-r.com/blog/2017-04-21-paleta-de-cores/">neste post</a>, com pequenas alterações. Como amostra, selecionei 10 imagens de Batman vs Superman e 10 do Capitão América: guerra civil. Tentando deixar a análise o menos subjetiva possível, escolhi imagens de cenas emblemáticas e dos principais personagens. Abaixo as imagens que peguei de cada filme.</p>
+<p><img src="assets/imgs/marvel-vs-dc/bvs.jpg" /></p>
+<p>Seguindo a análise do Dani, vamos utilizar as seguintes bibliotecas para a análise.</p>
+<p>Eu salvei as imagens em arquivos do tipo <code>bvs_n.jpg</code> e <code>cw_n.jpg</code>, com <code>n</code> variando de 1 a 10. Isso facilitou a leitura desses arquivos. O código abaixo mostra como criar um vetor com o caminho das 10 imagens de cada filme.</p>
+<p>Como vamos trabalhar com mais de uma imagem, eu criei a função <code>ler_imagem()</code> para ler os arquivos.</p>
+<p>Podemos então usar a função <code>map()</code> para aplicá-la a todos os 10 arquivos. A função <code>reduce(rbind)</code> transforma as 10 matrizes de pixels em uma matriz só, como se as imagens estivessem coladas uma embaixo da outra.</p>
+<p>Abaixo estão as funções <code>cria_paleta()</code> e <code>exibir()</code> do post do Dani. A única diferença aqui é que a função <code>cria_paleta()</code> já recebe a matriz representando a imagem.</p>
+<p>Assim, basta aplicar essas funções aos objetos <code>img_bvs</code> e <code>img_cw</code> para obter as paletas. Primeiro para o Batman vs Superman:</p>
+<p><img src="assets/imgs/marvel-vs-dc/paleta_bvs.jpeg" /></p>
+<p>E agora para o Capitão América:</p>
+<p><img src="assets/imgs/marvel-vs-dc/paleta_cw.jpeg" /></p>
+<p>Observe que o filme da DC tem cores mais escuras e fortes, com vários tons de azul, indicando as cenas noturnas e de chuva. Já a paleta da Marvel apresenta cores mais claras, com vários tons representando o céu pálido das cenas externas.</p>
+<p>Podemos fazer a análise agora para o pôster de cada filme (o que aparece no IMDB):</p>
+<p><img src="assets/imgs/marvel-vs-dc/posteres.jpg" /></p>
+<p><img src="assets/imgs/marvel-vs-dc/paleta_poster_bvs.jpeg" /></p>
+<p><img src="assets/imgs/marvel-vs-dc/paleta_poster_cw.jpeg" /></p>
+<p>Veja que os diferentes tons de azul se repetem no pôster do Batman vs Superman. Já o pôster do Capitão América é bem cinzento, com metade da paleta representando <a href="http://media.melty.com.br/article-6991-ratio265_1020/filme-50-tons-de-cinza-jamie-dornan-christian.jpg">tons de cinza</a>.</p>
+<p>Fica então o desafio de repetir a análise para outros filmes e compartilhar o resultado com a gente. Faça a sua!</p>
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="6-reflexoes.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="4-7-sao-paulo-e-o-problema-da-mochila.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="4-9-minimos-quadrados-com-restricoes-lineares.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

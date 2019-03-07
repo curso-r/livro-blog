@@ -52,6 +52,9 @@ library(tidyverse)
 
 # Modelagem 
 
+```{r child="blogs/modelagem/2017-11-16-matrizes-esparsas.Rmd"}
+```
+
 ```{r child="blogs/modelagem/2018-09-03-monty-hall.Rmd"}
 ```
 
@@ -72,7 +75,6 @@ library(tidyverse)
 
 ```{r child="blogs/modelagem/2017-05-01-marvel-vs-dc.Rmd"}
 ```
-
 
 ```{r child="blogs/modelagem/2017-08-07-minimos-quadrados-restrito.Rmd"}
 ```

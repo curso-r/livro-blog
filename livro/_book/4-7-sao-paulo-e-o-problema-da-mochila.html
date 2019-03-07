@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Referências | Como faz no R</title>
+  <title>4.7 São Paulo e o problema da mochila | Como faz no R</title>
   <meta name="description" content="Livro da Curso-R.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Referências | Como faz no R />
+  <meta property="og:title" content="4.7 São Paulo e o problema da mochila | Como faz no R />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Referências | Como faz no R />
+  <meta name="twitter:title" content="4.7 São Paulo e o problema da mochila | Como faz no R />
   
   <meta name="twitter:description" content="Livro da Curso-R." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="6-reflexoes.html">
-
+<link rel="prev" href="4-6-regressao-logistica-aspectos-computacionais.html">
+<link rel="next" href="4-8-as-cores-da-marvel-vs-dc.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -291,27 +291,172 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="referencias" class="section level1 unnumbered">
-<h1>Referências</h1>
-
+<div id="sao-paulo-e-o-problema-da-mochila" class="section level2">
+<h2><span class="header-section-number">4.7</span> São Paulo e o problema da mochila</h2>
+<div class="rmdtip">
+<p>
+Autor: Julio
+</p>
 </div>
-
-
-
-
-
-
-
-
-
-
+<div class="rmdtip">
+<p>
+Dificuldade média
+</p>
+</div>
+<div class="rmdimportant">
+<p>
+model
+</p>
+</div>
+<p>São Paulo é a minha cidade preferida, não só porque moro aqui, mas também porque é uma cidade cheia de diversidade, boa gastronomia e oportunidades. Para sentir um pouco dessa <em>vibe</em>, recomendo passear na avenida Paulista aos domingos. É sensacional!</p>
+<p>Mas a cidade da diversidade só é o que é porque temos muita, muita gente nela. O município tem 12 milhões de habitantes. Esse número é tão grande que temos um paulistano para cada 17 brasileiros! Se São Paulo fosse um país, <a href="https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_population">seria o 77 do mundo</a>, ganhando de países como a Bélgica, Grécia, Portugal, Bolívia e muitas outras.</p>
+<p>Outro dia eu estava pensando na seguinte problemática: qual é a área do Brasil ocupada pela população de São Paulo? Ou seja, se pegarmos os municípios com grandes áreas, quanto do país conseguiríamos preencher com 12 milhões de habitantes?</p>
+<p>O interessante é que essa questão recai exatamente no <em>problema da mochila</em>, que é um famoso desafio de programação inteira. Depois de <a href="https://en.wikipedia.org/wiki/Knapsack_problem">estudar profundamente no wikipedia</a>, vi que o problema não é tão trivial como parece.</p>
+<div id="o-problema-da-mochila" class="section level3">
+<h3><span class="header-section-number">4.7.1</span> O problema da mochila</h3>
+<p>Considere o seguinte contexto: você tem uma mochila com capacidade de 15kg e precisa carregar a combinação de itens com maior valor, com cada item possuindo valores e pesos diferentes.</p>
+<div class="figure"><span id="fig:unnamed-chunk-112"></span>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Knapsack.svg/250px-Knapsack.svg.png" alt="Knapsack problem. Retirado do [Wikipedia](https://en.wikipedia.org/wiki/Knapsack_problem#/media/File:Knapsack.svg)."  />
+<p class="caption">
+Figura 2.3: Knapsack problem. Retirado do <a href="https://en.wikipedia.org/wiki/Knapsack_problem#/media/File:Knapsack.svg">Wikipedia</a>.
+</p>
+</div>
+<p>Outra forma de pensar nesse problema é com um cardápio de restaurante:</p>
+<div class="figure"><span id="fig:unnamed-chunk-113"></span>
+<img src="https://imgs.xkcd.com/comics/np_complete.png" alt="XKCD sobre o knapsack problem."  />
+<p class="caption">
+Figura 2.4: XKCD sobre o knapsack problem.
+</p>
+</div>
+<p>Em linguagem matemática, o que temos é a task:</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp; \text{maximizar } \sum_{i=1}^n v_i x_i \\ 
+&amp; \text{sujeito à } \sum_{i=1}^n w_i x_i \leq W, \text{ com } x_i \in\{0,1\}\\ 
+\end{aligned}
+\]</span></p>
+<p>No nosso caso essas letras significam isso aqui:</p>
+<ul>
+<li><span class="math inline">\(n\)</span> é o número de municípios no Brasil (5570).</li>
+<li><span class="math inline">\(v_i\)</span> é a área do município <span class="math inline">\(i\)</span>.</li>
+<li><span class="math inline">\(w_i\)</span> é a população do município <span class="math inline">\(i\)</span>.</li>
+<li><span class="math inline">\(W\)</span> é a população de São Paulo (12 milhões).</li>
+<li><span class="math inline">\(x=(x_1,\dots,x_n)^\top\)</span> é o vetor que seleciona os municípios. Se o município <span class="math inline">\(i\)</span> faz parte da solução <span class="math inline">\(x_i=1\)</span> e, caso contrário, <span class="math inline">\(x_i=0\)</span>.</li>
+</ul>
+<p>Ou seja, queremos escolher municípios para colocar na mochila tentando maximizar a área, mas o máximo de população que podemos contemplar é 12 milhões.</p>
+<p>O problema da mochila é muito interessante pois trata-se de um problema NP-difícil, ou seja, não existe um algoritmo de polinomial capaz de resolvê-lo. Se <span class="math inline">\(w_i &gt; 0, \forall i\in1,\dots,n\)</span> então a solução pode ser encontrada com um algoritmo pseudo-polinomial.</p>
+</div>
+<div id="forma-ad-hoc" class="section level3">
+<h3><span class="header-section-number">4.7.2</span> Forma ad-hoc</h3>
+<p>Se <span class="math inline">\(x_i\)</span> pudesse assumir valores entre zero e um (ou seja, se pudéssemos selecionar apenas pedaços de municípios), a solução seria trivial. Bastaria colocar os municípios em ordem decrescente pela razão <span class="math inline">\(v_i/w_i\)</span> e escolher os municípios ou parte deles até obter <span class="math inline">\(W\)</span>.</p>
+<p>Isso indica uma forma sub-ótima de resolver o problema. Chamamos essa solução de ad-hoc. A solução é encontrada assim:</p>
+<ol style="list-style-type: decimal">
+<li>Colocar os municípios em ordem decrescente pela razão <span class="math inline">\(v_i/w_i\)</span>,</li>
+<li>Escolher os municípios de maior razão até que a população do próximo município estoure <span class="math inline">\(W\)</span>.</li>
+<li>Escolher outros municípios com maior razão na ordem até não ser possível incluir mais nenhum município.</li>
+</ol>
+</div>
+<div id="solucao-otima" class="section level3">
+<h3><span class="header-section-number">4.7.3</span> Solução ótima</h3>
+<p>A solução ótima pode ser encontrada usando a função <code>mknapsack()</code> do pacote <code>adagio</code>. Por exemplo, considere os vetores de pesos <code>w</code>, valores <code>p</code> e máximo <code>cap</code> abaixo.</p>
+<p>O vetor-solução é dado por</p>
+<pre><code>FALSE [1] 1 1 1 1 0 1 0 0</code></pre>
+</div>
+<div id="dados" class="section level3">
+<h3><span class="header-section-number">4.7.4</span> Dados</h3>
+<p>As áreas e estimativas das populações dos municípios do Brasil em 2016 foram obtidas do IBGE. A leitura é realizada usando pacotes do <code>tidyverse</code>.</p>
+<p><strong>Pacotes:</strong></p>
+<p><strong>Dados:</strong></p>
+</div>
+<div id="resultados" class="section level3">
+<h3><span class="header-section-number">4.7.5</span> Resultados</h3>
+<p>A solução ad-hoc e ótima são computadas com esse código:</p>
+<p>Agora, vamos melhorar a solução ad-hoc incluindo os melhores municípios.</p>
+<p>A Tabela <a href="4-7-sao-paulo-e-o-problema-da-mochila.html#tab:dif">2.1</a> mostra os municípios que foram classificados diferentemente nos dois métodos. Note que a solução ótima trocou apenas um município da solução adhoc (Coivaras - PI) pelo município de Angélica - MS.</p>
+<table>
+<caption><span id="tab:dif">Tabela 2.1: </span>Municípios diferentes nas duas soluções.</caption>
+<thead>
+<tr class="header">
+<th align="left">uf</th>
+<th align="left">nome</th>
+<th align="right">area</th>
+<th align="right">pop</th>
+<th align="right">s_adhoc</th>
+<th align="right">s_knapsack</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">PIAUÍ</td>
+<td align="left">COIVARAS</td>
+<td align="right">485373828</td>
+<td align="right">3953</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">MATO GROSSO DO SUL</td>
+<td align="left">ANGÉLICA</td>
+<td align="right">1282110939</td>
+<td align="right">10458</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+<p>A Tabela <a href="4-7-sao-paulo-e-o-problema-da-mochila.html#tab:dif2">2.2</a> mostra a diferença dos resultados dos dois métodos. A solução ótima fica com apenas 165 pessoas a menos que São Paulo.</p>
+<table>
+<caption><span id="tab:dif2">Tabela 2.2: </span>Diferença dos resultados.</caption>
+<thead>
+<tr class="header">
+<th align="left">Método</th>
+<th align="left">Área total</th>
+<th align="right">População total</th>
+<th align="right">Diferença para sp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">adhoc</td>
+<td align="left">5574729418852.4</td>
+<td align="right">12100250</td>
+<td align="right">6670</td>
+</tr>
+<tr class="even">
+<td align="left">knapsack</td>
+<td align="left">5575526155963.55</td>
+<td align="right">12106755</td>
+<td align="right">165</td>
+</tr>
+<tr class="odd">
+<td align="left">São Paulo</td>
+<td align="left">-</td>
+<td align="right">12106920</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="mapa-final" class="section level3">
+<h3><span class="header-section-number">4.7.6</span> Mapa final</h3>
+<p>Visualmente, a solução ótima e a solução adhoc são idênticas. Por isso vou mostrar apenas como fica o mapa para a solução ótima.</p>
+<p>O resultado aparece na Figura <a href="4-7-sao-paulo-e-o-problema-da-mochila.html#fig:final">2.5</a>. É realmente impressionante ver que aquela regiãozinha vermelha tem a mesma população que toda a região azul do mapa.</p>
+<div class="figure"><span id="fig:final"></span>
+<img src="assets/imgs/sao-paulo/sao-paulo.png" alt="Mapa do Brasil final." width="566" />
+<p class="caption">
+Figura 2.5: Mapa do Brasil final.
+</p>
+</div>
+<p>É isso! Happy coding ;)</p>
+</div>
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="6-reflexoes.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="4-6-regressao-logistica-aspectos-computacionais.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="4-8-as-cores-da-marvel-vs-dc.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
