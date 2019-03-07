@@ -4,10 +4,6 @@ tags: ["r"]
 author: ["Julio"]
 ---
 
-```{r, include=FALSE}
-knitr::opts_chunk$set(eval = FALSE)
-```
-
 ## pvec: O laço perfeito
 
 ```{block, type='rmdtip', echo=TRUE}
