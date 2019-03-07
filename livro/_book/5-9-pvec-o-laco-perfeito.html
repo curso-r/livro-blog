@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Capítulo 6 Reflexões | Como faz no R</title>
+  <title>5.9 pvec: O laço perfeito | Como faz no R</title>
   <meta name="description" content="Livro da Curso-R.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Capítulo 6 Reflexões | Como faz no R />
+  <meta property="og:title" content="5.9 pvec: O laço perfeito | Como faz no R />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Capítulo 6 Reflexões | Como faz no R />
+  <meta name="twitter:title" content="5.9 pvec: O laço perfeito | Como faz no R />
   
   <meta name="twitter:description" content="Livro da Curso-R." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="5-6-pvec-o-laco-perfeito.html">
-<link rel="next" href="referencias.html">
+<link rel="prev" href="5-8-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html">
+<link rel="next" href="6-reflexoes.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -235,37 +235,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.1.3" data-path="5-1-unindo-mapas-the-tidy-way.html"><a href="5-1-unindo-mapas-the-tidy-way.html#solucao"><i class="fa fa-check"></i><b>5.1.3</b> Solução</a></li>
 <li class="chapter" data-level="5.1.4" data-path="5-1-unindo-mapas-the-tidy-way.html"><a href="5-1-unindo-mapas-the-tidy-way.html#wrap-up-2"><i class="fa fa-check"></i><b>5.1.4</b> Wrap-up</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="5-2-environments.html"><a href="5-2-environments.html"><i class="fa fa-check"></i><b>5.2</b> Environments</a><ul>
-<li class="chapter" data-level="5.2.1" data-path="5-2-environments.html"><a href="5-2-environments.html#o-que-e"><i class="fa fa-check"></i><b>5.2.1</b> O que é?</a></li>
-<li class="chapter" data-level="5.2.2" data-path="5-2-environments.html"><a href="5-2-environments.html#o-que-faz"><i class="fa fa-check"></i><b>5.2.2</b> O que faz?</a></li>
-<li class="chapter" data-level="5.2.3" data-path="5-2-environments.html"><a href="5-2-environments.html#como-nao-usar"><i class="fa fa-check"></i><b>5.2.3</b> Como não usar?</a></li>
+<li class="chapter" data-level="5.2" data-path="5-2-environments.html"><a href="5-2-environments.html"><i class="fa fa-check"></i><b>5.2</b> Environments</a></li>
+<li class="chapter" data-level="5.3" data-path="5-3-o-que-e.html"><a href="5-3-o-que-e.html"><i class="fa fa-check"></i><b>5.3</b> O que é?</a></li>
+<li class="chapter" data-level="5.4" data-path="5-4-o-que-faz.html"><a href="5-4-o-que-faz.html"><i class="fa fa-check"></i><b>5.4</b> O que faz?</a></li>
+<li class="chapter" data-level="5.5" data-path="5-5-como-nao-usar.html"><a href="5-5-como-nao-usar.html"><i class="fa fa-check"></i><b>5.5</b> Como não usar?</a></li>
+<li class="chapter" data-level="5.6" data-path="5-6-arrumando-banco-de-dados-o-pacote-janitor.html"><a href="5-6-arrumando-banco-de-dados-o-pacote-janitor.html"><i class="fa fa-check"></i><b>5.6</b> Arrumando banco de dados: o pacote janitor</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="5-6-arrumando-banco-de-dados-o-pacote-janitor.html"><a href="5-6-arrumando-banco-de-dados-o-pacote-janitor.html#arrumando-o-nome-das-variaveis"><i class="fa fa-check"></i><b>5.6.1</b> Arrumando o nome das variáveis</a></li>
+<li class="chapter" data-level="5.6.2" data-path="5-6-arrumando-banco-de-dados-o-pacote-janitor.html"><a href="5-6-arrumando-banco-de-dados-o-pacote-janitor.html#removendo-linhas-e-colunas-vazias"><i class="fa fa-check"></i><b>5.6.2</b> Removendo linhas e colunas vazias</a></li>
+<li class="chapter" data-level="5.6.3" data-path="5-6-arrumando-banco-de-dados-o-pacote-janitor.html"><a href="5-6-arrumando-banco-de-dados-o-pacote-janitor.html#identificando-linhas-duplicadas"><i class="fa fa-check"></i><b>5.6.3</b> Identificando linhas duplicadas</a></li>
+<li class="chapter" data-level="5.6.4" data-path="5-6-arrumando-banco-de-dados-o-pacote-janitor.html"><a href="5-6-arrumando-banco-de-dados-o-pacote-janitor.html#outras-funcoes"><i class="fa fa-check"></i><b>5.6.4</b> Outras funções</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="5-3-arrumando-banco-de-dados-o-pacote-janitor.html"><a href="5-3-arrumando-banco-de-dados-o-pacote-janitor.html"><i class="fa fa-check"></i><b>5.3</b> Arrumando banco de dados: o pacote janitor</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="5-3-arrumando-banco-de-dados-o-pacote-janitor.html"><a href="5-3-arrumando-banco-de-dados-o-pacote-janitor.html#arrumando-o-nome-das-variaveis"><i class="fa fa-check"></i><b>5.3.1</b> Arrumando o nome das variáveis</a></li>
-<li class="chapter" data-level="5.3.2" data-path="5-3-arrumando-banco-de-dados-o-pacote-janitor.html"><a href="5-3-arrumando-banco-de-dados-o-pacote-janitor.html#removendo-linhas-e-colunas-vazias"><i class="fa fa-check"></i><b>5.3.2</b> Removendo linhas e colunas vazias</a></li>
-<li class="chapter" data-level="5.3.3" data-path="5-3-arrumando-banco-de-dados-o-pacote-janitor.html"><a href="5-3-arrumando-banco-de-dados-o-pacote-janitor.html#identificando-linhas-duplicadas"><i class="fa fa-check"></i><b>5.3.3</b> Identificando linhas duplicadas</a></li>
-<li class="chapter" data-level="5.3.4" data-path="5-3-arrumando-banco-de-dados-o-pacote-janitor.html"><a href="5-3-arrumando-banco-de-dados-o-pacote-janitor.html#outras-funcoes"><i class="fa fa-check"></i><b>5.3.4</b> Outras funções</a></li>
+<li class="chapter" data-level="5.7" data-path="5-7-skimr-estatisticas-basicas-com.html"><a href="5-7-skimr-estatisticas-basicas-com.html"><i class="fa fa-check"></i><b>5.7</b> Skimr: estatísticas básicas com ❤️</a><ul>
+<li class="chapter" data-level="5.7.1" data-path="5-7-skimr-estatisticas-basicas-com.html"><a href="5-7-skimr-estatisticas-basicas-com.html#criando-suas-proprias-funcoes"><i class="fa fa-check"></i><b>5.7.1</b> Criando suas próprias funções</a></li>
+<li class="chapter" data-level="5.7.2" data-path="5-7-skimr-estatisticas-basicas-com.html"><a href="5-7-skimr-estatisticas-basicas-com.html#wrap-up-3"><i class="fa fa-check"></i><b>5.7.2</b> Wrap up</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="5-4-skimr-estatisticas-basicas-com.html"><a href="5-4-skimr-estatisticas-basicas-com.html"><i class="fa fa-check"></i><b>5.4</b> Skimr: estatísticas básicas com ❤️</a><ul>
-<li class="chapter" data-level="5.4.1" data-path="5-4-skimr-estatisticas-basicas-com.html"><a href="5-4-skimr-estatisticas-basicas-com.html#criando-suas-proprias-funcoes"><i class="fa fa-check"></i><b>5.4.1</b> Criando suas próprias funções</a></li>
-<li class="chapter" data-level="5.4.2" data-path="5-4-skimr-estatisticas-basicas-com.html"><a href="5-4-skimr-estatisticas-basicas-com.html#wrap-up-3"><i class="fa fa-check"></i><b>5.4.2</b> Wrap up</a></li>
+<li class="chapter" data-level="5.8" data-path="5-8-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="5-8-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><i class="fa fa-check"></i><b>5.8</b> Pacotes miojo: como fazer um pacote no R em 3 minutos</a><ul>
+<li class="chapter" data-level="5.8.1" data-path="5-8-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="5-8-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#passo-1-crie-um-pacote-no-r"><i class="fa fa-check"></i><b>5.8.1</b> Passo 1: Crie um pacote no R</a></li>
+<li class="chapter" data-level="5.8.2" data-path="5-8-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="5-8-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#passo-2-adicione-git-e-github-no-seu-pacote"><i class="fa fa-check"></i><b>5.8.2</b> Passo 2: Adicione git e github no seu pacote</a></li>
+<li class="chapter" data-level="5.8.3" data-path="5-8-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="5-8-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#parenteses-github_pat"><i class="fa fa-check"></i><b>5.8.3</b> Parênteses: <code>GITHUB_PAT</code></a></li>
+<li class="chapter" data-level="5.8.4" data-path="5-8-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="5-8-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#passo-3-adicione-coisas-de-interesse"><i class="fa fa-check"></i><b>5.8.4</b> Passo 3: Adicione coisas de interesse</a></li>
+<li class="chapter" data-level="5.8.5" data-path="5-8-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="5-8-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#passo-4-crie-sua-funcao"><i class="fa fa-check"></i><b>5.8.5</b> Passo 4: Crie sua função</a></li>
+<li class="chapter" data-level="5.8.6" data-path="5-8-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="5-8-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#passo-5-document-commit-e-push"><i class="fa fa-check"></i><b>5.8.6</b> Passo 5: document, commit e push!</a></li>
+<li class="chapter" data-level="5.8.7" data-path="5-8-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="5-8-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#passo-6-instalar-o-pacote-em-outra-maquina"><i class="fa fa-check"></i><b>5.8.7</b> Passo 6: Instalar o pacote em outra máquina</a></li>
+<li class="chapter" data-level="5.8.8" data-path="5-8-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="5-8-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#conclusoes-1"><i class="fa fa-check"></i><b>5.8.8</b> Conclusões</a></li>
+<li class="chapter" data-level="5.8.9" data-path="5-8-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="5-8-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#outras-pequenas-dicas-praticas"><i class="fa fa-check"></i><b>5.8.9</b> Outras pequenas dicas práticas</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="5-5-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="5-5-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><i class="fa fa-check"></i><b>5.5</b> Pacotes miojo: como fazer um pacote no R em 3 minutos</a><ul>
-<li class="chapter" data-level="5.5.1" data-path="5-5-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="5-5-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#passo-1-crie-um-pacote-no-r"><i class="fa fa-check"></i><b>5.5.1</b> Passo 1: Crie um pacote no R</a></li>
-<li class="chapter" data-level="5.5.2" data-path="5-5-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="5-5-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#passo-2-adicione-git-e-github-no-seu-pacote"><i class="fa fa-check"></i><b>5.5.2</b> Passo 2: Adicione git e github no seu pacote</a></li>
-<li class="chapter" data-level="5.5.3" data-path="5-5-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="5-5-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#parenteses-github_pat"><i class="fa fa-check"></i><b>5.5.3</b> Parênteses: <code>GITHUB_PAT</code></a></li>
-<li class="chapter" data-level="5.5.4" data-path="5-5-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="5-5-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#passo-3-adicione-coisas-de-interesse"><i class="fa fa-check"></i><b>5.5.4</b> Passo 3: Adicione coisas de interesse</a></li>
-<li class="chapter" data-level="5.5.5" data-path="5-5-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="5-5-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#passo-4-crie-sua-funcao"><i class="fa fa-check"></i><b>5.5.5</b> Passo 4: Crie sua função</a></li>
-<li class="chapter" data-level="5.5.6" data-path="5-5-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="5-5-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#passo-5-document-commit-e-push"><i class="fa fa-check"></i><b>5.5.6</b> Passo 5: document, commit e push!</a></li>
-<li class="chapter" data-level="5.5.7" data-path="5-5-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="5-5-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#passo-6-instalar-o-pacote-em-outra-maquina"><i class="fa fa-check"></i><b>5.5.7</b> Passo 6: Instalar o pacote em outra máquina</a></li>
-<li class="chapter" data-level="5.5.8" data-path="5-5-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="5-5-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#conclusoes-1"><i class="fa fa-check"></i><b>5.5.8</b> Conclusões</a></li>
-<li class="chapter" data-level="5.5.9" data-path="5-5-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html"><a href="5-5-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html#outras-pequenas-dicas-praticas"><i class="fa fa-check"></i><b>5.5.9</b> Outras pequenas dicas práticas</a></li>
-</ul></li>
-<li class="chapter" data-level="5.6" data-path="5-6-pvec-o-laco-perfeito.html"><a href="5-6-pvec-o-laco-perfeito.html"><i class="fa fa-check"></i><b>5.6</b> pvec: O laço perfeito</a><ul>
-<li class="chapter" data-level="5.6.1" data-path="5-6-pvec-o-laco-perfeito.html"><a href="5-6-pvec-o-laco-perfeito.html#como-funciona-1"><i class="fa fa-check"></i><b>5.6.1</b> Como funciona</a></li>
-<li class="chapter" data-level="5.6.2" data-path="5-6-pvec-o-laco-perfeito.html"><a href="5-6-pvec-o-laco-perfeito.html#o-parametro-.flatten"><i class="fa fa-check"></i><b>5.6.2</b> O parâmetro <code>.flatten</code></a></li>
-<li class="chapter" data-level="5.6.3" data-path="5-6-pvec-o-laco-perfeito.html"><a href="5-6-pvec-o-laco-perfeito.html#por-tras-dos-panos-o-furrr"><i class="fa fa-check"></i><b>5.6.3</b> Por trás dos panos: o <code>furrr</code></a></li>
-<li class="chapter" data-level="5.6.4" data-path="5-6-pvec-o-laco-perfeito.html"><a href="5-6-pvec-o-laco-perfeito.html#wrap-up-4"><i class="fa fa-check"></i><b>5.6.4</b> Wrap-up</a></li>
+<li class="chapter" data-level="5.9" data-path="5-9-pvec-o-laco-perfeito.html"><a href="5-9-pvec-o-laco-perfeito.html"><i class="fa fa-check"></i><b>5.9</b> pvec: O laço perfeito</a><ul>
+<li class="chapter" data-level="5.9.1" data-path="5-9-pvec-o-laco-perfeito.html"><a href="5-9-pvec-o-laco-perfeito.html#como-funciona-1"><i class="fa fa-check"></i><b>5.9.1</b> Como funciona</a></li>
+<li class="chapter" data-level="5.9.2" data-path="5-9-pvec-o-laco-perfeito.html"><a href="5-9-pvec-o-laco-perfeito.html#o-parametro-.flatten"><i class="fa fa-check"></i><b>5.9.2</b> O parâmetro <code>.flatten</code></a></li>
+<li class="chapter" data-level="5.9.3" data-path="5-9-pvec-o-laco-perfeito.html"><a href="5-9-pvec-o-laco-perfeito.html#por-tras-dos-panos-o-furrr"><i class="fa fa-check"></i><b>5.9.3</b> Por trás dos panos: o <code>furrr</code></a></li>
+<li class="chapter" data-level="5.9.4" data-path="5-9-pvec-o-laco-perfeito.html"><a href="5-9-pvec-o-laco-perfeito.html#wrap-up-4"><i class="fa fa-check"></i><b>5.9.4</b> Wrap-up</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="6-reflexoes.html"><a href="6-reflexoes.html"><i class="fa fa-check"></i><b>6</b> Reflexões</a></li>
@@ -290,16 +289,129 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="reflexoes" class="section level1">
-<h1><span class="header-section-number">Capítulo 6</span> Reflexões</h1>
+<div id="pvec-o-laco-perfeito" class="section level2">
+<h2><span class="header-section-number">5.9</span> pvec: O laço perfeito</h2>
+<div class="rmdtip">
+<p>
+Autor: Julio
+</p>
 </div>
+<div class="rmdtip">
+<p>
+Dificuldade baixa
+</p>
+</div>
+<div class="rmdimportant">
+<p>
+model
+</p>
+</div>
+<p>Quando usamos laços para rodar algoritmos complexos em uma lista de <em>inputs</em>, podemos pensar em <em>power-ups</em>. Tratam-se de funcionalidades que ajudam na aplicação dos laços, tanto do ponto de vista de eficiência do código quanto do ponto de vista de eficiência do trabalho do cientista de dados.</p>
+<p>Aqui na Curso-R nós já vimos três desses power-ups:</p>
+<ul>
+<li>Como fazer <a href="https://www.curso-r.com/blog/2017-03-14-parallel/">laços em paralelo</a>.</li>
+<li>Como usar <a href="https://www.curso-r.com/blog/2017-04-08-progress/">barras de progresso</a></li>
+<li>Como fazer <a href="https://www.curso-r.com/blog/2017-04-09-try/">tratamento de erros</a>.</li>
+</ul>
+<p>Mas será que tem um jeito de juntar essas três funcionalidades em apenas uma operação?</p>
+<p><img src="assets/pvec/nao_tinha_agora_tem.jpg" /></p>
+<p>Sim, é claro que tem. E se algo é possível no R, o <a href="https://ctlente.com">Caio Lente</a> já fez. Trata-se da operação <code>pvec()</code>, do pacote <code>abjutils</code>.</p>
+<p>Para utilizá-la, você precisará instalar a versão de desenvolvimento do <code>abjutils</code> no GitHub:</p>
+<p>Pode ser que o <code>pvec()</code> não funcione muito bem no Windows. Isso é algo que vamos trabalhar no futuro.</p>
+<div id="como-funciona-1" class="section level3">
+<h3><span class="header-section-number">5.9.1</span> Como funciona</h3>
+<p>O <code>pvec()</code> recebe duas informações de entrada: uma lista ou vetor de <code>inputs</code> e uma função a ser aplicada. O <code>pvec()</code> funciona exatamente como um <code>purrr::map()</code>, mas retorna um <code>data.frame</code> com os outputs.</p>
+<p>Por exemplo, digamos que nosso objetivo seja aplicar a função</p>
+<p>em uma lista de entradas, dada por</p>
+<p>O resultado é dado por:</p>
+<pre><code># A tibble: 4 x 3
+     id return output           
+  &lt;int&gt; &lt;chr&gt;  &lt;list&gt;           
+1     1 result &lt;dbl [1]&gt;        
+2     2 result &lt;dbl [1]&gt;        
+3     3 result &lt;dbl [1]&gt;        
+4     4 error  &lt;S3: simpleError&gt;</code></pre>
+<p>Ou seja, o resultado é um <code>data.frame</code>, que tem o número de linhas exatamente igual ao comprimento do vetor ou lista de entrada, e três colunas específicas.</p>
+<ol style="list-style-type: decimal">
+<li><code>id</code>, que guarda o índice de entrada. Se a lista de entrada é nomeada, <code>id</code> guarda esses nomes.</li>
+<li><code>return</code> identifica se a aplicação retornou num resultado (<code>result</code>) ou erro (<code>error</code>)</li>
+<li><code>output</code> é uma coluna-lista que contém os resultados. Quando o resultado é um erro, o erro é capturado e colocado no elemento correspondente.</li>
+</ol>
+<p>Ou seja, uma característica do <code>pvec()</code> é que ele <strong>nunca irá travar</strong>. Se essa operação travar, é porque o computador todo travou.</p>
+<p>É importante notar que alguns resultados nesse caso são <code>NaN</code>. Isso ocorre pois <code>log(-1)</code> resulta em <code>NaN</code>, acompanhado de um warning. O <code>pvec()</code> não trabalha com warnings.</p>
+<p>Outra característica importante do <code>pvec()</code> é que ele roda em paralelo. Você pode controlar a quantidade de núcleos de processamento com o parâmetro <code>.cores</code>. Por padrão, ele usará o número de núcleos da sua máquina.</p>
+<p>Finalmente, o que não poderia faltar no <code>pvec()</code> é a utilização de barras de progresso. Por exemplo, considerando como input</p>
+<p>O resultado é</p>
+<pre><code>Progress: ───────────────────────────────                              100%
+
+Progress: ──────────────────────────────────────────────────────────── 100%
+
+# A tibble: 8 x 3
+  id    return output           
+  &lt;chr&gt; &lt;chr&gt;  &lt;list&gt;           
+1 a     result &lt;dbl [1]&gt;        
+2 b     result &lt;dbl [1]&gt;        
+3 c     result &lt;dbl [1]&gt;        
+4 d     error  &lt;S3: simpleError&gt;
+5 e     result &lt;dbl [1]&gt;        
+6 f     result &lt;dbl [1]&gt;        
+7 g     result &lt;dbl [1]&gt;        
+8 h     error  &lt;S3: simpleError&gt;</code></pre>
+<p>Se você quiser desligar a barra de progresso, basta adicionar <code>.progress = FALSE</code>.</p>
+</div>
+<div id="o-parametro-.flatten" class="section level3">
+<h3><span class="header-section-number">5.9.2</span> O parâmetro <code>.flatten</code></h3>
+<p>Esse é o parâmetro dos preguiçosos (eu que pedi para o Caio adicionar). Em muitas operações, o resultado que sai no <code>output</code> é uma lista de <code>data.frame</code>s ou uma lista de vetores. A opção <code>.flatten</code> faz <code>tidyr::unnest()</code>, empilhando os resultados e colando tudo num vetor ou <code>data.frame</code>.</p>
+<p>O único problema é que nesse caso não é possível guardar os erros. Por isso, o <code>pvec()</code> retorna um warning:</p>
+<pre><code>Progress: ──────────────────────────────────────────────────────────── 100%
+
+# A tibble: 6 x 2
+  id     output
+  &lt;chr&gt;   &lt;dbl&gt;
+1 a       0    
+2 b       0.693
+3 c     NaN    
+4 e       0.693
+5 f       1.10 
+6 g     NaN    
+
+Warning message:
+Since &#39;.flatten = TRUE&#39;, a total of 2 errors are being ignored     </code></pre>
+<p>Note que o resultado tem 6 linhas, menor que a entrada, que tem 8 elementos. Por isso, use <code>.flatten</code> somente quando você tem certeza do que está fazendo.</p>
+</div>
+<div id="por-tras-dos-panos-o-furrr" class="section level3">
+<h3><span class="header-section-number">5.9.3</span> Por trás dos panos: o <code>furrr</code></h3>
+<p>O <code>pvec()</code> só funciona por conta de dois excelentes pacotes:</p>
+<ul>
+<li>o <code>future</code>, que é um novo paradigma de computação em paralelo no R.</li>
+<li>o <code>furrr</code>, que faz todo o trabalho sujo e implementa a maioria das operações do <code>purrr</code> usando <code>future</code>.</li>
+</ul>
+<p>Se quiser estudar esses pacotes e implementar suas próprias soluções, recomendo acessar <a href="https://github.com/HenrikBengtsson/future">aqui</a> e <a href="https://github.com/DavisVaughan/furrr">aqui</a>. Não incluí detalhes desses pacotes aqui para não sair do foco.</p>
+<p>Se quiser adicionar opções do <code>future</code> no <code>pvec()</code>, basta adicioná-las na opção <code>.options</code>. Por padrão, passamos <code>furrr::future_options()</code> nesse argumento.</p>
+<div id="discussao-o-future-e-o-futuro-do-purrr" class="section level4">
+<h4><span class="header-section-number">5.9.3.1</span> Discussão: o <code>future</code> é o futuro do <code>purrr</code>?</h4>
+<p>O <code>purrr</code> contém uma série de <a href="https://github.com/tidyverse/purrr/milestone/2">discussões no GitHub</a> sobre a possibilidade de rodar funções em paralelo e com barras de progresso. Pode ser que a funcionalidade do <code>pvec()</code> passe a ser parte oficial no futuro.</p>
+<p>Veremos!</p>
+</div>
+</div>
+<div id="wrap-up-4" class="section level3">
+<h3><span class="header-section-number">5.9.4</span> Wrap-up</h3>
+<ol style="list-style-type: decimal">
+<li><code>abjutils::pvec()</code> é um <code>map()</code> que roda em paralelo, tem barras de progresso e trata erros automaticamente.</li>
+<li>Você pode brincar com as opções <code>.cores</code>, <code>.progress</code> e <code>.flatten</code> para controlar o comportamento do <code>pvec()</code>. Tome muito cuidado com o <code>.flatten</code>, pois ele pode não tratar os erros da forma que você imagina!</li>
+<li>Estude <code>future</code> e <code>furrr</code> se quiser estender as funcionalidades do <code>pvec()</code>.</li>
+</ol>
+<p>É isso pessoal. Happy coding ;)</p>
+</div>
+</div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="5-6-pvec-o-laco-perfeito.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="referencias.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="5-8-pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="6-reflexoes.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

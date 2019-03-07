@@ -85,6 +85,11 @@ library(tidyverse)
 
 # Transformação
 
+```{r child="blogs/transformacao/2017-11-23-union-sf.Rmd"}
+```
+
+```{r child="blogs/transformacao/2017-06-19-environments.Rmd"}
+```
 
 ```{r child="blogs/transformacao/2017-07-24-janitor.Rmd"}
 ```
@@ -97,10 +102,6 @@ library(tidyverse)
 
 ```{r child="blogs/transformacao/2019-02-10-pvec.Rmd"}
 ```
-
-```{r child="blogs/transformacao/2017-11-23-union-sf.Rmd"}
-```
-
 
 # Reflexões
 

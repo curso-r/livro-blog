@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Capítulo 6 Reflexões | Como faz no R</title>
+  <title>5.5 Pacotes miojo: como fazer um pacote no R em 3 minutos | Como faz no R</title>
   <meta name="description" content="Livro da Curso-R.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Capítulo 6 Reflexões | Como faz no R />
+  <meta property="og:title" content="5.5 Pacotes miojo: como fazer um pacote no R em 3 minutos | Como faz no R />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Capítulo 6 Reflexões | Como faz no R />
+  <meta name="twitter:title" content="5.5 Pacotes miojo: como fazer um pacote no R em 3 minutos | Como faz no R />
   
   <meta name="twitter:description" content="Livro da Curso-R." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="5-6-pvec-o-laco-perfeito.html">
-<link rel="next" href="referencias.html">
+<link rel="prev" href="5-4-skimr-estatisticas-basicas-com.html">
+<link rel="next" href="5-6-pvec-o-laco-perfeito.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -290,16 +290,170 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="reflexoes" class="section level1">
-<h1><span class="header-section-number">Capítulo 6</span> Reflexões</h1>
+<div id="pacotes-miojo-como-fazer-um-pacote-no-r-em-3-minutos" class="section level2">
+<h2><span class="header-section-number">5.5</span> Pacotes miojo: como fazer um pacote no R em 3 minutos</h2>
+<div class="rmdtip">
+<p>
+Autor: Julio
+</p>
+</div>
+<div class="rmdtip">
+<p>
+Dificuldade média
+</p>
+</div>
+<div class="rmdimportant">
+<p>
+program
+</p>
+</div>
+<p>Nesse post vou mostrar como fazer um pacote em R muito, muito rápido. Tirei várias coisas que costumo fazer nos pacotes, com dor no coração, tudo pela velocidade, mantendo só o essencial.</p>
+<p>Duas restrições que usei são</p>
+<ol style="list-style-type: decimal">
+<li>O pacote precisa ficar disponível no GitHub.</li>
+<li>O pacote precisa ter pelo menos uma função.</li>
+</ol>
+<p>Essa é a solução que eu acho mais segura e rápida. Você também pode <a href="http://curso-r.com/blog/2017/07/17/2017-07-17-rstudio-e-github/">usar o próprio RStudio para criar pacotes ou clonar coisas do github</a>, mas isso pode dar alguns bugs.</p>
+<div id="passo-1-crie-um-pacote-no-r" class="section level3">
+<h3><span class="header-section-number">5.5.1</span> Passo 1: Crie um pacote no R</h3>
+<p>Rode</p>
+<pre class="sourceCode r"><code class="sourceCode r">usethis<span class="op">::</span><span class="kw">create_package</span>(<span class="st">&quot;~/Documents/pacote&quot;</span>)</code></pre>
+<pre><code>✔ Setting active project to &#39;/home/jtrecenti/Documents/pacote&#39;
+✔ Creating &#39;R/&#39;
+✔ Creating &#39;man/&#39;
+✔ Writing &#39;DESCRIPTION&#39;
+✔ Writing &#39;NAMESPACE&#39;
+✔ Writing &#39;pacote.Rproj&#39;
+✔ Adding &#39;.Rproj.user&#39; to &#39;.gitignore&#39;
+✔ Adding &#39;^pacote\\.Rproj$&#39;, &#39;^\\.Rproj\\.user$&#39; to &#39;.Rbuildignore&#39;
+✔ Opening new project &#39;pacote&#39; in RStudio</code></pre>
+<p>Pronto! pacote feito.</p>
+</div>
+<div id="passo-2-adicione-git-e-github-no-seu-pacote" class="section level3">
+<h3><span class="header-section-number">5.5.2</span> Passo 2: Adicione git e github no seu pacote</h3>
+<pre class="sourceCode r"><code class="sourceCode r">usethis<span class="op">::</span><span class="kw">use_git</span>()
+<span class="ot">FALSE</span> ✔ Setting active project to <span class="st">&#39;/home/jtrecenti/Documents/livro-blog/livro&#39;</span></code></pre>
+<pre><code>✔ Setting active project to &#39;/home/jtrecenti/Documents/pacote&#39;</code></pre>
+<p>Criar repositório no GitHub:</p>
+<pre class="sourceCode r"><code class="sourceCode r">usethis<span class="op">::</span><span class="kw">use_github</span>(<span class="dt">protocol =</span> <span class="st">&quot;https&quot;</span>)</code></pre>
+<pre><code>● Check title and description
+  Name:        pacote
+  Description: What the Package Does (One Line, Title Case)
+Are title and description ok?
+1: No
+2: No way
+3: Yup</code></pre>
+</div>
+<div id="parenteses-github_pat" class="section level3">
+<h3><span class="header-section-number">5.5.3</span> Parênteses: <code>GITHUB_PAT</code></h3>
+<p>Se você não tiver um <code>GITHUB_PAT</code>, tem um passo adicional:</p>
+<pre class="sourceCode r"><code class="sourceCode r">usethis<span class="op">::</span><span class="kw">browse_github_pat</span>()</code></pre>
+<pre><code>✔ Opening URL https://github.com/settings/tokens/new?scopes=repo,gist&amp;description=R:GITHUB_PAT
+● Call `edit_r_environ()` to open &#39;.Renviron&#39; and store your PAT with a line like:
+  GITHUB_PAT=xxxyyyzzz
+● Make sure &#39;.Renviron&#39; ends with a newline!</code></pre>
+<p>e depois, rodando</p>
+<pre class="sourceCode r"><code class="sourceCode r">usethis<span class="op">::</span><span class="kw">edit_r_environ</span>()</code></pre>
+<p>Adicione</p>
+<pre><code>GITHUB_PAT=95d864ed372140f8d72f895d864ed372140f8d72f8</code></pre>
+<p>Salve e restarte sua sessão.</p>
+</div>
+<div id="passo-3-adicione-coisas-de-interesse" class="section level3">
+<h3><span class="header-section-number">5.5.4</span> Passo 3: Adicione coisas de interesse</h3>
+<p>README:</p>
+<pre class="sourceCode r"><code class="sourceCode r">usethis<span class="op">::</span><span class="kw">use_readme_md</span>()
+<span class="co"># ou usethis::use_readme_rmd()</span></code></pre>
+<pre><code>&gt; usethis::use_readme_md()
+✔ Writing &#39;README.md&#39;
+● Modify &#39;README.md&#39;</code></pre>
+<p>Pipe (<code>%&gt;%</code>)</p>
+<pre class="sourceCode r"><code class="sourceCode r">usethis<span class="op">::</span><span class="kw">use_roxygen_md</span>()
+usethis<span class="op">::</span><span class="kw">use_pipe</span>()</code></pre>
+<pre><code>✔ Setting Roxygen field in DESCRIPTION to &#39;list(markdown = TRUE)&#39;
+✔ Setting RoxygenNote field in DESCRIPTION to &#39;6.1.1&#39;
+● Run `devtools::document()`
+
+✔ Adding &#39;magrittr&#39; to Imports field in DESCRIPTION
+✔ Writing &#39;R/utils-pipe.R&#39;
+● Run `devtools::document()`</code></pre>
+</div>
+<div id="passo-4-crie-sua-funcao" class="section level3">
+<h3><span class="header-section-number">5.5.5</span> Passo 4: Crie sua função</h3>
+<p>Exemplo:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#&#39; Soma 2</span>
+<span class="co">#&#39; </span>
+<span class="co">#&#39; Recebe um vetor de números e retorna um vetor de números somando dois</span>
+<span class="co">#&#39; </span>
+<span class="co">#&#39; @param x vetor de números.</span>
+<span class="co">#&#39;</span>
+<span class="co">#&#39; @export</span>
+soma_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+  x <span class="op">+</span><span class="st"> </span><span class="dv">2</span>
+}</code></pre>
+<ol style="list-style-type: decimal">
+<li>Crie a função dentro de um arquivo com extensão <code>.R</code> na pasta <code>R</code></li>
+<li>As informações que começam com <code>#'</code> acima da função servem para documentar. Nesse caso,
+<ul>
+<li>a primeira linha é o título</li>
+<li>a segunda linha é a descrição</li>
+<li>a parte que começa com <code>@param</code> descreve o que é o parâmetro de entrada</li>
+<li>a parte que começa com <code>@export</code> diz para o pacote que essa função deve estar disponível para o usuário quando ele rodar <code>library(nomeDoPacote)</code>.</li>
+</ul></li>
+</ol>
+</div>
+<div id="passo-5-document-commit-e-push" class="section level3">
+<h3><span class="header-section-number">5.5.6</span> Passo 5: document, commit e push!</h3>
+<ol style="list-style-type: decimal">
+<li>Rode <code>devtools::document()</code>.</li>
+<li>Commite suas alterações.</li>
+<li>Dê um push!</li>
+</ol>
+<p>Se não saba o que é commitar e pushar, veja o artigo do <a href="http://curso-r.com/author/athos/">Athos</a> sobre <a href="http://curso-r.com/blog/2017/07/17/2017-07-17-rstudio-e-github/">o uso do git e do GitHub</a>.</p>
+</div>
+<div id="passo-6-instalar-o-pacote-em-outra-maquina" class="section level3">
+<h3><span class="header-section-number">5.5.7</span> Passo 6: Instalar o pacote em outra máquina</h3>
+<ol style="list-style-type: decimal">
+<li>Mande o nome do seu usuário do GitHub e o nome do seu pacote para sua migue.</li>
+<li>Peça para ela rodar:</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&#39;usuario/pacote&#39;</span>)</code></pre>
+<ol style="list-style-type: decimal">
+<li>Agora ela poderá usar sua função!</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(pacote)
+<span class="kw">soma_2</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</code></pre>
+<pre><code># [1]  3  4  5  6  7  8  9 10 11 12</code></pre>
+<p>Você também pode ver o help da função com <code>?soma_2</code>:</p>
+<p><img src="blogs/transformacao/assets/documentacao.png" /></p>
+<p>FIM!</p>
+</div>
+<div id="conclusoes-1" class="section level3">
+<h3><span class="header-section-number">5.5.8</span> Conclusões</h3>
+<ul>
+<li>Agora você não tem desculpa para não empacotar suas soluções em R.</li>
+<li>Esse tutorial é incompleto! Para acessar mais detalhes, veja <a href="http://r-pkgs.had.co.nz" class="uri">http://r-pkgs.had.co.nz</a>, elaborado por você sabe quem.</li>
+</ul>
+</div>
+<div id="outras-pequenas-dicas-praticas" class="section level3">
+<h3><span class="header-section-number">5.5.9</span> Outras pequenas dicas práticas</h3>
+<ul>
+<li>Use sempre <code>devtools::check()</code> para checar se seu pacote está 100% bem construído.</li>
+<li>Use <code>usethis::use_package()</code> para usar funções de outros pacotes.</li>
+<li>Sempre use os <code>::</code> para chamar as funções e nunca rode <code>library()</code> ou <code>require()</code> dentro de um pacote.</li>
+<li>Use <code>usethis::use_mit_license(&quot;seu nome&quot;)</code> para adicionar um arquivo <code>LICENSE</code> ao seu pacote.</li>
+<li>Use <code>usethis::use_data()</code> para adicionar dados ao seu pacote.</li>
+<li>Use <code>usethis::use_vignette()</code> para escrever um tutorial sobre seu pacote, <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html">igual a esse do dplyr, por exemplo</a>.</li>
+</ul>
+<p>É isso. Happy coding ;)</p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="5-6-pvec-o-laco-perfeito.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="referencias.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="5-4-skimr-estatisticas-basicas-com.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="5-6-pvec-o-laco-perfeito.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
